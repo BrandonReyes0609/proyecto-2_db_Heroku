@@ -2,14 +2,14 @@
 include 'includes/conexion.php';
 
 // Comprobar que se está haciendo una petición POST y que los campos requeridos están presentes
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['username']) && isset($_POST['password'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nombre_usuario']) && isset($_POST['contraseña'])) {
     // Recoger los datos del formulario
-    $username = trim($_POST['username']);
-    $password = password_hash(trim($_POST['password']), PASSWORD_DEFAULT); // Hashear la contraseña
+    $nombre_usuario = trim($_POST['nombre_usuario']);
+    $contraseña = password_hash(trim($_POST['contraseña']), PASSWORD_DEFAULT); // Hashear la contraseña
 
-    $stmt = $conn->prepare("INSERT INTO users (username, contraseña) VALUES (:username, :password)");
-    $stmt->bindParam(':username', $username, PDO::PARAM_STR);
-    $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+    $stmt = $conn->prepare("INSERT INTO users (nombre_usuario, contraseña) VALUES (:nombre_usuario, :contraseña)");
+    $stmt->bindParam(':nombre_usuario', $nombre_usuario, PDO::PARAM_STR);
+    $stmt->bindParam(':contraseña', $contraseña, PDO::PARAM_STR);
 
     try {
         $stmt->execute();
