@@ -1,46 +1,36 @@
 <?php
-include 'includes/conexion.php';
+// Datos de conexión a la base de datos PostgreSQL
+$host = "cb4l59cdg4fg1k.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com";
+$database = "dceql5bo9j3plb";
+$user = "u1e25j4kkmlge1";
+$port = "5432";
+$password = "p4ac621d657dad701bc6ed9505ad96894fe1a390fd1e05ef41b37334c60753c5b";
 
-session_start(); // Iniciar la sesión
+// Recuperar credenciales del formulario
+$user_id = $_POST['user_id'];
+$password = $_POST['password'];
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['user_id']) && isset($_POST['password'])) {
-    // Recuperar credenciales del formulario
-    $user_id = trim($_POST['user_id']);
-    $password = trim($_POST['password']);
+// Establecer conexión a la base de datos
+try {
+    $conn = new PDO("pgsql:host=$host;port=$port;dbname=$database;user=$user;password=$password");
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Preparar la consulta para buscar al usuario por su ID
-    $stmt = $conn->prepare("SELECT user_id, contraseña FROM users WHERE user_id = :user_id");
-    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_STR);
-
+    // Consulta para verificar las credenciales del usuario
+    $stmt = $conn->prepare("SELECT * FROM users WHERE user_id = :user_id AND password = :password");
+    $stmt->bindParam(':user_id', $user_id);
+    $stmt->bindParam(':password', $password);
     $stmt->execute();
 
-    if ($stmt->rowCount() == 1) {
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        // Verificar la contraseña
-        if (password_verify($password, $user['contraseña'])) {
-            // Credenciales correctas, establecer variables de sesión
-            $_SESSION['user_id'] = $user['user_id'];
-
-            // Redirigir al usuario a la página principal (home.php)
-            header("Location: home.php");
-            exit;
-        } else {
-            // Credenciales incorrectas
-            $error = "Usuario o contraseña incorrectos.";
-        }
+    // Verificar si se encontró un usuario con las credenciales proporcionadas
+    if($stmt->rowCount() == 1) {
+        // Usuario autenticado correctamente
+        echo "Inicio de sesión exitoso. Bienvenido, $user_id!";
     } else {
-        $error = "Usuario o contraseña incorrectos.";
+        // Credenciales incorrectas
+        echo "Usuario o contraseña incorrectos.";
     }
-
-    // Cerrar la conexión
-    cerrarConexion();
-} else {
-    $error = "Por favor complete todos los campos.";
-}
-
-// Mostrar el error en caso de que exista (deberías pasar este mensaje a `index.php` de manera segura, posiblemente con sesiones)
-if (isset($error)) {
-    echo $error;
+} catch(PDOException $e) {
+    // Manejo de errores
+    echo "Error de conexión: " . $e->getMessage();
 }
 ?>
