@@ -51,10 +51,19 @@
                 <input type="submit" value="Registrarse">
             </div>
             <div class="form-group">
-                <p>Ya tienes cuenta? <a href="#" onclick="mostrarRegistro()">Iniciar sesión</a></p>
+                <p>¿Ya tienes cuenta? <a href="#" onclick="mostrarRegistro()">Iniciar sesión aquí</a></p>
             </div>
         </form>
     </div>
+
+    <?php if (isset($_SESSION['error'])): ?>
+        <div class="alert alert-danger">
+            <?php 
+                echo $_SESSION['error'];
+                unset($_SESSION['error']);
+            ?>
+        </div>
+    <?php endif; ?>
 
     <script src="assets/js/scripts.js"></script>
 </body>

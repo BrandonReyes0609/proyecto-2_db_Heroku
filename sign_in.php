@@ -1,14 +1,12 @@
 <?php
 include 'includes/conexion.php';
-session_start(); 
+session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nombre_usuario']) && isset($_POST['password']) && isset($_POST['rol'])) {
-    // Recoger los datos del formulario
     $nombre_usuario = trim($_POST['nombre_usuario']);
-    $password = password_hash(trim($_POST['password']), PASSWORD_DEFAULT); // Hashear la contraseña
-    $rol = trim($_POST['rol']); // Recoger el rol del formulario
+    $password = password_hash(trim($_POST['password']), PASSWORD_DEFAULT);
+    $rol = trim($_POST['rol']);
 
-    // Preparar la consulta para insertar el nuevo usuario
     $stmt = $conn->prepare("INSERT INTO users (nombre_usuario, password, rol) VALUES (:nombre_usuario, :password, :rol)");
     $stmt->bindParam(':nombre_usuario', $nombre_usuario, PDO::PARAM_STR);
     $stmt->bindParam(':password', $password, PDO::PARAM_STR);
@@ -16,21 +14,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nombre_usuario']) && i
 
     try {
         $stmt->execute();
-        $_SESSION['user_alert'] = "Usuario registrado correctamente!";  // Establecer mensaje de éxito
-        $_SESSION['nombre_usuario'] = $nombre_usuario;  // Guardar nombre de usuario en sesión para uso futuro
+        $_SESSION['user_alert'] = "Usuario registrado correctamente!";
+        $_SESSION['nombre_usuario'] = $nombre_usuario;
         header("Location: home.php");
         exit;
     } catch (PDOException $e) {
         if ($e->getCode() == 23505) {
-            echo "El nombre de usuario ya existe.";
+            $_SESSION['error'] = "El nombre de usuario ya existe.";
         } else {
-            echo "Error al registrar el usuario: " . $e->getMessage();
+            $_SESSION['error'] = "Error al registrar el usuario: " . $e->getMessage();
         }
+        header("Location: index.php");
+        exit;
     }
-
-    // Cerrar la conexión
-    cerrarConexion();
 } else {
-    echo "Por favor complete todos los campos.";
+    $_SESSION['error'] = "Por favor complete todos los campos.";
+    header("Location: index.php");
+    exit;
 }
 ?>
