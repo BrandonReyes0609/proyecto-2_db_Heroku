@@ -11,8 +11,8 @@
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
         <label for="user_id">Usuario:</label><br>
         <input type="text" id="user_id" name="user_id"><br>
-        <label for="password">Contraseña:</label><br>
-        <input type="password" id="password" name="password"><br><br>
+        <label for="contraseña">Contraseña:</label><br>
+        <input type="contraseña" id="contraseña" name="contraseña"><br><br>
         <input type="submit" value="Iniciar Sesión">
     </form>
 
@@ -23,21 +23,21 @@
         $database = "dceql5bo9j3plb";
         $user = "u1e25j4kkmlge1";
         $port = "5432";
-        $password = "p4ac621d657dad701bc6ed9505ad96894fe1a390fd1e05ef41b37334c60753c5b";
+        $contraseña = "p4ac621d657dad701bc6ed9505ad96894fe1a390fd1e05ef41b37334c60753c5b";
 
         // Recuperar credenciales del formulario
         $user_id = $_POST['user_id'];
-        $password = $_POST['password'];
+        $contraseña = $_POST['contraseña'];
 
         // Establecer conexión a la base de datos
         try {
-            $conn = new PDO("pgsql:host=$host;port=$port;dbname=$database;user=$user;password=$password");
+            $conn = new PDO("pgsql:host=$host;port=$port;dbname=$database;user=$user;contraseña=$contraseña");
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             // Consulta para verificar las credenciales del usuario
-            $stmt = $conn->prepare("SELECT * FROM users WHERE user_id = :user_id AND password = :password");
+            $stmt = $conn->prepare("SELECT * FROM users WHERE user_id = :user_id AND contraseña = :contraseña");
             $stmt->bindParam(':user_id', $user_id);
-            $stmt->bindParam(':password', $password);
+            $stmt->bindParam(':contraseña', $contraseña);
             $stmt->execute();
 
             // Verificar si se encontró un usuario con las credenciales proporcionadas
@@ -50,9 +50,9 @@
             }
 
             // Inserción de datos en la tabla users
-            $insert_stmt = $conn->prepare("INSERT INTO users (user_id, password) VALUES (:user_id, :password)");
+            $insert_stmt = $conn->prepare("INSERT INTO users (user_id, contraseña) VALUES (:user_id, :contraseña)");
             $insert_stmt->bindParam(':user_id', $user_id);
-            $insert_stmt->bindParam(':password', $password);
+            $insert_stmt->bindParam(':contraseña', $contraseña);
             $insert_stmt->execute();
 
             echo "Datos insertados en la tabla users correctamente.";
