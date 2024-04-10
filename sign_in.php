@@ -1,5 +1,6 @@
 <?php
 include 'includes/conexion.php';
+session_start(); 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nombre_usuario']) && isset($_POST['password']) && isset($_POST['rol'])) {
     // Recoger los datos del formulario
@@ -15,7 +16,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nombre_usuario']) && i
 
     try {
         $stmt->execute();
-        echo "Usuario registrado exitosamente.";
+        $_SESSION['user_alert'] = "Usuario registrado correctamente!";  // Establecer mensaje de éxito
+        $_SESSION['nombre_usuario'] = $nombre_usuario;  // Guardar nombre de usuario en sesión para uso futuro
         header("Location: home.php");
         exit;
     } catch (PDOException $e) {
