@@ -6,6 +6,7 @@
     <title>Iniciar Sesión</title>
 </head>
 <body>
+    hola1
     <h2>Iniciar Sesión</h2>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
         <label for="user_id">Usuario:</label><br>
