@@ -50,6 +50,9 @@
             <div class="form-group">
                 <input type="submit" value="Registrarse">
             </div>
+            <div class="form-group">
+                <p>Ya tienes cuenta? <a href="#" onclick="mostrarRegistro()">Iniciar sesión</a></p>
+            </div>
         </form>
     </div>
 
