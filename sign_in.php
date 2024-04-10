@@ -1,24 +1,25 @@
 <?php
 include 'includes/conexion.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['user_id']) && isset($_POST['password']) && isset($_POST['rol'])) {
+// Comprobar que se está haciendo una petición POST y que los campos requeridos están presentes
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['username']) && isset($_POST['password'])) {
     // Recoger los datos del formulario
-    $user_id = trim($_POST['user_id']);
+    $username = trim($_POST['username']);
     $password = password_hash(trim($_POST['password']), PASSWORD_DEFAULT); // Hashear la contraseña
-    $rol = trim($_POST['rol']);
 
-    // Preparar la consulta para insertar el nuevo usuario
-    $stmt = $conn->prepare("INSERT INTO users (user_id, contraseña) VALUES (:user_id, :password)");
-    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_STR);
+    $stmt = $conn->prepare("INSERT INTO users (username, contraseña) VALUES (:username, :password)");
+    $stmt->bindParam(':username', $username, PDO::PARAM_STR);
     $stmt->bindParam(':password', $password, PDO::PARAM_STR);
-    //$stmt->bindParam(':rol', $rol, PDO::PARAM_STR);
 
     try {
         $stmt->execute();
         echo "Usuario registrado exitosamente.";
+        header("Location: index.php");
+        exit;
     } catch (PDOException $e) {
-        if ($e->getCode() == 23505) { // Código de error de PostgreSQL para violaciones de la unicidad
-            echo "El usuario ya existe.";
+        // Código de error de PostgreSQL para violaciones de la unicidad
+        if ($e->getCode() == 23505) {
+            echo "El nombre de usuario ya existe.";
         } else {
             echo "Error al registrar el usuario: " . $e->getMessage();
         }
@@ -26,5 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['user_id']) && isset($_
 
     // Cerrar la conexión
     cerrarConexion();
+} else {
+    echo "Por favor complete todos los campos.";
 }
 ?>

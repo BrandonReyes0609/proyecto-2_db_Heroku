@@ -11,8 +11,8 @@
         <h2>Iniciar Sesión</h2>
         <form action="login.php" method="POST">
             <div class="form-group">
-                <label for="user_id">Usuario:</label>
-                <input type="text" id="user_id" name="user_id" required>
+                <label for="username">Usuario:</label>
+                <input type="text" id="username" name="username" required>
             </div>
             <div class="form-group">
                 <label for="password">Contraseña:</label>
@@ -28,14 +28,14 @@
         <h2>Registro</h2>
         <form action="sign_in.php" method="POST">
             <div class="form-group">
-                <label for="new_user_id">Usuario:</label>
-                <input type="text" id="new_user_id" name="user_id" required>
+                <label for="username">Nombre de usuario:</label>
+                <input type="text" id="username" name="username" required>
             </div>
             <div class="form-group">
                 <label for="new_password">Contraseña:</label>
                 <input type="password" id="new_password" name="password" required>
             </div>
-            <!-- <div class="form-group">
+            <div class="form-group">
                 <label for="rol">Rol:</label>
                 <select id="rol" name="rol" required>
                     <option value="">Seleccionar Rol</option>
@@ -43,7 +43,7 @@
                     <option value="cocinero">Cocinero</option>
                     <option value="administrador">Administrador</option>
                 </select>
-            </div>-->
+            </div>
             <div class="form-group">
                 <input type="submit" value="Registrarse">
             </div>

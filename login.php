@@ -3,14 +3,14 @@ include 'includes/conexion.php';
 
 session_start(); // Iniciar la sesión
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['user_id']) && isset($_POST['password'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['username']) && isset($_POST['password'])) {
     // Recuperar credenciales del formulario
-    $user_id = trim($_POST['user_id']);
+    $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
     // Preparar la consulta para buscar al usuario por su ID
-    $stmt = $conn->prepare("SELECT user_id, contraseña FROM users WHERE user_id = :user_id");
-    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_STR);
+    $stmt = $conn->prepare("SELECT username, contraseña FROM users WHERE username = :username");
+    $stmt->bindParam(':username', $username, PDO::PARAM_STR);
 
     $stmt->execute();
 
@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['user_id']) && isset($_
         // Verificar la contraseña
         if (password_verify($password, $user['contraseña'])) {
             // Credenciales correctas, establecer variables de sesión
-            $_SESSION['user_id'] = $user['user_id'];
+            $_SESSION['username'] = $user['username'];
 
             // Redirigir al usuario a la página principal (home.php)
             header("Location: home.php");
