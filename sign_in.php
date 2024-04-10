@@ -8,10 +8,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nombre_usuario']) && i
     $rol = trim($_POST['rol']); // Recoger el rol del formulario
 
     // Preparar la consulta para insertar el nuevo usuario
-    $stmt = $conn->prepare("INSERT INTO users (username, contraseña, rol) VALUES (:nombre_usuario, :password, :rol)");
+    $stmt = $conn->prepare("INSERT INTO users (nombre_usuario, contraseña, rol) VALUES (:nombre_usuario, :password, :rol)");
     $stmt->bindParam(':nombre_usuario', $nombre_usuario, PDO::PARAM_STR);
     $stmt->bindParam(':password', $password, PDO::PARAM_STR);
-    $stmt->bindParam(':rol', $rol, PDO::PARAM_STR); // Asegurar de agregar el parámetro del rol
+    $stmt->bindParam(':rol', $rol, PDO::PARAM_STR);
 
     try {
         $stmt->execute();
