@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="assets/css/estilos.css">
 </head>
 <body>
+    <?php session_start(); // Importante iniciar la sesión al principio de la página ?>
     <div class="login-container" id="login-form">
         <h2>Iniciar Sesión</h2>
         <form action="login.php" method="POST">
@@ -25,11 +26,12 @@
                 <p>No tienes una cuenta? <a href="#" onclick="mostrarRegistro()">Regístrate aquí</a></p>
             </div>
         </form>
-        <?php if (isset($_SESSION['error'])): ?>
-            <div class="alert alert-danger">
-                <?php echo $_SESSION['error']; unset($_SESSION['error']); ?>
-            </div>
-        <?php endif; ?>
+        <?php
+        if (isset($_SESSION['error'])) {
+            echo '<div class="alert alert-danger">' . $_SESSION['error'] . '</div>';
+            unset($_SESSION['error']);  // Limpiar el error después de mostrarlo
+        }
+        ?>
     </div>
 
     <div class="register-container" id="register-form" style="display:none;">

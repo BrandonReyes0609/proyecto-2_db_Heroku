@@ -19,13 +19,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nombre_usuario']) && i
             header("Location: home.php");
             exit;
         } else {
-            $_SESSION['error'] = "Usuario o Contraseña incorrectos.";  // Guardar el mensaje de error en la sesión
+            $_SESSION['error'] = "Usuario o contraseña incorrectos.";  // Guardar el mensaje de error en la sesión
+            header("Location: index.php");
+            exit;
         }
     } else {
-        $_SESSION['error'] = "Usuario o Contraseña incorrectos.";
+        $_SESSION['error'] = "Usuario o contraseña incorrectos.";
+        header("Location: index.php");
+        exit;
     }
-    header("Location: index.php");  // Redirigir al index.php para mostrar el mensaje de error
-    exit;
 } else {
     $_SESSION['error'] = "Por favor complete todos los campos.";
     header("Location: index.php");
