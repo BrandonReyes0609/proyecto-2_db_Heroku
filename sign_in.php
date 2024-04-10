@@ -19,11 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nombre_usuario']) && i
         header("Location: home.php");
         exit;
     } catch (PDOException $e) {
-        if ($e->getCode() == 23505) {
-            $_SESSION['error'] = "El nombre de usuario ya existe.";
-        } else {
-            $_SESSION['error'] = "Error al registrar el usuario: " . $e->getMessage();
-        }
+        $_SESSION['error'] = $e->getCode() == 23505 ? "El nombre de usuario ya existe." : "Error al registrar el usuario: " . $e->getMessage();
         header("Location: index.php");
         exit;
     }

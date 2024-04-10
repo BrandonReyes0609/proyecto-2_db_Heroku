@@ -25,6 +25,11 @@
                 <p>No tienes una cuenta? <a href="#" onclick="mostrarRegistro()">Regístrate aquí</a></p>
             </div>
         </form>
+        <?php if (isset($_SESSION['error'])): ?>
+            <div class="alert alert-danger">
+                <?php echo $_SESSION['error']; unset($_SESSION['error']); ?>
+            </div>
+        <?php endif; ?>
     </div>
 
     <div class="register-container" id="register-form" style="display:none;">
@@ -55,15 +60,6 @@
             </div>
         </form>
     </div>
-
-    <?php if (isset($_SESSION['error'])): ?>
-        <div class="alert alert-danger">
-            <?php 
-                echo $_SESSION['error'];
-                unset($_SESSION['error']);
-            ?>
-        </div>
-    <?php endif; ?>
 
     <script src="assets/js/scripts.js"></script>
 </body>

@@ -1,6 +1,7 @@
 <?php
 include 'includes/conexion.php';
-session_start();
+
+session_start(); // Iniciar la sesión
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nombre_usuario']) && isset($_POST['password'])) {
     $nombre_usuario = trim($_POST['nombre_usuario']);
@@ -12,17 +13,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nombre_usuario']) && i
 
     if ($stmt->rowCount() == 1) {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
         if (password_verify($password, $user['password'])) {
-            $_SESSION['nombre_usuario'] = $user['nombre_usuario'];
+            $_SESSION['nombre_usuario'] = $nombre_usuario;  // Guardar el nombre de usuario en la sesión
             header("Location: home.php");
             exit;
         } else {
-            $_SESSION['error'] = "Usuario o Contraseña incorrectos.";
+            $_SESSION['error'] = "Usuario o Contraseña incorrectos.";  // Guardar el mensaje de error en la sesión
         }
     } else {
         $_SESSION['error'] = "Usuario o Contraseña incorrectos.";
     }
-    header("Location: index.php");
+    header("Location: index.php");  // Redirigir al index.php para mostrar el mensaje de error
     exit;
 } else {
     $_SESSION['error'] = "Por favor complete todos los campos.";
