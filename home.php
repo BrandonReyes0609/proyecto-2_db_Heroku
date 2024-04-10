@@ -21,7 +21,7 @@ if (isset($_SESSION['user_alert'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bienvenido al Sistema</title>
-    <link rel="stylesheet" href="assets/css/estilo.css">
+    <link rel="stylesheet" href="assets/css/estilos.css">
 </head>
 <body>
     <div class="home-container">
