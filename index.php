@@ -35,16 +35,15 @@
                 <label for="new_password">Contraseña:</label>
                 <input type="password" id="new_password" name="password" required>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="rol">Rol:</label>
                 <select id="rol" name="rol" required>
                     <option value="">Seleccionar Rol</option>
                     <option value="mesero">Mesero</option>
                     <option value="cocinero">Cocinero</option>
                     <option value="administrador">Administrador</option>
-                    <!-- Agrega más roles según sea necesario -->
                 </select>
-            </div>
+            </div>-->
             <div class="form-group">
                 <input type="submit" value="Registrarse">
             </div>
