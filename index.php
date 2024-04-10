@@ -15,8 +15,8 @@
                 <input type="text" id="nombre_usuario" name="nombre_usuario" required>
             </div>
             <div class="form-group">
-                <label for="contraseña">Contraseña:</label>
-                <input type="password" id="contraseña" name="contraseña" required>
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required>
             </div>
             <div class="form-group">
                 <input type="submit" value="Iniciar Sesión">
@@ -32,8 +32,8 @@
                 <input type="text" id="nombre_usuario" name="nombre_usuario" required>
             </div>
             <div class="form-group">
-                <label for="new_password">Contraseña:</label>
-                <input type="password" id="new_contraseña" name="contraseña" required>
+                <label for="new_password">password:</label>
+                <input type="password" id="new_password" name="password" required>
             </div>
             <div class="form-group">
                 <label for="rol">Rol:</label>
