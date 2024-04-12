@@ -33,6 +33,7 @@ if (isset($_SESSION['user_alert'])) {
             <li><a href="#more">Más</a></li>
         </ul>
     </div>
+    
     <div class="home-container">
 
         <h1>Bienvenido al Sistema</h1>

@@ -74,29 +74,24 @@ input[type="submit"]:hover {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #04AA6D; /* Cambia el color de fondo */
-}
-
-.menu-bar li {
+    background-color: #333;
+  }
+  
+  .menu-bar li {
     float: left;
-}
-
-.menu-bar li a {
+  }
+  
+  .menu-bar li a {
     display: block;
     color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    transition: background-color 0.3s; /* Añade un efecto de transición */
-}
-
-.menu-bar li a:hover {
-    background-color: #0b8457; /* Cambia el color de fondo al pasar el ratón */
-}
-
-/* Espacio entre el menú-bar y el contenido */
-.home-container {
-    margin-top: 60px; /* Ajusta el margen superior según el tamaño del menú-bar */
-}
+  }
+  
+  .menu-bar li a:hover {
+    background-color: #111;
+  }
+  
 
 /*Fin*/
