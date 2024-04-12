@@ -24,6 +24,12 @@ if (isset($_SESSION['user_alert'])) {
     <link rel="stylesheet" href="assets/css/estilos.css">
 </head>
 <body>
+    <ul>
+    <li><a href="default.asp">Crear Cuenta</a></li>
+    <li><a href="news.asp">Items Cuenta</a></li>
+    <li><a href="contact.asp">Pnatalla Cocina</a></li>
+    <li><a href="about.asp">Más</a></li>
+    </ul>
     <div class="home-container">
         <h1>Bienvenido al Sistema</h1>
         <p>Estás autenticado como <?php echo htmlspecialchars($_SESSION['nombre_usuario']); ?></p>
