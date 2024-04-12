@@ -27,13 +27,13 @@ if (isset($_SESSION['user_alert'])) {
     <div class="menu-bar">
         <ul>
             <li><a class="active" href="#home">Crear Cuenta</a></li>
-            <li><a href="#news">Items Cuenta</a></li>
-            <li><a href="#contact">Contacto</a></li>
-            <li><a href="#about">Pantalla Cocina</a></li>
+            <li><a href="Agregar_Items Cuenta">Items Cuenta</a></li>
+            <li><a href="Crear_cuenta">Contacto</a></li>
+            <li><a href="Pantalla_cocina">Pantalla Cocina</a></li>
             <li><a href="#more">Más</a></li>
         </ul>
     </div>
-    
+
     <div class="home-container">
 
         <h1>Bienvenido al Sistema</h1>
