@@ -24,14 +24,16 @@ if (isset($_SESSION['user_alert'])) {
     <link rel="stylesheet" href="assets/css/estilos.css">
 </head>
 <body>
-
-    <div class="home-container">
+    <div class="menu-bar">
         <ul>
-            <li><a class="active" href="#home">Home</a></li>
-            <li><a href="#news">News</a></li>
+            <li><a class="active" href="#home">>Crear Cuenta</a></li>
+            <li><a href="#news">Items Cuent</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li><a href="#about">About</a></li>
+            <li><a href="#about">Pantalla Cocina</a></li>
+            <li><a href="#about">Más</a></li>
         </ul>
+    </div>
+    <div class="home-container">
 
         <h1>Bienvenido al Sistema</h1>
         <p>Estás autenticado como <?php echo htmlspecialchars($_SESSION['nombre_usuario']); ?></p>
