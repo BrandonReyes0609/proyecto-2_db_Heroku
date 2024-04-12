@@ -27,8 +27,8 @@ if (isset($_SESSION['user_alert'])) {
     <div class="menu-bar">
         <ul>
             <li><a class="active" href="#home">Crear Cuenta</a></li>
-            <li><a href="Agregar_Items Cuenta.php">Items Cuenta</a></li>
-            <li><a href="Crear_cuenta.php">Contacto</a></li>
+            <li><a href="Agregar_Items_Cuenta.php">Items Cuenta</a></li>
+            <li><a href="Crear_cuenta.php">Crear Cuenta</a></li>
             <li><a href="Pantalla_cocina.php">Pantalla Cocina</a></li>
             <li><a href="#more">Más</a></li>
         </ul>
