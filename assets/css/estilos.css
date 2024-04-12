@@ -20,31 +20,6 @@ a:hover {
 }
 
 /* Estilo del menú-bar */
-.menu-bar {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-}
-
-.menu-bar li {
-    float: left;
-}
-
-.menu-bar li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-.menu-bar li a:hover {
-    background-color: #111;
-}
-  
-
 /*Fin*/
 
 
@@ -97,3 +72,11 @@ input[type="submit"]:hover {
 }
 
 /* Mensajes de Alerta */
+
+.navbar-nav .nav-link {
+    color: #333; /* Color de texto normal */
+  }
+  
+.navbar-nav .nav-link:hover {
+color: green; /* Cambiar a verde cuando se pasa el cursor */
+}
