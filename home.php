@@ -27,11 +27,12 @@ if (isset($_SESSION['user_alert'])) {
 
     <div class="home-container">
         <ul>
-            <li><a href="default.asp">Crear Cuenta</a></li>
-            <li><a href="news.asp">Items Cuenta</a></li>
-            <li><a href="contact.asp">Pnatalla Cocina</a></li>
-            <li><a href="about.asp">Más</a></li>
+            <li><a class="active" href="#home">Home</a></li>
+            <li><a href="#news">News</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#about">About</a></li>
         </ul>
+
         <h1>Bienvenido al Sistema</h1>
         <p>Estás autenticado como <?php echo htmlspecialchars($_SESSION['nombre_usuario']); ?></p>
         <p><a href="logout.php">Cerrar Sesión</a></p>
