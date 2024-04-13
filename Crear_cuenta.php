@@ -68,8 +68,12 @@ if (isset($_SESSION['user_alert'])) {
       <input type="checkbox" id="unir_mesa" name="unir_mesa" value="unir_mesa">
       <span>Unir mesas</span>
       <label for="lang">Ingrese No. mesa:</label>
+      <input type="text" id="numero_mesa" name="numero_mesa" value="Numero mesa">
+      <label for="lang">Ingrese la cantidad de personas:</label>
+      <input type="text" id="num_personas" name="num_personas" value="Numero de personas">
       <input type="submit" value="Abrir Cuenta">
-      <input type="text" id="numero_mesa" name="numero_mesa" value="Numero mesa"><br>
+
+      <br>
     </form>
 </div>
 
