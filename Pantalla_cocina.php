@@ -58,6 +58,9 @@ if (isset($_SESSION['user_alert'])) {
     <h1>Pantalla Cocina</h1>
     <p>Estás autenticado como <?php echo htmlspecialchars($_SESSION['nombre_usuario']); ?></p>
     <p><a href="logout.php">Cerrar Sesión</a></p>
+    <h2>Contulta Pedidos</h2>
+    <input type="submit" value="Terminar perido">
+
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
