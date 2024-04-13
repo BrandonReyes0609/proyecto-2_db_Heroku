@@ -38,10 +38,10 @@ if (isset($_SESSION['user_alert'])) {
         <a class="nav-link" href="#">Inicio</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="Agregar_Items_Cuenta.php">Items Cuenta</a>
+        <a class="nav-link" href="Crear_cuenta.php">Crear Cuenta</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="Crear_cuenta.php">Crear Cuenta</a>
+        <a class="nav-link" href="Agregar_Items_Cuenta.php">Items Cuenta</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="Pantalla_cocina.php">Pantalla Cocina</a>

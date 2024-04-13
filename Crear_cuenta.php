@@ -52,6 +52,15 @@ if (isset($_SESSION['user_alert'])) {
       </li>
     </ul>
   </div>
+  <div>
+    <form action="#">
+        <label for="lang">Lenguaje</label>
+        <select name="lenguajes" id="lang">
+          <option value="zona1">zona 1</option>
+          <option value="zona2">zona 2</option>
+          <option value="zona3">zona 3</option>
+    </form>
+  </div>
 </nav>
 
 <div class="home-container">
