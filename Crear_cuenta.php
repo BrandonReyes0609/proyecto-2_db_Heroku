@@ -81,27 +81,31 @@ echo($_POST['num_personas']);
       <input type="submit" value="Abrir Cuenta">  
 
       <input type="checkbox" id="unir_mesa" name="unir_mesa" value="">
-      <span>Unir mesas</span>
 
-      <!-- Checkbox para habilitar/deshabilitar -->
-      <input type="checkbox" id="unir_mesa" checked>
-      <label for="unir_mesa">Habilitar Input</label>
+      <!-- Checkbox para habilitar/deshabilitar todos los inputs -->
+      <input type="checkbox" id="unir_mesas" checked>
+      <label for="unir_mesas">Habilitar Inputs</label>
 
-      <!-- Input que será habilitado/deshabilitado -->
+      <!-- Primer input que será habilitado/deshabilitado -->
       <input type="text" id="miInput1" disabled>
+
+      <!-- Segundo input que será habilitado/deshabilitado -->
       <input type="text" id="miInput2" disabled>
+
+      <!-- Tercer input que será habilitado/deshabilitado -->
       <input type="text" id="miInput3" disabled>
 
       <script>
-          // Script para controlar el estado del input
-          document.getElementById('unir_mesa').addEventListener('change', function() {
-              var input = document.getElementById('miInput1');
-              var input = document.getElementById('miInput2');
-              var input = document.getElementById('miInput3');
-
-              input.disabled = !this.checked; // Habilita si está marcado, deshabilita si no
+          // Script para controlar el estado de los inputs
+          document.getElementById('unir_mesas').addEventListener('change', function() {
+              var isChecked = this.checked; // Verificar si el checkbox está marcado
+              document.getElementById('miInput1').disabled = !isChecked;
+              document.getElementById('miInput2').disabled = !isChecked;
+              document.getElementById('miInput3').disabled = !isChecked;
           });
       </script>
+      <span>Unir mesas</span>
+
     </form>
 </div>
 
