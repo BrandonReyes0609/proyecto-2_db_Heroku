@@ -76,23 +76,23 @@ echo($_POST['num_personas']);
 
 
       <label for="lang">Ingrese la cantidad de personas:</label>
-      <input type="numeric" id="num_personas" name="num_personas" value="">
+      <input type="numeric" id="num_personas" name="num_personas" value="" min="1" max="14">
 
       <label for="lang">Ingrese No. mesa:</label>
       <input type="text" id="numero_mesa" name="numero_mesa" value="">
 
       <!-- Checkbox para habilitar/deshabilitar todos los inputs -->
       <input type="checkbox" id="unir_mesas" checked>
-      <label for="unir_mesas">Habilitar Inputs</label>
+      <span>Unir mesas</span>
 
       <!-- Primer input que será habilitado/deshabilitado -->
-      <input type="text" id="miInput1" disabled>
+      <input type="numeric" id="miInput1" disabled min="1" max="20">
 
       <!-- Segundo input que será habilitado/deshabilitado -->
-      <input type="text" id="miInput2" disabled>
+      <input type="numeric" id="miInput2" disabled min="1" max="20">
 
       <!-- Tercer input que será habilitado/deshabilitado -->
-      <input type="text" id="miInput3" disabled>
+      <input type="numeric" id="miInput3" disabled min="1" max="20">
 
       <script>
           // Script para controlar el estado de los inputs
@@ -103,7 +103,6 @@ echo($_POST['num_personas']);
               document.getElementById('miInput3').disabled = !isChecked;
           });
       </script>
-      <span>Unir mesas</span>
 
       <input type="submit" value="Abrir Cuenta">  
 
