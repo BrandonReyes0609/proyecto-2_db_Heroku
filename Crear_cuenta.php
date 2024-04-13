@@ -13,6 +13,13 @@ if (isset($_SESSION['user_alert'])) {
     $userAlert = $_SESSION['user_alert'];
     unset($_SESSION['user_alert']); // Limpiar esa variable de sesión después de usarla
 }
+
+// de name se obtienes los atributos de los objetos
+echo($_POST['tipo_zona']) 
+echo($_POST['unir_mesa']) 
+echo($_POST['num_personas']) 
+
+ 
 ?>
 
 <!DOCTYPE html>
@@ -58,7 +65,7 @@ if (isset($_SESSION['user_alert'])) {
     <p>Estás autenticado como <?php echo htmlspecialchars($_SESSION['nombre_usuario']); ?></p>
     <p><a href="logout.php">Cerrar Sesión</a></p>
 
-    <form action="#.php">
+    <form action="Crear_cuenta.php" method="post">
       <label for="lang">Ingrese la zona:</label>
       <select name="tipo_zona" id="tipo_zona">
         <option value="zona1">zona 1</option>
@@ -72,9 +79,7 @@ if (isset($_SESSION['user_alert'])) {
       <input type="text" id="numero_mesa" name="numero_mesa" value="">
       <label for="lang">Ingrese la cantidad de personas:</label>
       <input type="text" id="num_personas" name="num_personas" value="">
-      <input type="submit" value="Abrir Cuenta">
-
-      <br>
+      <input type="submit" value="Abrir Cuenta">  
     </form>
 </div>
 
