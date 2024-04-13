@@ -76,7 +76,7 @@ echo($_POST['num_personas']);
 
 
       <label for="lang">Ingrese la cantidad de personas:</label>
-      <input type="numeric" id="num_personas" name="num_personas" value="" min="1" max="14">
+      <input type="number" id="num_personas" name="num_personas" value="" min="1" max="14">
 
       <label for="lang">Ingrese No. mesa:</label>
       <input type="text" id="numero_mesa" name="numero_mesa" value="">
@@ -86,13 +86,13 @@ echo($_POST['num_personas']);
       <span>Unir mesas</span>
 
       <!-- Primer input que será habilitado/deshabilitado -->
-      <input type="numeric" id="miInput1" disabled min="1" max="20">
+      <input type="number" id="miInput1" disabled min="1" max="20">
 
       <!-- Segundo input que será habilitado/deshabilitado -->
-      <input type="numeric" id="miInput2" disabled min="1" max="20">
+      <input type="number" id="miInput2" disabled min="1" max="20">
 
       <!-- Tercer input que será habilitado/deshabilitado -->
-      <input type="numeric" id="miInput3" disabled min="1" max="20">
+      <input type="number" id="miInput3" disabled min="1" max="20">
 
       <script>
           // Script para controlar el estado de los inputs
