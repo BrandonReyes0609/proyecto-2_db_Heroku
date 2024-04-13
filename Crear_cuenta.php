@@ -18,7 +18,6 @@ if (isset($_SESSION['user_alert'])) {
 echo($_POST['tipo_zona']); 
 echo($_POST['unir_mesa']); 
 echo($_POST['num_personas']); 
-echo($_POST['tipo_zona']); 
 
  
 ?>
@@ -74,13 +73,35 @@ echo($_POST['tipo_zona']);
         <option value="zona3">zona 3</option>
       </select>
 
-      <input type="checkbox" id="unir_mesa" name="unir_mesa" value="">
-      <span>Unir mesas</span>
+
       <label for="lang">Ingrese No. mesa:</label>
       <input type="text" id="numero_mesa" name="numero_mesa" value="">
       <label for="lang">Ingrese la cantidad de personas:</label>
       <input type="text" id="num_personas" name="num_personas" value="">
       <input type="submit" value="Abrir Cuenta">  
+
+      <input type="checkbox" id="unir_mesa" name="unir_mesa" value="">
+      <span>Unir mesas</span>
+
+      <!-- Checkbox para habilitar/deshabilitar -->
+      <input type="checkbox" id="unir_mesa" checked>
+      <label for="unir_mesa">Habilitar Input</label>
+
+      <!-- Input que será habilitado/deshabilitado -->
+      <input type="text" id="miInput1" disabled>
+      <input type="text" id="miInput2" disabled>
+      <input type="text" id="miInput3" disabled>
+
+      <script>
+          // Script para controlar el estado del input
+          document.getElementById('unir_mesa').addEventListener('change', function() {
+              var input = document.getElementById('miInput1');
+              var input = document.getElementById('miInput2');
+              var input = document.getElementById('miInput3');
+
+              input.disabled = !this.checked; // Habilita si está marcado, deshabilita si no
+          });
+      </script>
     </form>
 </div>
 
