@@ -14,18 +14,13 @@ if (isset($_SESSION['user_alert'])) {
     unset($_SESSION['user_alert']); // Limpiar esa variable de sesión después de usarla
 }
 
-// Asegurar que los datos POST estén disponibles antes de intentar acceder a ellos
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['tipo_zona'])) {
-        echo htmlspecialchars($_POST['tipo_zona']) . "<br>";
-    }
-    if (isset($_POST['unir_mesa'])) {
-        echo htmlspecialchars($_POST['unir_mesa']) . "<br>";
-    }
-    if (isset($_POST['num_personas'])) {
-        echo htmlspecialchars($_POST['num_personas']) . "<br>";
-    }
-}
+// de name se obtienes los atributos de los objetos
+echo($_POST['tipo_zona']); 
+echo($_POST['unir_mesa']); 
+echo($_POST['num_personas']); 
+echo($_POST['tipo_zona']); 
+
+ 
 ?>
 
 <!DOCTYPE html>
@@ -38,6 +33,69 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="assets/css/estilos.css">
 </head>
 <body>
-<!-- Resto del código HTML sigue igual -->
+
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+  <a class="navbar-brand" href="#">Mi Sitio</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Inicio</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="Crear_cuenta.php">Crear Cuenta</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="Agregar_Items_Cuenta.php">Items Cuenta</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="Pantalla_cocina.php">Pantalla Cocina</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#more">Más</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="home-container">
+    <h1>Bienvenido al Sistema</h1>
+    <p>Estás autenticado como <?php echo htmlspecialchars($_SESSION['nombre_usuario']); ?></p>
+    <p><a href="logout.php">Cerrar Sesión</a></p>
+
+    <form action="Crear_cuenta.php" method="post">
+      <label for="lang">Ingrese la zona:</label>
+      <select name="tipo_zona" id="tipo_zona">
+        <option value="zona1">zona 1</option>
+        <option value="zona2">zona 2</option>
+        <option value="zona3">zona 3</option>
+      </select>
+
+      <input type="checkbox" id="unir_mesa" name="unir_mesa" value="">
+      <span>Unir mesas</span>
+      <label for="lang">Ingrese No. mesa:</label>
+      <input type="text" id="numero_mesa" name="numero_mesa" value="">
+      <label for="lang">Ingrese la cantidad de personas:</label>
+      <input type="text" id="num_personas" name="num_personas" value="">
+      <input type="submit" value="Abrir Cuenta">  
+    </form>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="js/scripts.js"></script>
+<script>
+// JavaScript para mostrar la alerta
+window.onload = function() {
+    var alertMessage = "<?php echo $userAlert; ?>";
+    if (alertMessage) {
+        alert(alertMessage);
+    }
+};
+</script>
 </body>
 </html>
