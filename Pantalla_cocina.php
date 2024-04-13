@@ -35,14 +35,15 @@ if (isset($_SESSION['user_alert'])) {
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Inicio</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="Agregar_Items_Cuenta.php">Items Cuenta</a>
+        <a class="nav-link" href="home.php">Inicio</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="Crear_cuenta.php">Crear Cuenta</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="Agregar_Items_Cuenta.php">Items Cuenta</a>
+      </li>
+
       <li class="nav-item">
         <a class="nav-link" href="Pantalla_cocina.php">Pantalla Cocina</a>
       </li>
