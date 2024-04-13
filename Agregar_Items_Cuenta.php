@@ -51,6 +51,7 @@ if (isset($_SESSION['user_alert'])) {
       </li>
     </ul>
   </div>
+</div>
 </nav>
 
 <div class="home-container">
