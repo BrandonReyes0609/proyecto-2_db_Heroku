@@ -1,10 +1,10 @@
 <?php
 session_start(); // Iniciar o continuar la sesión
 
-// Verificar si el usuario está autenticado
+// Redirige al usuario a 'index.php' si no está autenticado
 if (!isset($_SESSION['nombre_usuario'])) {
     header("Location: index.php");
-    exit;
+    exit; // Detiene la ejecución del script después de la redirección
 }
 
 // Almacenar mensaje de alerta en una variable y limpiar la sesión
@@ -43,7 +43,6 @@ if (isset($_SESSION['user_alert'])) {
       <li class="nav-item">
         <a class="nav-link" href="Agregar_Items_Cuenta.php">Items Cuenta</a>
       </li>
-
       <li class="nav-item">
         <a class="nav-link" href="Pantalla_cocina.php">Pantalla Cocina</a>
       </li>
