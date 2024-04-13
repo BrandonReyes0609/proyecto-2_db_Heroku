@@ -59,19 +59,23 @@ if (isset($_SESSION['user_alert'])) {
     <p><a href="logout.php">Cerrar Sesión</a></p>
 
     <form action="#.php">
-      <label for="lang">Ingrese la zona:</label>
-      <select name="tipo_zona" id="tipo_zona">
-        <option value="zona1">zona 1</option>
-        <option value="zona2">zona 2</option>
-        <option value="zona3">zona 3</option>
+    <label for="lang">Selecciones la cuenta:</label>
+        <select name="tipo_cuenta" id="tipo_cuenta">
+            <option value="cuenta1">Cuenta 1</option>
+            <option value="cuenta2">Cuenta 2</option>
+            <option value="cuenta3">Cuenta 3</option>
+        </select>
+        <label for="lang">Platos:</label>
+        <select name="tipo_plato" id="tipo_plato">
+            <option value="plato1">Plato 1</option>
+            <option value="plato2">Plato 2</option>
+            <option value="plato3">Plato 3</option>
+        </select>
         
-      <input type="checkbox" id="unir_mesa" name="unir_mesa" value="">
-      <span>Unir mesas</span>
-      <label for="lang">Ingrese No. mesa:</label>
-      <input type="text" id="numero_mesa" name="numero_mesa" value="">
-      <label for="lang">Ingrese la cantidad de personas:</label>
-      <input type="text" id="num_personas" name="num_personas" value="">
-      <input type="submit" value="Abrir Cuenta">
+        <input type="text" id="numero_mesa" name="numero_mesa" value="">
+        <label for="lang">Bebidas:</label>
+        <input type="text" id="num_personas" name="num_personas" value="">
+        <input type="submit" value="Abrir Cuenta">
 
       <br>
     </form>

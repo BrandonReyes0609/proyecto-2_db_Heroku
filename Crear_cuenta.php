@@ -64,7 +64,8 @@ if (isset($_SESSION['user_alert'])) {
         <option value="zona1">zona 1</option>
         <option value="zona2">zona 2</option>
         <option value="zona3">zona 3</option>
-        
+      </select>
+
       <input type="checkbox" id="unir_mesa" name="unir_mesa" value="">
       <span>Unir mesas</span>
       <label for="lang">Ingrese No. mesa:</label>
