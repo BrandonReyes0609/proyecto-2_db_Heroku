@@ -74,13 +74,12 @@ echo($_POST['num_personas']);
       </select>
 
 
+
+      <label for="lang">Ingrese la cantidad de personas:</label>
+      <input type="numeric" id="num_personas" name="num_personas" value="">
+
       <label for="lang">Ingrese No. mesa:</label>
       <input type="text" id="numero_mesa" name="numero_mesa" value="">
-      <label for="lang">Ingrese la cantidad de personas:</label>
-      <input type="text" id="num_personas" name="num_personas" value="">
-      <input type="submit" value="Abrir Cuenta">  
-
-      <input type="checkbox" id="unir_mesa" name="unir_mesa" value="">
 
       <!-- Checkbox para habilitar/deshabilitar todos los inputs -->
       <input type="checkbox" id="unir_mesas" checked>
@@ -105,6 +104,9 @@ echo($_POST['num_personas']);
           });
       </script>
       <span>Unir mesas</span>
+
+      <input type="submit" value="Abrir Cuenta">  
+
 
     </form>
 </div>
