@@ -60,16 +60,16 @@ if (isset($_SESSION['user_alert'])) {
 
     <form action="#.php">
       <label for="lang">Ingrese la zona:</label>
-      <select name="lenguajes" id="lang">
+      <select name="tipo_zona" id="tipo_zona">
         <option value="zona1">zona 1</option>
         <option value="zona2">zona 2</option>
         <option value="zona3">zona 3</option>
         
-      <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+      <input type="checkbox" id="unir_mesa" name="unir_mesa" value="unir_mesa">
       <span>Unir mesas</span>
-      <label for="lang">Ingrese la zona:</label>
+      <label for="lang">Ingrese No. mesa:</label>
       <input type="submit" value="Abrir Cuenta">
-
+      <input type="text" id="numero_mesa" name="numero_mesa" value="Numero mesa"><br>
     </form>
 </div>
 
