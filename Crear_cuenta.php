@@ -65,11 +65,12 @@ if (isset($_SESSION['user_alert'])) {
         <option value="zona2">zona 2</option>
         <option value="zona3">zona 3</option>
         
-        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-        <span>Unir mesas</span>
-        <label for="lang">Ingrese la zona:</label>
+      <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+      <span>Unir mesas</span>
+      <label for="lang">Ingrese la zona:</label>
+      <input type="submit" value="Abrir Cuenta">
+
     </form>
-    <input type="submit" value="Submit">
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
