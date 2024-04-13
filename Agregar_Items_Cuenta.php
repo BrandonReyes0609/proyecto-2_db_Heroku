@@ -65,17 +65,26 @@ if (isset($_SESSION['user_alert'])) {
             <option value="cuenta2">Cuenta 2</option>
             <option value="cuenta3">Cuenta 3</option>
         </select>
+
         <label for="lang">Platos:</label>
         <select name="tipo_plato" id="tipo_plato">
             <option value="plato1">Plato 1</option>
             <option value="plato2">Plato 2</option>
             <option value="plato3">Plato 3</option>
         </select>
-        
-        <input type="text" id="numero_mesa" name="numero_mesa" value="">
+        <input type="number" id="num_platos" name="num_platos" min="1" max="100" />
+
         <label for="lang">Bebidas:</label>
-        <input type="text" id="num_personas" name="num_personas" value="">
-        <input type="submit" value="Abrir Cuenta">
+        <select name="tipo_bebida" id="tipo_bebida">
+            <option value="bebida1">Bebida 1</option>
+            <option value="bebida2">Bebida 2</option>
+            <option value="bebida3">bebida 3</option>
+        </select>
+        <input type="number" id="num_bebida" name="num_bebida" min="1" max="100" />
+
+
+
+        <input type="submit" value="Confirma Comida">
 
       <br>
     </form>
