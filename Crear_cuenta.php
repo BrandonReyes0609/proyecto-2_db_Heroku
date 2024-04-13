@@ -79,7 +79,7 @@ echo($_POST['num_personas']);
       <input type="number" id="num_personas" name="num_personas" value="" min="1" max="14">
 
       <label for="lang">Ingrese No. mesa:</label>
-      <input type="text" id="numero_mesa" name="numero_mesa" value="">
+      <input type="number" id="numero_mesa" name="numero_mesa" value="">
 
       <!-- Checkbox para habilitar/deshabilitar todos los inputs -->
       <input type="checkbox" id="unir_mesas" checked>
