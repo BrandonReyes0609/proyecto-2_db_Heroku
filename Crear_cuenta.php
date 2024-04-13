@@ -103,7 +103,7 @@ echo($_POST['num_personas']);
               document.getElementById('miInput3').disabled = !isChecked;
           });
       </script>
-
+      <br>
       <input type="submit" value="Abrir Cuenta">  
 
 
