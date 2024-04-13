@@ -53,21 +53,31 @@ if (isset($_SESSION['user_alert'])) {
     </ul>
   </div>
   <div>
-    <form action="#">
-        <label for="lang">Lenguaje</label>
-        <select name="lenguajes" id="lang">
-          <option value="zona1">zona 1</option>
-          <option value="zona2">zona 2</option>
-          <option value="zona3">zona 3</option>
-    </form>
-  </div>
-</nav>
+</br>
+
 
 <div class="home-container">
     <h1>Crear cuenta</h1>
     <p>Estás autenticado como <?php echo htmlspecialchars($_SESSION['nombre_usuario']); ?></p>
     <p><a href="logout.php">Cerrar Sesión</a></p>
 </div>
+
+<form action="#.php">
+        <label for="lang">Ingrese la zona:</label>
+        <select name="lenguajes" id="lang">
+          <option value="zona1">zona 1</option>
+          <option value="zona2">zona 2</option>
+          <option value="zona3">zona 3</option>
+    </form>
+  <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+  <label for="vehicle1"> Unir mesas</label><br>
+  <label for="lang">Ingrese la zona:</label>
+
+  <input type="submit" value="Submit">
+</nav>
+
+</form>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
