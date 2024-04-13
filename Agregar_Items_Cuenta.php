@@ -20,7 +20,7 @@ if (isset($_SESSION['user_alert'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenido al Sistema</title>
+    <title>Agregar Item Cuenta</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/estilos.css">
 </head>
@@ -54,7 +54,7 @@ if (isset($_SESSION['user_alert'])) {
 </nav>
 
 <div class="home-container">
-    <h1>Crear cuenta</h1>
+    <h1>Agregar Item Cuenta</h1>
     <p>Estás autenticado como <?php echo htmlspecialchars($_SESSION['nombre_usuario']); ?></p>
     <p><a href="logout.php">Cerrar Sesión</a></p>
 </div>
