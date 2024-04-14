@@ -1,6 +1,5 @@
 <?php
 session_start(); // Iniciar o continuar la sesión
-
 require 'includes/conexion.php'; // Incluir el script de conexión desde la carpeta includes
 
 // Verificar si el usuario está autenticado
@@ -8,7 +7,6 @@ if (!isset($_SESSION['nombre_usuario'])) {
     header("Location: index.php");
     exit;
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -30,6 +28,8 @@ if (!isset($_SESSION['nombre_usuario'])) {
     <div class="row">
         <div class="col">
             <h2>Pedidos Pendientes</h2>
+            <button onclick="cargarPedidos('false')" class="btn btn-info">Mostrar Platillos</button>
+            <button onclick="cargarPedidos('true')" class="btn btn-info">Mostrar Bebidas</button>
             <div id="pedidos-pendientes" class="mt-3">
                 <!-- Aquí se mostrarán los pedidos pendientes en orden FIFO -->
             </div>
@@ -38,8 +38,9 @@ if (!isset($_SESSION['nombre_usuario'])) {
 </div>
 
 <script>
-    function cargarPedidos() {
-        fetch('app/cocina/gPedidosPendientes.php')
+    // Pasamos el parámetro esBebida como un string para que sea más sencillo manejarlo en el fetch
+    function cargarPedidos(esBebida) {
+        fetch(`app/cocina/gPedidosPendientes.php?esBebida=${esBebida}`)
             .then(response => response.json())
             .then(data => {
                 if (data.error) {
@@ -55,7 +56,7 @@ if (!isset($_SESSION['nombre_usuario'])) {
                     pedidoDiv.classList.add('card', 'mb-3');
                     pedidoDiv.innerHTML = `
                         <div class="card-body">
-                            <p class="card-text">Hora de pedido: ${pedido.hora_pedido}</p>
+                            <p class="card-text">Hora de pedido: ${pedido.fecha_hora}</p>
                             <p class="card-text">Cuenta ID: ${pedido.cuenta_id}</p>
                             <p class="card-text">Plato: ${pedido.plato_nombre}</p>
                             <p class="card-text">Cantidad: ${pedido.cantidad}</p>
@@ -68,6 +69,7 @@ if (!isset($_SESSION['nombre_usuario'])) {
             .catch(error => console.error('Error al cargar los pedidos:', error));
     }
 
+    // Asegúrate de que esta función ahora maneja bien la respuesta
     function marcarComoCocinado(cuentaId, itemId) {
         fetch('app/cocina/marcar_como_cocinado.php', {
             method: 'POST',
@@ -79,7 +81,7 @@ if (!isset($_SESSION['nombre_usuario'])) {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                cargarPedidos(); // Recargar la lista de pedidos
+                cargarPedidos('false'); // Aquí podrías decidir si quieres recargar platillos o bebidas por defecto
             } else if (data.error) {
                 console.error('Error:', data.error);
             }
@@ -87,8 +89,13 @@ if (!isset($_SESSION['nombre_usuario'])) {
         .catch(error => console.error('Error:', error));
     }
 
-    document.addEventListener('DOMContentLoaded', cargarPedidos);
-    setInterval(cargarPedidos, 1000);
+    // Puedes dejar esta función para que cargue por defecto platillos, bebidas o ambos según prefieras
+    document.addEventListener('DOMContentLoaded', function() {
+        cargarPedidos('false'); // Por defecto carga platillos
+    });
+
+    // Considera remover el setInterval o ajustarlo para que no sobrecargue el servidor
+    // setInterval(cargarPedidos, 1000);
 </script>
 
 </body>
