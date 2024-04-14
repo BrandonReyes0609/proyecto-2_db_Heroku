@@ -16,7 +16,7 @@
     $query1="SELECT * FROM platos WHERE tipo=false";
     $consulta = pg_query($conn,$query1);
 
-    $query2="SELECT * FROM platos WHERE tipo=true";
-    $consulta = pg_query($conn,$query2);
+//$query2="SELECT * FROM platos WHERE tipo=true";
+//    $consulta = pg_query($conn,$query2);
     
 ?>
