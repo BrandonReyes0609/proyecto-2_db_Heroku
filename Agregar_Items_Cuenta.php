@@ -9,18 +9,6 @@ if (!isset($_SESSION['nombre_usuario'])) {
     exit;
 }
 
-$host = "cb4l59cdg4fg1k.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com";
-$database = "dceql5bo9j3plb";
-$user = "u1e25j4kkmlge1";
-$port = "5432";
-$password = "p4ac621d657dad701bc6ed9505ad96894fe1a390fd1e05ef41b37334c60753c5b";
-
-// Crear la cadena de conexión
-$dsn = "host=$host port=$port dbname=$database user=$user password=$password";
-
-// Establecer conexión
-global $conn 
-$conn = pg_connect($dsn);
 
 
 ?>
@@ -71,17 +59,30 @@ $conn = pg_connect($dsn);
 
     <form action="#.php">
     <label for="tipo_cuenta">Seleccione la cuenta:</label>
-    <select name="tipo_cuenta" id="tipo_cuenta">
-        <?php
-          $query_cuentas = "SELECT * FROM cuentas";
-          $consulta_cuentas = pg_query($conn, $query_cuentas);
-          while ($obj = pg_fetch_object($consulta_cuentas)) {
-        ?>
-            <option value="<?php echo $obj->cuenta_id; ?>"><?php echo $obj->cuenta_id; ?></option>
-        <?php
-          }
-        ?>
-    </select>
+      <select name="tipo_cuenta" id="tipo_cuenta">
+          <?php
+            $host = "cb4l59cdg4fg1k.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com";
+            $database = "dceql5bo9j3plb";
+            $user = "u1e25j4kkmlge1";
+            $port = "5432";
+            $password = "p4ac621d657dad701bc6ed9505ad96894fe1a390fd1e05ef41b37334c60753c5b";
+            
+            // Crear la cadena de conexión
+            $dsn = "host=$host port=$port dbname=$database user=$user password=$password";
+            
+            // Establecer conexión
+            global $conn 
+            $conn = pg_connect($dsn);
+            
+            $query_cuentas = "SELECT * FROM cuentas";
+            $consulta_cuentas = pg_query($conn, $query_cuentas);
+            while ($obj = pg_fetch_object($consulta_cuentas)) {
+              ?>
+                  <option value="<?php echo $obj->cuenta_id; ?>"><?php echo $obj->cuenta_id; ?></option>
+              <?php
+            }
+          ?>
+      </select>
 
         <label for="lang">Platos:</label>
         <select name="tipo_plato" id="tipo_plato">
