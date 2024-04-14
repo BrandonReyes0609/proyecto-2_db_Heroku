@@ -2,7 +2,7 @@
   session_start(); // Iniciar o continuar la sesión
 
   require 'includes/conexion.php'; // Incluir el script de conexión desde la carpeta includes
-  require 'consultas/Envio_item_cuenta.php';
+  //require 'consultas/Envio_item_cuenta.php';
 
 
 
@@ -39,7 +39,7 @@
   <div class="home-container">
       <h1>Impresion Pedidos</h1>
 
-      <form action="consulta/Envio_item_cuenta.php">
+      <form action="consultas/Envio_item_cuenta.php">
       <label for="tipo_cuenta">Seleccione la cuenta:</label>
         <select name="tipo_cuenta" id="tipo_cuenta">
           <?php
