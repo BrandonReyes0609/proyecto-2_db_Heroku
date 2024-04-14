@@ -19,7 +19,7 @@ $query_mesas = "INSERT INTO mesas (mesa_id, area_id, capacidad, movilidad) VALUE
 $resultado1 = pg_query_params($conn, $query_mesas, array($numero_mesa, $tipo_area1, $num_personas));
 
 if ($resultado1) {
-    $query_cuentas = "INSERT INTO cuentas (mesa_id, fecha_apertura, fecha_cierre, total) VALUES ($1, NOW(), NULL, NULL)";
+    $query_cuentas = "INSERT INTO cuentas (mesa_id, fecha_apertura, fecha_cierre, total) VALUES ($1, NOW(), null, 0)";
     $resultado2 = pg_query_params($conn, $query_cuentas, array($numero_mesa));
 
     if ($resultado2) {
