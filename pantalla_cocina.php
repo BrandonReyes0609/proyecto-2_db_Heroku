@@ -13,7 +13,7 @@
 
     <script>
         function cargarPedidos() {
-            fetch('app/get_pedidos_pendientes.php')
+            fetch('app/cocina/get_pedidos_pendientes.php')
                 .then(response => response.json())
                 .then(data => {
                     if (data.error) {
@@ -40,7 +40,7 @@
         }
 
         function marcarComoCocinado(cuentaId, itemId) {
-            fetch('app/marcar_como_cocinado.php', {
+            fetch('app/cocina/marcar_como_cocinado.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',

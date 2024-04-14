@@ -10,7 +10,7 @@
     <?php session_start(); // Importante iniciar la sesión al principio de la página ?>
     <div class="login-container" id="login-form">
         <h2>Iniciar Sesión</h2>
-        <form action="login.php" method="POST">
+        <form action="app/login/login.php" method="POST">
             <div class="form-group">
                 <label for="nombre_usuario">Usuario:</label>
                 <input type="text" id="nombre_usuario" name="nombre_usuario" required>
@@ -36,7 +36,7 @@
 
     <div class="register-container" id="register-form" style="display:none;">
         <h2>Registro</h2>
-        <form action="sign_in.php" method="POST">
+        <form action="app/login/sign_in.php" method="POST">
             <div class="form-group">
                 <label for="nombre_usuario">Nombre de usuario:</label>
                 <input type="text" id="nombre_usuario_reg" name="nombre_usuario" required>

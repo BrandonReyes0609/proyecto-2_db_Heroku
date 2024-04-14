@@ -56,7 +56,7 @@ if (isset($_SESSION['user_alert'])) {
 <div class="home-container">
     <h1>Bienvenido al Sistema</h1>
     <p>Estás autenticado como <?php echo htmlspecialchars($_SESSION['nombre_usuario']); ?></p>
-    <p><a href="logout.php">Cerrar Sesión</a></p>
+    <p><a href="app/login/logout.php">Cerrar Sesión</a></p>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
