@@ -1,26 +1,20 @@
 <?php
-// get_pedidos_pendientes.php
 header('Content-Type: application/json');
-include '../../includes/conexion.php'; // Asume que este archivo contiene los datos de conexión
-
-$conexion = new mysqli("localhost", "usuario", "contraseña", "basededatos");
-if ($conexion->connect_error) {
-    echo json_encode(['error' => 'Error de conexión: ' . $conexion->connect_error]);
-    exit();
-}
+require_once '../../includes/conexion.php'; // Incluir el archivo de conexión
 
 // Cambia 'pendiente' por FALSE en la condición WHERE para que coincida con tu campo 'cocinado'.
-$result = $conexion->query("SELECT * FROM items_cuenta WHERE cocinado = FALSE ORDER BY fecha_hora ASC");
+$result = $conn->query("SELECT * FROM items_cuenta WHERE cocinado = 'false' ORDER BY fecha_hora ASC");
 if (!$result) {
-    echo json_encode(['error' => 'Error en la consulta: ' . $conexion->error]);
+    echo json_encode(['error' => 'Error en la consulta: ' . $conn->errorInfo()]);
     exit();
 }
 
 $pedidos = [];
-while ($row = $result->fetch_assoc()) {
+while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
     $pedidos[] = $row;
 }
 
 echo json_encode(['pedidos' => $pedidos]);
 
+cerrarConexion(); // Cerrar la conexión después de usarla
 ?>

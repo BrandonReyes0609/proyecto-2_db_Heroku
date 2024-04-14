@@ -1,12 +1,6 @@
 <?php
 header('Content-Type: application/json');
-include '../../includes/conexion.php'; // Asume que este archivo contiene los datos de conexión
-
-$conexion = new mysqli("localhost", "usuario", "contraseña", "basededatos");
-if ($conexion->connect_error) {
-    echo json_encode(['error' => 'Error de conexión: ' . $conexion->connect_error]);
-    exit();
-}
+require_once '../../includes/conexion.php'; // Incluir el archivo de conexión
 
 $cuenta_id = $_POST['cuenta_id'] ?? '';
 $item_id = $_POST['item_id'] ?? '';
@@ -16,21 +10,23 @@ if (!$cuenta_id || !$item_id) {
     exit();
 }
 
-$sql = "UPDATE items_cuenta SET cocinado = TRUE WHERE cuenta_id = ? AND item_id = ?";
-$stmt = $conexion->prepare($sql);
+$sql = "UPDATE items_cuenta SET cocinado = 'true' WHERE cuenta_id = ? AND item_id = ?";
+$stmt = $conn->prepare($sql);
 if ($stmt) {
-    $stmt->bind_param("ii", $cuenta_id, $item_id);
-    $stmt->execute();
-    
-    if ($stmt->affected_rows > 0) {
-        echo json_encode(['success' => 'Pedido marcado como cocinado']);
+    $stmt->bindParam(1, $cuenta_id, PDO::PARAM_INT);
+    $stmt->bindParam(2, $item_id, PDO::PARAM_INT);
+    if ($stmt->execute()) {
+        if ($stmt->rowCount() > 0) {
+            echo json_encode(['success' => 'Pedido marcado como cocinado']);
+        } else {
+            echo json_encode(['error' => 'No se pudo actualizar el pedido']);
+        }
     } else {
-        echo json_encode(['error' => 'No se pudo actualizar el pedido']);
+        echo json_encode(['error' => 'Error al ejecutar la consulta']);
     }
-
-    $stmt->close();
+    $stmt->closeCursor();
 } else {
-    echo json_encode(['error' => 'Error en la preparación: ' . $conexion->error]);
+    echo json_encode(['error' => 'Error en la preparación: ' . $conn->errorInfo()]);
 }
-
-$conexion->close();
+cerrarConexion(); // Cerrar la conexión después de usarla
+?>
