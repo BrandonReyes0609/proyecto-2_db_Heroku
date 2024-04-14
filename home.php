@@ -35,11 +35,15 @@ if (!isset($_SESSION['nombre_usuario'])) {
 
     <div class="container">
         <h1 class="mb-4">Inicio</h1>
-        <form method="post" class="mb-4">
-            <button type="submit" name="reporte" value="ImpresionPedido" class="btn btn-info wide-btn">Impresión Pedido</button>
-            <button type="submit" name="reporte" value="CerrarCuenta" class="btn btn-success wide-btn">Cerrar una cuenta</button>
-            <button type="submit" name="reporte" value="ImpresionFactura" class="btn btn-warning wide-btn">Impresión de factura</button>
-        </form>
+            <form action="impresion_pedido.php">
+                <button type="submit" name="reporte" value="ImpresionPedido" class="btn btn-info wide-btn">Impresión Pedido</button>
+            </form>
+            <form action="#">
+                <button type="submit" name="reporte" value="CerrarCuenta" class="btn btn-success wide-btn">Cerrar una cuenta</button>
+            </form>
+            <form action="#">
+                <button type="submit" name="reporte" value="ImpresionFactura" class="btn btn-warning wide-btn">Impresión de factura</button>}
+            </form>
     </div>
 
 
