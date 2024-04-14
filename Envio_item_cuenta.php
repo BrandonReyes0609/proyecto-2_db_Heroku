@@ -26,7 +26,7 @@ $resultado1 = pg_query_params($conn, $query_platos, array($tipo_cuenta, $tipo_pl
 
 if ($resultado1) {
     $query_bebidas = "INSERT INTO items_cuenta (cuenta_id, item_id, cantidad, fecha_hora, cocinado) VALUES ($1, $2, $3, NOW(), true)";
-    $resultado2 = pg_query_params($conn, $query_cuentas, array($tipo_cuenta, $tipo_bbeida, $num_bebida));
+    $resultado2 = pg_query_params($conn, $query_bebidas, array($tipo_cuenta, $tipo_bbeida, $num_bebida));
 
     if ($resultado2) {
         $_SESSION['user_alert'] = "Se enviaron los datos correctamente";
