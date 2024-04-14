@@ -16,6 +16,8 @@ if (isset($_SESSION['user_alert'])) {
     unset($_SESSION['user_alert']); // Limpiar esa variable de sesión después de usarla
 }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
