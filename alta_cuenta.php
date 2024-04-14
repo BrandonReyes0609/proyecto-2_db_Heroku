@@ -28,7 +28,7 @@ $resultado1 = pg_query_params($conn, $query_mesas, array($numero_mesa, $tipo_are
 
 if ($resultado1) {
     // Preparar e insertar en la tabla cuentas
-    $query_cuentas = "INSERT INTO cuentas (mesa_id, fecha_apertura, fecha_cierre, total) VALUES ($1, NOW(), NULL, NULL)";
+    $query_cuentas = "INSERT INTO cuentas (mesa_id, fecha_apertura, fecha_cierre, total) VALUES ($1, NOW(), NOW(), null)";
     $resultado2 = pg_query_params($conn, $query_cuentas, array($numero_mesa));
 
     if ($resultado2) {
