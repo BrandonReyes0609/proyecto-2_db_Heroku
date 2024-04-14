@@ -14,14 +14,23 @@ if (isset($_SESSION['user_alert'])) {
     unset($_SESSION['user_alert']); // Limpiar esa variable de sesión después de usarla
 }
 
-// de name se obtienes los atributos de los objetos
-echo($_POST['tipo_zona']); 
-echo($_POST['unir_mesa']); 
-echo($_POST['num_personas']); 
+// Datos de conexión a la base de datos PostgreSQL
+$host = "cb4l59cdg4fg1k.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com";
+$database = "dceql5bo9j3plb";
+$user = "u1e25j4kkmlge1";
+$port = "5432";
+$password = "p4ac621d657dad701bc6ed9505ad96894fe1a390fd1e05ef41b37334c60753c5b";
 
- 
+try {
+    // Crear una instancia de PDO y establecer una conexión
+    $conn = new PDO("pgsql:host=$host;port=$port;dbname=$database;user=$user;password=$password");
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch(PDOException $e) {
+    // Manejo de errores
+    die("Error de conexión: " . $e->getMessage());
+}
+
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -64,34 +73,50 @@ echo($_POST['num_personas']);
     <h1>Bienvenido al Sistema</h1>
     <p>Estás autenticado como <?php echo htmlspecialchars($_SESSION['nombre_usuario']); ?></p>
     <p><a href="logout.php">Cerrar Sesión</a></p>
+    <p><?php echo $_POST['tipo_zona']; ?></p>
+    <p><?php echo $_POST['unir_mesa']; ?></p>
+    <p><?php echo $_POST['num_personas']; ?></p>
 
     <form action="Crear_cuenta.php" method="post">
-      <label for="lang">Ingrese la zona:</label>
+      <label for="tipo_zona">Ingrese la zona:</label>
       <select name="tipo_zona" id="tipo_zona">
-        <option value="zona1">zona 1</option>
-        <option value="zona2">zona 2</option>
-        <option value="zona3">zona 3</option>
+        <!-- Opciones de zona añadidas aquí -->
+        <?php
+        // Recibir el tipo de área desde un formulario
+        $tipo_area = $_POST['tipo_zona'] ?? 1; // Default a 1 si no está definido
+
+        // Preparar la consulta SQL
+        $getQueryMeseros = "SELECT DISTINCT * FROM meseros WHERE area_id = :tipo_area";
+        $stmt = $conn->prepare($getQueryMeseros);
+        $stmt->bindParam(':tipo_area', $tipo_area, PDO::PARAM_INT);
+
+        // Ejecutar la consulta
+
+
+        // Ejecutar la consulta
+        $stmt->execute();
+
+        // Iterar sobre los resultados y generar el HTML para las opciones del dropdown
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $nombre_mesero = $row['mesero_id'];
+            echo "<option value='$nombre_mesero'>$nombre_mesero</option>";
+        }
+        ?>
       </select>
 
-
-
-      <label for="lang">Ingrese la cantidad de personas:</label>
+      <label for="num_personas">Ingrese la cantidad de personas:</label>
       <input type="number" id="num_personas" name="num_personas" value="" min="1" max="14">
 
-      <label for="lang">Ingrese No. mesa:</label>
+      <label for="numero_mesa">Ingrese No. mesa:</label>
       <input type="number" id="numero_mesa" name="numero_mesa" value="">
 
       <!-- Checkbox para habilitar/deshabilitar todos los inputs -->
       <input type="checkbox" id="unir_mesas" checked>
       <span>Unir mesas</span>
 
-      <!-- Primer input que será habilitado/deshabilitado -->
+      <!-- Inputs que serán habilitados/deshabilitados -->
       <input type="number" id="miInput1" disabled min="1" max="20">
-
-      <!-- Segundo input que será habilitado/deshabilitado -->
       <input type="number" id="miInput2" disabled min="1" max="20">
-
-      <!-- Tercer input que será habilitado/deshabilitado -->
       <input type="number" id="miInput3" disabled min="1" max="20">
 
       <script>
@@ -105,9 +130,19 @@ echo($_POST['num_personas']);
       </script>
       <br>
       <input type="submit" value="Abrir Cuenta">  
-
-
     </form>
+
+    <h2>Asignar mesero</h2>
+    <select>
+      <?php
+        // Reutilizamos el código de consulta anterior para generar otra lista de opciones de meseros
+        $stmt->execute(); // Re-ejecutar la misma consulta
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $nombre_mesero = $row['mesero_id'];
+            echo "<option value='$nombre_mesero'>$nombre_mesero</option>";
+        }
+      ?>
+    </select>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -115,13 +150,13 @@ echo($_POST['num_personas']);
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="js/scripts.js"></script>
 <script>
-// JavaScript para mostrar la alerta
-window.onload = function() {
-    var alertMessage = "<?php echo $userAlert; ?>";
-    if (alertMessage) {
-        alert(alertMessage);
-    }
-};
+    // JavaScript para mostrar la alerta
+    window.onload = function() {
+        var alertMessage = "<?php echo $userAlert; ?>";
+        if (alertMessage) {
+            alert(alertMessage);
+        }
+    };
 </script>
 </body>
 </html>
