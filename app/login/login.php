@@ -16,16 +16,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nombre_usuario']) && i
 
         if (password_verify($password, $user['password'])) {
             $_SESSION['nombre_usuario'] = $nombre_usuario;  // Guardar el nombre de usuario en la sesión
-            header("Location: home.php");
+            header("Location: ../../home.php");
             exit;
         } else {
             $_SESSION['error'] = "Usuario o contraseña incorrectos.";  // Guardar el mensaje de error en la sesión
-            header("Location: index.php");
+            header("Location: ../../index.php");
             exit;
         }
     } else {
         $_SESSION['error'] = "Usuario o contraseña incorrectos.";
-        header("Location: index.php");
+        header("Location: ../../index.php");
         exit;
     }
 } else {

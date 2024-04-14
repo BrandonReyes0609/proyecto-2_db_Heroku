@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nombre_usuario']) && i
         $stmt->execute();
         $_SESSION['user_alert'] = "Usuario registrado correctamente!";
         $_SESSION['nombre_usuario'] = $nombre_usuario;
-        header("Location: home.php");
+        header("Location: ../../home.php");
         exit;
     } catch (PDOException $e) {
         $_SESSION['error'] = $e->getCode() == 23505 ? "El nombre de usuario ya existe." : "Error al registrar el usuario: " . $e->getMessage();
