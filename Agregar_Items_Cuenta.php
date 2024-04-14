@@ -68,8 +68,16 @@
           <?php
             while($obj = pg_fetch_object($consulta)){?>
               <option> value="<?php $obj->cuenta_id ?>"><?php echo($obj->cuenta_id);?></option> 
-            <?php}?>
+            <?php}
+          ?>
         </select>
+      <form action="app/mesero/procesar_items.php" method="post">
+          <label for="tipo_cuenta">Selecciones la cuenta:</label>
+          <select name="tipo_cuenta" id="tipo_cuenta">
+              <option value="cuenta1">Cuenta 1</option>
+              <option value="cuenta2">Cuenta 2</option>
+              <option value="cuenta3">Cuenta 3</option>
+          </select>
 
           <label for="tipo_plato">Platos:</label>
           <select name="tipo_plato" id="tipo_plato">
