@@ -42,7 +42,7 @@
 
       <!-- Elementos comunes a varios roles -->
       <li class="nav-item">
-        <a class="nav-link" href="#more">Más</a>
+        <a class="nav-link" href="../app/login/logout.php">Cerrar sesión</a>
       </li>
     </ul>
   </div>
