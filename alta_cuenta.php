@@ -23,7 +23,7 @@ $unir_mesas = $_REQUEST['unir_mesas']; // Chequeo de unir mesas
 $numero_mesa = $_REQUEST['numero_mesa']; // Asegúrate de que esta variable esté definida
 
 // Preparar e insertar en la tabla mesas
-$query_mesas = "INSERT INTO mesas (mesa_id, area_id, capacidad, movilidad) VALUES ($1, $2, $3, NULL)";
+$query_mesas = "INSERT INTO mesas (mesa_id, area_id, capacidad, movilidad) VALUES ($1, $2, $3, false)";
 $resultado1 = pg_query_params($conn, $query_mesas, array($numero_mesa, $tipo_area1, $num_personas));
 
 if ($resultado1) {
