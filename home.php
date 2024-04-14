@@ -1,6 +1,5 @@
 <?php
 session_start(); // Iniciar o continuar la sesión
-echo 'Rol actual en la sesión: ' . (isset($_SESSION['rol']) ? $_SESSION['rol'] : 'No definido');
 
 require 'includes/conexion.php'; // Incluir el script de conexión desde la carpeta includes
 
@@ -30,7 +29,6 @@ if (!isset($_SESSION['nombre_usuario'])) {
 <div class="home-container">
     <h1>Agregar Items</h1>
     <p>Estás autenticado como <?php echo htmlspecialchars($_SESSION['nombre_usuario']); ?></p>
-    <p><a href="logout.php">Cerrar Sesión</a></p>
 
     <form action="#.php">
     <label for="lang">Selecciones la cuenta:</label>
