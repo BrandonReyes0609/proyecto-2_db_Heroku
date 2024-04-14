@@ -2,6 +2,7 @@
   session_start(); // Iniciar o continuar la sesión
 
   require 'includes/conexion.php'; // Incluir el script de conexión desde la carpeta includes
+  require 'consulta_cunetas.php';  // Asumiendo que este archivo tiene la conexión y la consulta
 
   // Verificar si el usuario está autenticado
   if (!isset($_SESSION['nombre_usuario'])) {
@@ -15,19 +16,8 @@
       $userAlert = $_SESSION['user_alert'];
       unset($_SESSION['user_alert']); // Limpiar esa variable de sesión después de usarla
   }
+      require 'consulta_cuentas.php';  // Asumiendo que este archivo tiene la conexión y la consulta
 
-   // Asegúrate de que la conexión y la consulta están correctamente definidas en 'consulta_cuentas.php'
-   require 'consulta_cuentas.php';  // Asumiendo que este archivo tiene la conexión y la consulta
-
-   // Verificar la conexión
-   if (!$conn) {
-       die("Conexión fallida: " . pg_last_error());
-   }
-
-   // Asegurarse que la consulta retorna un resultado
-   if (!$consulta) {
-       die("Error en la consulta: " . pg_last_error($conn));
-   }
   ?>
 
   <!DOCTYPE html>
@@ -75,15 +65,15 @@
 
       <form action="#.php">
       <label for="tipo_cuenta">Seleccione la cuenta:</label>
-      <form action="app/mesero/procesar_items.php" method="post">
-      <label for="tipo_cuenta">Seleccione la cuenta:</label>
-      <select name="tipo_cuenta" id="tipo_cuenta">
+        <select name="tipo_cuenta" id="tipo_cuenta">
           <?php
-            while ($obj = pg_fetch_object($consulta)) {
-              echo '<option value="' . htmlspecialchars($obj->cuenta_id) . '">' . htmlspecialchars($obj->nombre_cuenta) . '</option>'; // Asegúrate de que 'nombre_cuenta' es el campo correcto de tu tabla
+            while($obj = pg_fetch_object($consulta)){?>
+              <option> value="<?php echo $obj->cuenta_id ?>"><?php $obj->cuenta_id;?></option>
+            <?php
             }
+    
           ?>
-      </select>
+        </select>
       <form action="app/mesero/procesar_items.php" method="post">
           <label for="tipo_cuenta">Selecciones la cuenta:</label>
           <select name="tipo_cuenta" id="tipo_cuenta">
