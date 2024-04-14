@@ -70,9 +70,6 @@
               <option> value="<?php $obj->cuenta_id ?>"><?php echo($obj->cuenta_id);?></option>
               
             <?php
-            echo($obj->cuenta_id)
-
-
             }
     
           ?>
