@@ -67,34 +67,25 @@
         <select name="tipo_cuenta" id="tipo_cuenta">
           <?php
             while($obj = pg_fetch_object($consulta)){?>
-              <option> value="<?php $obj->cuenta_id ?>"><?php echo($obj->cuenta_id);?></option>
-              
-            <?php
-            }
-    
-          ?>
+              <option> value="<?php $obj->cuenta_id ?>"><?php echo($obj->cuenta_id);?></option> 
+            <?php}?>
         </select>
-      <form action="app/mesero/procesar_items.php" method="post">
-          <label for="tipo_cuenta">Selecciones la cuenta:</label>
-          <select name="tipo_cuenta" id="tipo_cuenta">
-              <option value="cuenta1">Cuenta 1</option>
-              <option value="cuenta2">Cuenta 2</option>
-              <option value="cuenta3">Cuenta 3</option>
-          </select>
 
           <label for="tipo_plato">Platos:</label>
           <select name="tipo_plato" id="tipo_plato">
-              <option value="plato1">Plato 1</option>
-              <option value="plato2">Plato 2</option>
-              <option value="plato3">Plato 3</option>
+            <?php
+              while($obj = pg_fetch_object($consulta1)){?>
+                <option> value="<?php $obj->plato_id ?>"><?php echo($obj->nombre);?></option> 
+            <?php}?>
           </select>
           <input type="number" id="num_platos" name="num_platos" min="1" max="100" />
 
           <label for="tipo_bebida">Bebidas:</label>
           <select name="tipo_bebida" id="tipo_bebida">
-              <option value="bebida1">Bebida 1</option>
-              <option value="bebida2">Bebida 2</option>
-              <option value="bebida3">Bebida 3</option>
+              <?php
+                while($obj = pg_fetch_object($consulta2)){?>
+                  <option> value="<?php $obj->plato_id ?>"><?php echo($obj->nombre);?></option> 
+              <?php}?>
           </select>
           <input type="number" id="num_bebida" name="num_bebida" min="1" max="100" />
 

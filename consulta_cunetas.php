@@ -13,4 +13,10 @@
     $query="SELECT  * FROM cuentas";
     $consulta = pg_query($conn,$query);
     
+    $query1="SELECT * FROM platos WHERE tipo=false";
+    $consulta = pg_query($conn,$query1);
+
+    $query2="SELECT * FROM platos WHERE tipo=true";
+    $consulta = pg_query($conn,$query2);
+    
 ?>
