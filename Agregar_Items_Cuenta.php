@@ -1,6 +1,8 @@
 <?php
 session_start(); // Iniciar o continuar la sesión
 
+require 'includes/conexion.php'; // Incluir el script de conexión desde la carpeta includes
+
 // Verificar si el usuario está autenticado
 if (!isset($_SESSION['nombre_usuario'])) {
     header("Location: index.php");
@@ -14,33 +16,40 @@ if (isset($_SESSION['user_alert'])) {
     unset($_SESSION['user_alert']); // Limpiar esa variable de sesión después de usarla
 }
 
+// Verificación de que los datos POST existen
+if (isset($_POST['tipo_cuenta'], $_POST['tipo_plato'], $_POST['tipo_bebida'], $_POST['num_platos'], $_POST['num_bebida'])) {
+    $cuentaId = $_POST['tipo_cuenta'];
+    $platoId = $_POST['tipo_plato'];
+    $bebidaId = $_POST['tipo_bebida'];
+    $cantidadPlatos = $_POST['num_platos'];
+    $cantidadBebidas = $_POST['num_bebida'];
 
-$cuentaId = $_POST['tipo_cuenta'];
-$platoId = $_POST['tipo_plato'];
-$bebidaId = $_POST['tipo_bebida'];
-$cantidadPlatos = $_POST['num_platos'];
-$cantidadBebidas = $_POST['num_bebida'];
+    try {
+        // Insertar ítem de plato a la cuenta
+        $stmt = $conn->prepare("INSERT INTO items_cuenta (cuenta_id, item_id, cantidad) VALUES (?, ?, ?)");
+        $stmt->execute([$cuentaId, $platoId, $cantidadPlatos]);
 
-try {
-    // Insertar ítem de plato a la cuenta
-    $stmt = $conn->prepare("INSERT INTO items_cuenta (cuenta_id, item_id, cantidad) VALUES (?, ?, ?)");
-    $stmt->execute([$cuentaId, $platoId, $cantidadPlatos]);
+        // Insertar ítem de bebida a la cuenta
+        $stmt = $conn->prepare("INSERT INTO items_cuenta (cuenta_id, item_id, cantidad) VALUES (?, ?, ?)");
+        $stmt->execute([$cuentaId, $bebidaId, $cantidadBebidas]);
 
-    // Insertar ítem de bebida a la cuenta
-    $stmt = $conn->prepare("INSERT INTO items_cuenta (cuenta_id, item_id, cantidad) VALUES (?, ?, ?)");
-    $stmt->execute([$cuentaId, $bebidaId, $cantidadBebidas]);
-
-    // Establecer mensaje de éxito
-    $_SESSION['user_alert'] = "Ítems agregados correctamente a la cuenta.";
-} catch (PDOException $e) {
-    // Manejar error
-    $_SESSION['error'] = "Error al agregar ítems: " . $e->getMessage();
+        // Establecer mensaje de éxito
+        $_SESSION['user_alert'] = "Ítems agregados correctamente a la cuenta.";
+    } catch (PDOException $e) {
+        // Manejar error
+        $_SESSION['error'] = "Error al agregar ítems: " . $e->getMessage();
+        header("Location: error.php"); // Redireccionar a una página de error
+        exit;
+    }
+} else {
+    $_SESSION['error'] = "Todos los campos son necesarios.";
+    header("Location: Agregar_Items_Cuenta.php"); // Redireccionar de nuevo al formulario
+    exit;
 }
 
-header("Location: Agregar_Items_Cuenta.php");
-
-
+header("Location: Agregar_Items_Cuenta.php"); // Redireccionar si todo fue exitoso
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
