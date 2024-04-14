@@ -74,9 +74,7 @@ if (isset($_POST['Abrir_Cuenta'])) {
 </nav>
 
 <div class="home-container">
-    <h1>Bienvenido al Sistema</h1>
-    <p>Estás autenticado como <?php echo htmlspecialchars($_SESSION['nombre_usuario']); ?></p>
-    <p><a href="logout.php">Cerrar Sesión</a></p>
+    <h1>Crear Cuenta</h1>
     <p><?php echo $_POST['tipo_zona']; ?></p>
     <p><?php echo $_POST['unir_mesa']; ?></p>
     <p><?php echo $_POST['num_personas']; ?></p>
