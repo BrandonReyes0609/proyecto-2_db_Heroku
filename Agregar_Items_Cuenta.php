@@ -9,12 +9,29 @@ if (!isset($_SESSION['nombre_usuario'])) {
     exit;
 }
 
+<<<<<<< HEAD
 // Almacenar mensaje de alerta en una variable y limpiar la sesión
 $userAlert = "";
 if (isset($_SESSION['user_alert'])) {
     $userAlert = $_SESSION['user_alert'];
     unset($_SESSION['user_alert']); // Limpiar esa variable de sesión después de usarla
 }
+=======
+$host = "cb4l59cdg4fg1k.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com";
+$database = "dceql5bo9j3plb";
+$user = "u1e25j4kkmlge1";
+$port = "5432";
+$password = "p4ac621d657dad701bc6ed9505ad96894fe1a390fd1e05ef41b37334c60753c5b";
+
+// Crear la cadena de conexión
+$dsn = "host=$host port=$port dbname=$database user=$user password=$password";
+
+// Establecer conexión
+global $conn 
+$conn = pg_connect($dsn);
+
+
+>>>>>>> b72e569f141286717a2c6c175f428b8e5a99b4d8
 ?>
 
 <!DOCTYPE html>
@@ -60,6 +77,7 @@ if (isset($_SESSION['user_alert'])) {
     <p>Estás autenticado como <?php echo htmlspecialchars($_SESSION['nombre_usuario']); ?></p>
     <p><a href="logout.php">Cerrar Sesión</a></p>
 
+<<<<<<< HEAD
     <form action="app/mesero/procesar_items.php" method="post">
         <label for="tipo_cuenta">Selecciones la cuenta:</label>
         <select name="tipo_cuenta" id="tipo_cuenta">
@@ -67,6 +85,21 @@ if (isset($_SESSION['user_alert'])) {
             <option value="cuenta2">Cuenta 2</option>
             <option value="cuenta3">Cuenta 3</option>
         </select>
+=======
+    <form action="#.php">
+    <label for="tipo_cuenta">Seleccione la cuenta:</label>
+    <select name="tipo_cuenta" id="tipo_cuenta">
+        <?php
+          $query_cuentas = "SELECT * FROM cuentas";
+          $consulta_cuentas = pg_query($conn, $query_cuentas);
+          while ($obj = pg_fetch_object($consulta_cuentas)) {
+        ?>
+            <option value="<?php echo $obj->cuenta_id; ?>"><?php echo $obj->cuenta_id; ?></option>
+        <?php
+          }
+        ?>
+    </select>
+>>>>>>> b72e569f141286717a2c6c175f428b8e5a99b4d8
 
         <label for="tipo_plato">Platos:</label>
         <select name="tipo_plato" id="tipo_plato">
