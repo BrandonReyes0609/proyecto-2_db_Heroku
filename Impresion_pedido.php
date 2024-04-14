@@ -3,7 +3,7 @@
 
   require 'includes/conexion.php'; // Incluir el script de conexión desde la carpeta includes
   require 'consulta_cunetas.php';
-  require 'consultas/Consulta_item_cuenta.php';
+  require 'Consulta_item_cuenta.php';
 
 
 
