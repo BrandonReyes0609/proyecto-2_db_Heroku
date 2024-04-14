@@ -2,7 +2,7 @@
   session_start(); // Iniciar o continuar la sesión
 
   require 'includes/conexion.php'; // Incluir el script de conexión desde la carpeta includes
-  //require 'consultas/Envio_item_cuenta.php';
+  require 'consulta_cunetas.php';
 
 
 
