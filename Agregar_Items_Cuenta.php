@@ -9,10 +9,13 @@ if (!isset($_SESSION['nombre_usuario'])) {
     exit;
 }
 
-
-
+// Almacenar mensaje de alerta en una variable y limpiar la sesión
+$userAlert = "";
+if (isset($_SESSION['user_alert'])) {
+    $userAlert = $_SESSION['user_alert'];
+    unset($_SESSION['user_alert']); // Limpiar esa variable de sesión después de usarla
+}
 ?>
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -83,8 +86,15 @@ if (!isset($_SESSION['nombre_usuario'])) {
             }
           ?>
       </select>
+    <form action="app/mesero/procesar_items.php" method="post">
+        <label for="tipo_cuenta">Selecciones la cuenta:</label>
+        <select name="tipo_cuenta" id="tipo_cuenta">
+            <option value="cuenta1">Cuenta 1</option>
+            <option value="cuenta2">Cuenta 2</option>
+            <option value="cuenta3">Cuenta 3</option>
+        </select>
 
-        <label for="lang">Platos:</label>
+        <label for="tipo_plato">Platos:</label>
         <select name="tipo_plato" id="tipo_plato">
             <option value="plato1">Plato 1</option>
             <option value="plato2">Plato 2</option>
@@ -92,27 +102,23 @@ if (!isset($_SESSION['nombre_usuario'])) {
         </select>
         <input type="number" id="num_platos" name="num_platos" min="1" max="100" />
 
-        <label for="lang">Bebidas:</label>
+        <label for="tipo_bebida">Bebidas:</label>
         <select name="tipo_bebida" id="tipo_bebida">
             <option value="bebida1">Bebida 1</option>
             <option value="bebida2">Bebida 2</option>
-            <option value="bebida3">bebida 3</option>
+            <option value="bebida3">Bebida 3</option>
         </select>
         <input type="number" id="num_bebida" name="num_bebida" min="1" max="100" />
 
-
         <br>
         <input type="submit" value="Confirma Comida">
-
-      <br>
+        <br>
     </form>
-
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="js/scripts.js"></script>
 <script>
 // JavaScript para mostrar la alerta
 window.onload = function() {
