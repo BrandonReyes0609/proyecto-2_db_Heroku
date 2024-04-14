@@ -1,6 +1,0 @@
-RewriteEngine On
-# Si la solicitud es para un archivo real (como una imagen o un archivo .js), no hacer nada
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-# Reenviar todas las solicitudes a routes.php
-RewriteRule ^ routes.php [QSA,L]
