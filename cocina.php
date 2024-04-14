@@ -17,19 +17,27 @@ if (!isset($_SESSION['nombre_usuario'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pantalla Cocina</title>
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/estilos.css">
 </head>
 <body>
     
 <nav class="navbar navbar-expand-sm navbar-light bg-light">
-  <?php include 'includes/navbar.php'; ?>
+    <?php include 'includes/navbar.php'; ?>
 </nav>
-    <div id="pedidos-pendientes">
-        <!-- Aquí se mostrarán los pedidos pendientes en orden FIFO -->
-    </div>
 
-    <script>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col">
+            <h2>Pedidos Pendientes</h2>
+            <div id="pedidos-pendientes" class="mt-3">
+                <!-- Aquí se mostrarán los pedidos pendientes en orden FIFO -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
     function cargarPedidos() {
         fetch('app/cocina/gPedidosPendientes.php')
             .then(response => response.json())
@@ -44,13 +52,15 @@ if (!isset($_SESSION['nombre_usuario'])) {
 
                 data.pedidos.forEach(pedido => {
                     const pedidoDiv = document.createElement('div');
-                    pedidoDiv.classList.add('pedido');
+                    pedidoDiv.classList.add('card', 'mb-3');
                     pedidoDiv.innerHTML = `
-                        <p>Hora de pedido: ${pedido.hora_pedido}</p>
-                        <p>Cuenta ID: ${pedido.cuenta_id}</p>
-                        <p>Plato: ${pedido.plato_nombre}</p>
-                        <p>Cantidad: ${pedido.cantidad}</p>
-                        <button onclick="marcarComoCocinado(${pedido.cuenta_id}, ${pedido.item_id})">Marcar como Cocinado</button>
+                        <div class="card-body">
+                            <p class="card-text">Hora de pedido: ${pedido.hora_pedido}</p>
+                            <p class="card-text">Cuenta ID: ${pedido.cuenta_id}</p>
+                            <p class="card-text">Plato: ${pedido.plato_nombre}</p>
+                            <p class="card-text">Cantidad: ${pedido.cantidad}</p>
+                            <button onclick="marcarComoCocinado(${pedido.cuenta_id}, ${pedido.item_id})" class="btn btn-primary">Marcar como Cocinado</button>
+                        </div>
                     `;
                     container.appendChild(pedidoDiv);
                 });
