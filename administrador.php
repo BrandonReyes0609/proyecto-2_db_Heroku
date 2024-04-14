@@ -16,6 +16,10 @@
     </style>
 </head>
 <body>
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+  <?php include 'includes/navbar.php'; ?>
+</nav>
+
     <div class="container">
         <h1 class="mb-4">Reportes del Restaurante</h1>
         <form method="post" class="mb-4">
