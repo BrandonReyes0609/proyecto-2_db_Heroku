@@ -16,7 +16,6 @@
       $userAlert = $_SESSION['user_alert'];
       unset($_SESSION['user_alert']); // Limpiar esa variable de sesión después de usarla
   }
-      require 'consulta_cuentas.php';  // Asumiendo que este archivo tiene la conexión y la consulta
 
   ?>
 
