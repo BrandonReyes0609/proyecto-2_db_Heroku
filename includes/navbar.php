@@ -21,7 +21,7 @@
           <a class="nav-link" href="Agregar_Items_Cuenta.php">Items Cuenta</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="Pantalla_cocina.php">Pantalla Cocina</a>
+          <a class="nav-link" href="cocina.php">Pantalla Cocina</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="administrador.php"> Reportes Administrador</a>
@@ -38,7 +38,7 @@
       <?php elseif ($_SESSION['rol'] == 'cocinero'): ?>
         <!-- Mostrar para cocinero -->
         <li class="nav-item">
-          <a class="nav-link" href="Pantalla_cocina.php">Pantalla Cocina</a>
+          <a class="nav-link" href="cocina.php">Pantalla Cocina</a>
         </li>
         <!-- Agregar Pantalla de bar -->
       <?php endif; ?>
