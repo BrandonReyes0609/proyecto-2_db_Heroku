@@ -10,58 +10,50 @@ if (!isset($_SESSION['nombre_usuario'])) {
 }
 
 // Almacenar mensaje de alerta en una variable y limpiar la sesión
-$userAlert = "";
 if (isset($_SESSION['user_alert'])) {
     $userAlert = $_SESSION['user_alert'];
     unset($_SESSION['user_alert']); // Limpiar esa variable de sesión después de usarla
+} else {
+    $userAlert = '';
 }
-
-
 
 if (isset($_POST['Abrir_Cuenta'])) {
-  $tipo_area1 = $_POST['tipo_zona']; //tipo de área a asignar
-  $num_personas = $_POST['num_personas']; // número de personas
-  $unir_mesas = $_POST['unir_mesas']; // check de unir mesas
-  $numero_mesa = $_POST['numero_mesa']; // número de mesa
+    $tipo_area1 = $_POST['tipo_zona']; //tipo de área a asignar
+    $num_personas = $_POST['num_personas']; // número de personas
+    $unir_mesas = isset($_POST['unir_mesas']) ? 'true' : 'false'; // check de unir mesas
+    $numero_mesa = $_POST['numero_mesa']; // número de mesa
 
-  // Conexión con PDO
-  $dsn = "pgsql:host=your_host;port=5432;dbname=your_dbname;user=your_user;password=your_password";
-  try {
-      $conn = new PDO($dsn);
-      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    try {
+        // Preparar la consulta para insertar la mesa
+        $query_mesas = "INSERT INTO mesas (mesa_id, area_id, capacidad, movilidad) VALUES (:numero_mesa, :tipo_area1, :num_personas, :movilidad)";
+        $stmt1 = $conn->prepare($query_mesas);
+        $stmt1->bindParam(':numero_mesa', $numero_mesa);
+        $stmt1->bindParam(':tipo_area1', $tipo_area1);
+        $stmt1->bindParam(':num_personas', $num_personas);
+        $stmt1->bindParam(':movilidad', $unir_mesas);
 
-      // Preparar la consulta para insertar la mesa
-      $query_mesas = "INSERT INTO mesas (mesa_id, area_id, capacidad, movilidad) VALUES (:numero_mesa, :tipo_area1, :num_personas, false)";
-      $stmt1 = $conn->prepare($query_mesas);
-      $stmt1->bindParam(':numero_mesa', $numero_mesa);
-      $stmt1->bindParam(':tipo_area1', $tipo_area1);
-      $stmt1->bindParam(':num_personas', $num_personas);
+        // Ejecutar la consulta para las mesas
+        $stmt1->execute();
 
-      // Ejecutar la consulta para las mesas
-      $stmt1->execute();
+        // Preparar la consulta para insertar la cuenta
+        $query_cuentas = "INSERT INTO cuentas (mesa_id, fecha_apertura) VALUES (:numero_mesa, CURRENT_TIMESTAMP)";
+        $stmt2 = $conn->prepare($query_cuentas);
+        $stmt2->bindParam(':numero_mesa', $numero_mesa);
 
-      // Preparar la consulta para insertar la cuenta
-      $query_cuentas = "INSERT INTO cuentas (mesa_id, fecha_apertura, fecha_cierre, total) VALUES (:numero_mesa, NOW(), null, null)";
-      $stmt2 = $conn->prepare($query_cuentas);
-      $stmt2->bindParam(':numero_mesa', $numero_mesa);
+        // Ejecutar la consulta para las cuentas
+        $stmt2->execute();
 
-      // Ejecutar la consulta para las cuentas
-      $stmt2->execute();
-
-      if ($stmt1->rowCount() > 0 && $stmt2->rowCount() > 0) {
-          ?>
-          <h3>Se enviaron los datos correctamente</h3>
-          <?php
-      } else {
-          ?>
-          <h3>Error al guardar los datos</h3>
-          <?php
-      }
-  } catch (PDOException $e) {
-      die("Error en la conexión o en las consultas: " . $e->getMessage());
-  }
+        if ($stmt1->rowCount() > 0 && $stmt2->rowCount() > 0) {
+            $_SESSION['user_alert'] = "Se enviaron los datos correctamente";
+        } else {
+            $_SESSION['user_alert'] = "Error al guardar los datos";
+        }
+    } catch (PDOException $e) {
+        $_SESSION['user_alert'] = "Error en la conexión o en las consultas: " . $e->getMessage();
+    }
+    header("Location: Crear_cuenta.php");
+    exit;
 }
-
 ?>
 
 
@@ -177,6 +169,9 @@ if (isset($_POST['Abrir_Cuenta'])) {
         }
       ?>
     </select>
+
+    
+    <p><?php echo $userAlert; ?></p>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
