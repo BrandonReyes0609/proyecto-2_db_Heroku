@@ -30,7 +30,7 @@ if (!isset($_SESSION['nombre_usuario'])) {
 
     <script>
     function cargarPedidos() {
-        fetch('app/cocina/get_pedidos_pendientes.php')
+        fetch('app/cocina/gPedidosPendientes.php')
             .then(response => response.json())
             .then(data => {
                 if (data.error) {
