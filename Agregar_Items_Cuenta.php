@@ -9,45 +9,19 @@ if (!isset($_SESSION['nombre_usuario'])) {
     exit;
 }
 
-// Almacenar mensaje de alerta en una variable y limpiar la sesión
-$userAlert = "";
-if (isset($_SESSION['user_alert'])) {
-    $userAlert = $_SESSION['user_alert'];
-    unset($_SESSION['user_alert']); // Limpiar esa variable de sesión después de usarla
-}
+$host = "cb4l59cdg4fg1k.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com";
+$database = "dceql5bo9j3plb";
+$user = "u1e25j4kkmlge1";
+$port = "5432";
+$password = "p4ac621d657dad701bc6ed9505ad96894fe1a390fd1e05ef41b37334c60753c5b";
 
-// Verificación de que los datos POST existen
-if (isset($_POST['tipo_cuenta'], $_POST['tipo_plato'], $_POST['tipo_bebida'], $_POST['num_platos'], $_POST['num_bebida'])) {
-    $cuentaId = $_POST['tipo_cuenta'];
-    $platoId = $_POST['tipo_plato'];
-    $bebidaId = $_POST['tipo_bebida'];
-    $cantidadPlatos = $_POST['num_platos'];
-    $cantidadBebidas = $_POST['num_bebida'];
+// Crear la cadena de conexión
+$dsn = "host=$host port=$port dbname=$database user=$user password=$password";
 
-    try {
-        // Insertar ítem de plato a la cuenta
-        $stmt = $conn->prepare("INSERT INTO items_cuenta (cuenta_id, item_id, cantidad) VALUES (?, ?, ?)");
-        $stmt->execute([$cuentaId, $platoId, $cantidadPlatos]);
+// Establecer conexión
+global $conn = pg_connect($dsn);
 
-        // Insertar ítem de bebida a la cuenta
-        $stmt = $conn->prepare("INSERT INTO items_cuenta (cuenta_id, item_id, cantidad) VALUES (?, ?, ?)");
-        $stmt->execute([$cuentaId, $bebidaId, $cantidadBebidas]);
 
-        // Establecer mensaje de éxito
-        $_SESSION['user_alert'] = "Ítems agregados correctamente a la cuenta.";
-    } catch (PDOException $e) {
-        // Manejar error
-        $_SESSION['error'] = "Error al agregar ítems: " . $e->getMessage();
-        header("Location: error.php"); // Redireccionar a una página de error
-        exit;
-    }
-} else {
-    $_SESSION['error'] = "Todos los campos son necesarios.";
-    header("Location: Agregar_Items_Cuenta.php"); // Redireccionar de nuevo al formulario
-    exit;
-}
-
-header("Location: Agregar_Items_Cuenta.php"); // Redireccionar si todo fue exitoso
 ?>
 
 
@@ -97,6 +71,14 @@ header("Location: Agregar_Items_Cuenta.php"); // Redireccionar si todo fue exito
     <form action="#.php">
     <label for="lang">Selecciones la cuenta:</label>
         <select name="tipo_cuenta" id="tipo_cuenta">
+            <?php
+              $quey_cuentas = "select * from cuentas";
+              $consulta_cuentas = pg_query(global $conn, $quey_cuentas);
+              while($obj=pg_fetch_object($consulta_cuentas)){ ?>
+                <option value="<?php echo $obj->cuenta_id ?>"><?php echo $obj->nombre;?></option>
+                <?php
+              }
+            ?>
             <option value="cuenta1">Cuenta 1</option>
             <option value="cuenta2">Cuenta 2</option>
             <option value="cuenta3">Cuenta 3</option>
