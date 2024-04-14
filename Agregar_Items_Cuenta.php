@@ -72,12 +72,7 @@
         </select>
 
           <label for="tipo_plato">Platos:</label>
-          <select name="tipo_plato" id="tipo_plato">
-            <?php
-              while($obj = pg_fetch_object($consulta1)){?>
-                <option> value="<?php $obj->plato_id ?>"><?php echo($obj->nombre);?></option> 
-            <?php}?>
-          </select>
+
           <input type="number" id="num_platos" name="num_platos" min="1" max="100" />
 
           <label for="tipo_bebida">Bebidas:</label>
