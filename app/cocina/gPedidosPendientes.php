@@ -1,6 +1,7 @@
 <?php
 // get_pedidos_pendientes.php
 header('Content-Type: application/json');
+include '../../includes/conexion.php'; // Asume que este archivo contiene los datos de conexión
 
 $conexion = new mysqli("localhost", "usuario", "contraseña", "basededatos");
 if ($conexion->connect_error) {
