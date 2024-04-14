@@ -10,8 +10,8 @@ $tipo_bbeida = $_REQUEST['tipo_bbeida'];
 $num_bebida = $_REQUEST['num_bebida'];
 
 // Prepara las consultas SQL para platos y bebidas
-$query_platos = "INSERT INTO mesas (cuenta_id, item_id, cantidad, fecha_hora, cocinado) VALUES ($1, $2, $3, NOW(), false)";
-$query_bebidas = "INSERT INTO mesas (cuenta_id, item_id, cantidad, fecha_hora, cocinado) VALUES ($1, $2, $3, NOW(), false)";
+$query_platos = "INSERT INTO items_cuenta (cuenta_id, item_id, cantidad, fecha_hora, cocinado) VALUES ($1, $2, $3, NOW(), false)";
+$query_bebidas = "INSERT INTO items_cuenta (cuenta_id, item_id, cantidad, fecha_hora, cocinado) VALUES ($1, $2, $3, NOW(), true)";
 
 // Ejecuta la primera consulta
 $resultado1 = pg_query_params($conn, $query_platos, array($tipo_cuenta, $tipo_plato, $num_platos));
