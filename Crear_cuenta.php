@@ -113,7 +113,7 @@ echo($_POST['num_personas']);
     // Assuming you have already established a PDO connection to your PostgreSQL database with $pdo
 
     // Fetching the POST variable and filtering it for security
-    $tipo_area = filter_input(INPUT_POST, 'tipo_zona', FILTER_SANITIZE_NUMBER_INT);
+    $tipo_area = $_POST['tipo_zona'];//filter_input(INPUT_POST, 'tipo_zona', FILTER_SANITIZE_NUMBER_INT);
 
     // Prepare the SQL statement with a placeholder for the variable
     $query = $pdo->prepare("SELECT DISTINCT * FROM meseros WHERE area_id = :tipo_area");
