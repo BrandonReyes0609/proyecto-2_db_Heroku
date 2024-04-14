@@ -16,6 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nombre_usuario']) && i
         $stmt->execute();
         $_SESSION['user_alert'] = "Usuario registrado correctamente!";
         $_SESSION['nombre_usuario'] = $nombre_usuario;
+        $_SESSION['rol'] = $rol; // Guardar el rol en la sesión al registrarse
         header("Location: ../../home.php");
         exit;
     } catch (PDOException $e) {
