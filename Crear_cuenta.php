@@ -118,7 +118,51 @@ if (isset($_SESSION['user_alert'])) {
       <br>
       <input type="submit" value="Abrir Cuenta">  
     </form>
+    <?php
+      if (isset($_POST['Abrir_Cuenta'])) {
+          $tipo_area1 = $_POST['tipo_zona']; //tipo de área a asignar
+          $num_personas = $_POST['num_personas']; // número de personas
+          $unir_mesas = $_POST['unir_mesas']; // check de unir mesas
+          $numero_mesa = $_POST['numero_mesa']; // número de mesa
 
+          // Conexión con PDO
+          $dsn = "pgsql:host=your_host;port=5432;dbname=your_dbname;user=your_user;password=your_password";
+          try {
+              $conn = new PDO($dsn);
+              $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+              // Preparar la consulta para insertar la mesa
+              $query_mesas = "INSERT INTO mesas (mesa_id, area_id, capacidad, movilidad) VALUES (:numero_mesa, :tipo_area1, :num_personas, false)";
+              $stmt1 = $conn->prepare($query_mesas);
+              $stmt1->bindParam(':numero_mesa', $numero_mesa);
+              $stmt1->bindParam(':tipo_area1', $tipo_area1);
+              $stmt1->bindParam(':num_personas', $num_personas);
+
+              // Ejecutar la consulta para las mesas
+              $stmt1->execute();
+
+              // Preparar la consulta para insertar la cuenta
+              $query_cuentas = "INSERT INTO cuentas (mesa_id, fecha_apertura, fecha_cierre, total) VALUES (:numero_mesa, NOW(), null, null)";
+              $stmt2 = $conn->prepare($query_cuentas);
+              $stmt2->bindParam(':numero_mesa', $numero_mesa);
+
+              // Ejecutar la consulta para las cuentas
+              $stmt2->execute();
+
+              if ($stmt1->rowCount() > 0 && $stmt2->rowCount() > 0) {
+                  ?>
+                  <h3>Se enviaron los datos correctamente</h3>
+                  <?php
+              } else {
+                  ?>
+                  <h3>Error al guardar los datos</h3>
+                  <?php
+              }
+          } catch (PDOException $e) {
+              die("Error en la conexión o en las consultas: " . $e->getMessage());
+          }
+      }
+    ?>
     <h2>Asignar mesero</h2>
     <select>
       <?php
