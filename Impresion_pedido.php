@@ -55,14 +55,7 @@
           <br>
       </form>
 
-      <span">
-          <?php
-              while($obj = pg_fetch_object($consulta_pedidos)){?>
-                <?php echo($obj->platos.nombre);?>
-              <?php
-              }
-            ?>
-     </span> 
+
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
