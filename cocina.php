@@ -95,7 +95,7 @@ if (!isset($_SESSION['nombre_usuario'])) {
     });
 
     // Considera remover el setInterval o ajustarlo para que no sobrecargue el servidor
-    // setInterval(cargarPedidos, 1000);
+    setInterval(cargarPedidos, 1000);
 </script>
 
 </body>
