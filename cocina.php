@@ -1,3 +1,16 @@
+<?php
+session_start(); // Iniciar o continuar la sesión
+
+require 'includes/conexion.php'; // Incluir el script de conexión desde la carpeta includes
+
+// Verificar si el usuario está autenticado
+if (!isset($_SESSION['nombre_usuario'])) {
+    header("Location: index.php");
+    exit;
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
