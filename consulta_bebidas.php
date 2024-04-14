@@ -9,8 +9,7 @@
     $dsn = "host=$host port=$port dbname=$database user=$user password=$password";
     
     // Establecer conexión
-    $conn = pg_connect($dsn);
-    $query="SELECT * FROM platos WHERE tipo=true";
+    $conn = "SELECT * FROM platos WHERE tipo=true";
     $consulta_bebidas = pg_query($conn,$query);
     
 ?>
