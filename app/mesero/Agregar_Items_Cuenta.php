@@ -13,6 +13,33 @@ if (isset($_SESSION['user_alert'])) {
     $userAlert = $_SESSION['user_alert'];
     unset($_SESSION['user_alert']); // Limpiar esa variable de sesión después de usarla
 }
+
+
+$cuentaId = $_POST['tipo_cuenta'];
+$platoId = $_POST['tipo_plato'];
+$bebidaId = $_POST['tipo_bebida'];
+$cantidadPlatos = $_POST['num_platos'];
+$cantidadBebidas = $_POST['num_bebida'];
+
+try {
+    // Insertar ítem de plato a la cuenta
+    $stmt = $conn->prepare("INSERT INTO items_cuenta (cuenta_id, item_id, cantidad) VALUES (?, ?, ?)");
+    $stmt->execute([$cuentaId, $platoId, $cantidadPlatos]);
+
+    // Insertar ítem de bebida a la cuenta
+    $stmt = $conn->prepare("INSERT INTO items_cuenta (cuenta_id, item_id, cantidad) VALUES (?, ?, ?)");
+    $stmt->execute([$cuentaId, $bebidaId, $cantidadBebidas]);
+
+    // Establecer mensaje de éxito
+    $_SESSION['user_alert'] = "Ítems agregados correctamente a la cuenta.";
+} catch (PDOException $e) {
+    // Manejar error
+    $_SESSION['error'] = "Error al agregar ítems: " . $e->getMessage();
+}
+
+header("Location: Agregar_Items_Cuenta.php");
+
+
 ?>
 
 <!DOCTYPE html>
