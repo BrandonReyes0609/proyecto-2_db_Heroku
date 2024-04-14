@@ -9,23 +9,6 @@ if (!isset($_SESSION['nombre_usuario'])) {
     exit;
 }
 
-// Detalles de la base de datos
-$host = "cb4l59cdg4fg1k.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com";
-$database = "dceql5bo9j3plb";
-$user = "u1e25j4kkmlge1";
-$port = "5432";
-$password = "p4ac621d657dad701bc6ed9505ad96894fe1a390fd1e05ef41b37334c60753c5b";
-
-// Crear la cadena de conexión
-$dsn = "host=$host port=$port dbname=$database user=$user password=$password";
-
-// Establecer conexión
-$conn = pg_connect($dsn);
-if (!$conn) {
-    error_log('Error de conexión: ' . pg_last_error());
-    die("Error de conexión con la base de datos");
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -74,18 +57,6 @@ if (!$conn) {
     <form action="#.php">
     <label for="lang">Selecciones la cuenta:</label>
         <select name="tipo_cuenta" id="tipo_cuenta">
-            <?php
-              $quey_cuentas = "SELECT * FROM cuentas";
-              $consulta_cuentas = pg_query($conn, $quey_cuentas);
-              if (!$consulta_cuentas) {
-                  error_log('Error en consulta SQL: ' . pg_last_error());
-                  echo '<option>Error al cargar cuentas</option>';
-              } else {
-                  while ($obj = pg_fetch_object($consulta_cuentas)) {
-                      echo '<option value="' . htmlspecialchars($obj->cuenta_id) . '">' . htmlspecialchars($obj->nombre) . '</option>';
-                  }
-              }
-            ?>
         </select>
 
         <label for="lang">Platos:</label>
