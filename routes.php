@@ -10,13 +10,13 @@ $action = $uri[1] ?? null; // Asumiendo que la acción está en el primer segmen
 
 switch ($action) {
     case 'login':
-        require 'login.php';
+        require 'app/login.php';
         break;
     case 'logout':
-        require 'logout.php';
+        require 'app/logout.php';
         break;
     case 'get_pedidos_pendientes':
-        require 'get_pedidos_pendientes.php';
+        require 'app/get_pedidos_pendientes.php';
         break;
     case 'marcar_como_cocinado':
         // Solo permitir este caso si el método es POST
