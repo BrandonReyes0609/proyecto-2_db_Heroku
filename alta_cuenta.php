@@ -2,10 +2,7 @@
 $dsn = "host=$host port=$port dbname=$database user=$user password=$password";
 $conn = pg_connect($dsn);
 
-if (!$conn) {
-    echo "<h3>No se pudo conectar a la base de datos</h3>";
-    exit;
-}
+
 
 $tipo_area1 = $_REQUEST['tipo_zona'];
 $num_personas = $_REQUEST['num_personas'];
