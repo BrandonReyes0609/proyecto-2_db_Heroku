@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="assets/css/estilos.css">
 </head>
 <body>
+    
     <?php session_start(); // Importante iniciar la sesión al principio de la página ?>
     <div class="login-container" id="login-form">
         <h2>Iniciar Sesión</h2>
