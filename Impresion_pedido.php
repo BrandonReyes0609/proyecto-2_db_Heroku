@@ -26,7 +26,7 @@
   <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Agregar Items</title>
+      <title>Impresion Pedidos</title>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
       <link rel="stylesheet" href="assets/css/estilos.css">
   </head>
@@ -37,9 +37,9 @@
   </nav>
 
   <div class="home-container">
-      <h1>Agregar Items</h1>
+      <h1>Impresion Pedidos</h1>
 
-      <form action="Envio_item_cuenta.php">
+      <form action="consulta/Envio_item_cuenta.php">
       <label for="tipo_cuenta">Seleccione la cuenta:</label>
         <select name="tipo_cuenta" id="tipo_cuenta">
           <?php
@@ -54,6 +54,15 @@
           <input type="submit" value="Confirma_Comida">
           <br>
       </form>
+
+      <span">
+          <?php
+              while($obj = pg_fetch_object($consulta_pedidos)){?>
+                <?php echo($obj->platos.nombre);?>
+              <?php
+              }
+            ?>
+     </span> 
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
