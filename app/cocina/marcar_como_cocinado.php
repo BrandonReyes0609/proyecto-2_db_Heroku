@@ -8,7 +8,6 @@ if ($conexion->connect_error) {
     exit();
 }
 
-// Recuperar `cuenta_id` y `item_id` desde POST
 $cuenta_id = $_POST['cuenta_id'] ?? '';
 $item_id = $_POST['item_id'] ?? '';
 
@@ -17,7 +16,7 @@ if (!$cuenta_id || !$item_id) {
     exit();
 }
 
-$sql = "UPDATE pedidos SET estado = 'cocinado' WHERE cuenta_id = ? AND item_id = ?";
+$sql = "UPDATE items_cuenta SET cocinado = TRUE WHERE cuenta_id = ? AND item_id = ?";
 $stmt = $conexion->prepare($sql);
 if ($stmt) {
     $stmt->bind_param("ii", $cuenta_id, $item_id);
@@ -35,4 +34,3 @@ if ($stmt) {
 }
 
 $conexion->close();
-?>
