@@ -68,10 +68,10 @@ echo($_POST['num_personas']);
     <form action="Crear_cuenta.php" method="post">
       <label for="lang">Ingrese la zona:</label>
       <select name="tipo_zona" id="tipo_zona">
-        <option value="zona1">zona 1</option>
-        <option value="zona2">zona 2</option>
-        <option value="zona3">zona 3</option>
-        <option value="zona3">zona 4 Fumadores</option>
+        <option value="1">zona 1</option>
+        <option value="2">zona 2</option>
+        <option value="3">zona 3 Fumadores</option>
+        <option value="4">zona 4 </option>
 
       </select>
 
