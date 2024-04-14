@@ -110,23 +110,122 @@
         }
 
         function horarioMasPedidos($fecha_inicio, $fecha_fin, $conn) {
-            
+            $sql = "SELECT EXTRACT(HOUR FROM fecha_hora) AS hora, COUNT(*) AS total_pedidos
+                    FROM items_cuenta
+                    WHERE fecha_hora BETWEEN ? AND ?
+                    GROUP BY hora
+                    ORDER BY total_pedidos DESC
+                    LIMIT 1";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("ss", $fecha_inicio, $fecha_fin);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            echo "<h2 class='mt-5'>Horario con Más Pedidos</h2>";
+            echo "<table class='table table-striped'>";
+            echo "<thead class='header'><tr><th>Hora</th><th>Total Pedidos</th></tr></thead>";
+            echo "<tbody>";
+            if ($row = $result->fetch_assoc()) {
+                echo "<tr><td>{$row['hora']}</td><td>{$row['total_pedidos']}</td></tr>";
+            }
+            echo "</tbody></table>";
         }
 
         function promedioTiempoComida($fecha_inicio, $fecha_fin, $conn) {
+            $sql = "SELECT cantidad_personas, 
+                           ROUND(AVG(EXTRACT(EPOCH FROM duracion))/60) AS promedio_tiempo_minutos
+                    FROM (
+                        SELECT cuenta_id,
+                               COUNT(*) AS cantidad_personas,
+                               MAX(fecha_cierre - fecha_apertura) AS duracion
+                        FROM cuentas
+                        WHERE fecha_apertura BETWEEN ? AND ?
+                        GROUP BY cuenta_id
+                    ) AS comidas_por_cuenta
+                    GROUP BY cantidad_personas
+                    ORDER BY cantidad_personas";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("ss", $fecha_inicio, $fecha_fin);
+            $stmt->execute();
+            $result = $stmt->get_result();
 
+            echo "<h2 class='mt-5'>Promedio de Tiempo de Comida por Cantidad de Personas</h2>";
+            echo "<table class='table table-striped'>";
+            echo "<thead class='header'><tr><th>Cantidad de Personas</th><th>Promedio de Tiempo (Minutos)</th></tr></thead>";
+            echo "<tbody>";
+            while ($row = $result->fetch_assoc()) {
+                echo "<tr><td>{$row['cantidad_personas']}</td><td>{$row['promedio_tiempo_minutos']}</td></tr>";
+            }
+            echo "</tbody></table>";
         }
 
         function quejasPorPersona($fecha_inicio, $fecha_fin, $conn) {
+            $sql = "SELECT m.nombre_mesero AS nombre_mesero, COUNT(*) AS total_quejas
+                    FROM quejas q
+                    JOIN meseros m ON q.mesero_id = m.mesero_id
+                    WHERE q.fecha BETWEEN ? AND ?
+                    GROUP BY m.nombre_mesero
+                    ORDER BY total_quejas DESC";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("ss", $fecha_inicio, $fecha_fin);
+            $stmt->execute();
+            $result = $stmt->get_result();
 
+            echo "<h2 class='mt-5'>Quejas por Persona</h2>";
+            echo "<table class='table table-striped'>";
+            echo "<thead class='header'><tr><th>Mesero</th><th>Total de Quejas</th></tr></thead>";
+            echo "<tbody>";
+            while ($row = $result->fetch_assoc()) {
+                echo "<tr><td>{$row['nombre_mesero']}</td><td>{$row['total_quejas']}</td></tr>";
+            }
+            echo "</tbody></table>";
         }
 
         function quejasPorPlato($fecha_inicio, $fecha_fin, $conn) {
+            $sql = "SELECT pl.nombre AS nombre_plato, COUNT(*) AS total_quejas
+                    FROM quejas q
+                    JOIN platos pl ON q.plato_id = pl.plato_id 
+                    WHERE q.fecha BETWEEN ? AND ?
+                    GROUP BY pl.nombre
+                    ORDER BY total_quejas DESC";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("ss", $fecha_inicio, $fecha_fin);
+            $stmt->execute();
+            $result = $stmt->get_result();
 
+            echo "<h2 class='mt-5'>Quejas por Plato</h2>";
+            echo "<table class='table table-striped'>";
+            echo "<thead class='header'><tr><th>Plato</th><th>Total de Quejas</th></tr></thead>";
+            echo "<tbody>";
+            while ($row = $result->fetch_assoc()) {
+                echo "<tr><td>{$row['nombre_plato']}</td><td>{$row['total_quejas']}</td></tr>";
+            }
+            echo "</tbody></table>";
         }
 
         function eficienciaMeseros($conn) {
+            $sql = "SELECT m.nombre_mesero AS nombre_mesero,
+                           EXTRACT(MONTH FROM em.fecha_encuesta) AS mes,
+                           COUNT(*) AS total_encuestas,
+                           AVG(em.puntuacion_amabilidad) AS promedio_amabilidad,
+                           AVG(em.puntuacion_exactitud) AS promedio_exactitud
+                    FROM encuesta_mesero em
+                    JOIN meseros m ON em.mesero_id = m.mesero_id
+                    WHERE em.fecha_encuesta >= CURRENT_DATE - INTERVAL '6 months'
+                    GROUP BY m.nombre_mesero, EXTRACT(MONTH FROM em.fecha_encuesta)
+                    ORDER BY nombre_mesero, mes";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->get_result();
 
+            echo "<h2 class='mt-5'>Eficiencia de Meseros (Últimos 6 Meses)</h2>";
+            echo "<table class='table table-striped'>";
+            echo "<thead class='header'><tr><th>Mesero</th><th>Mes</th><th>Total Encuestas</th><th>Promedio Amabilidad</th><th>Promedio Exactitud</th></tr></thead>";
+            echo "<tbody>";
+            while ($row = $result->fetch_assoc()) {
+                echo "<tr><td>{$row['nombre_mesero']}</td><td>{$row['mes']}</td><td>{$row['total_encuestas']}</td><td>".round($row['promedio_amabilidad'], 2)."</td><td>".round($row['promedio_exactitud'], 2)."</td></tr>";
+            }
+            echo "</tbody></table>";
         }
         ?>
     </div>
