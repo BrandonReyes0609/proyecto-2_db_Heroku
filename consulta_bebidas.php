@@ -11,6 +11,6 @@
     // Establecer conexión
     $conn = pg_connect($dsn);
     $query="SELECT * FROM platos WHERE tipo=true";
-    $consulta_platos = pg_query($conn,$query);
+    $consulta_bebidas= pg_query($conn,$query);
     
 ?>
