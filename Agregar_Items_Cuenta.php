@@ -4,6 +4,8 @@
   require 'includes/conexion.php'; // Incluir el script de conexión desde la carpeta includes
   require 'consulta_cunetas.php';  // Asumiendo que este archivo tiene la conexión y la consulta
   require 'consulta_platos.php';  
+  require 'consulta_platos.php';  
+
 
   // Verificar si el usuario está autenticado
   if (!isset($_SESSION['nombre_usuario'])) {
@@ -84,13 +86,16 @@
             ?>
           </select>
           <input type="number" id="num_platos" name="num_platos" min="1" max="100" />
-
+          
           <label for="tipo_bebida">Bebidas:</label>
-          <select name="tipo_bebida" id="tipo_bebida">
-              <option value="bebida1">Bebida 1</option>
-              <option value="bebida2">Bebida 2</option>
-              <option value="bebida3">Bebida 3</option>
-          </select>
+          <select name="tipo_bbeida" id="tipo_bebida">
+            <?php
+                while($obj = pg_fetch_object($consulta_bebidas)){?>
+                  <option value="<?php echo ($obj->plato_id) ?>"><?php echo($obj->nombre);?></option>
+                <?php
+                }
+              ?>
+            </select>
           <input type="number" id="num_bebida" name="num_bebida" min="1" max="100" />
 
           <br>
