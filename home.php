@@ -15,47 +15,33 @@ if (!isset($_SESSION['nombre_usuario'])) {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Items</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/estilos.css">
+    <title>Inicio</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { padding: 20px; }
+        .form-group { margin-bottom: 15px; }
+        .table { margin-top: 20px; }
+        .header { background-color: #007bff; color: white; }
+        .wide-btn {
+            width: 100%;             /* Makes buttons take the full width of the container */
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-
 <nav class="navbar navbar-expand-sm navbar-light bg-light">
   <?php include 'includes/navbar.php'; ?>
 </nav>
 
-<div class="home-container">
-    <h1>Agregar Items</h1>
-    <p>Estás autenticado como <?php echo htmlspecialchars($_SESSION['nombre_usuario']); ?></p>
+    <div class="container">
+        <h1 class="mb-4">Inicio</h1>
+        <form method="post" class="mb-4">
+            <button type="submit" name="reporte" value="ImpresionPedido" class="btn btn-info wide-btn">Impresión Pedido</button>
+            <button type="submit" name="reporte" value="CerrarCuenta" class="btn btn-success wide-btn">Cerrar una cuenta</button>
+            <button type="submit" name="reporte" value="ImpresionFactura" class="btn btn-warning wide-btn">Impresión de factura</button>
+        </form>
+    </div>
 
-    <form action="#.php">
-    <label for="lang">Selecciones la cuenta:</label>
-        <select name="tipo_cuenta" id="tipo_cuenta">
-        </select>
-
-        <label for="lang">Platos:</label>
-        <select name="tipo_plato" id="tipo_plato">
-            <option value="plato1">Plato 1</option>
-            <option value="plato2">Plato 2</option>
-            <option value="plato3">Plato 3</option>
-          </select>
-        <input type="number" id="num_platos" name="num_platos" min="1" max="100" placeholder="Cantidad de platos" />
-
-        <label for="lang">Bebidas:</label>
-        <select name="tipo_bebida" id="tipo_bebida">
-            <option value="bebida1">Bebida 1</option>
-            <option value="bebida2">Bebida 2</option>
-            <option value="bebida3">bebida 3</option>
-        </select>
-        <input type="number" id="num_bebida" name="num_bebida" min="1" max="100" placeholder="Cantidad de bebidas" />
-
-        <br>
-        <input type="submit" value="Confirma Comida">
-        <br>
-    </form>
-</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
