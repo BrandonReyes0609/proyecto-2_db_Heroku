@@ -19,7 +19,8 @@ $password = "p4ac621d657dad701bc6ed9505ad96894fe1a390fd1e05ef41b37334c60753c5b";
 $dsn = "host=$host port=$port dbname=$database user=$user password=$password";
 
 // Establecer conexión
-global $conn = pg_connect($dsn);
+global $conn 
+$conn = pg_connect($dsn);
 
 
 ?>
@@ -69,20 +70,18 @@ global $conn = pg_connect($dsn);
     <p><a href="logout.php">Cerrar Sesión</a></p>
 
     <form action="#.php">
-    <label for="lang">Selecciones la cuenta:</label>
-        <select name="tipo_cuenta" id="tipo_cuenta">
-            <?php
-              $quey_cuentas = "select * from cuentas";
-              $consulta_cuentas = pg_query(global $conn, $quey_cuentas);
-              while($obj=pg_fetch_object($consulta_cuentas)){ ?>
-                <option value="<?php echo $obj->cuenta_id ?>"><?php echo $obj->nombre;?></option>
-                <?php
-              }
-            ?>
-            <option value="cuenta1">Cuenta 1</option>
-            <option value="cuenta2">Cuenta 2</option>
-            <option value="cuenta3">Cuenta 3</option>
-        </select>
+    <label for="tipo_cuenta">Seleccione la cuenta:</label>
+    <select name="tipo_cuenta" id="tipo_cuenta">
+        <?php
+          $query_cuentas = "SELECT * FROM cuentas";
+          $consulta_cuentas = pg_query($conn, $query_cuentas);
+          while ($obj = pg_fetch_object($consulta_cuentas)) {
+        ?>
+            <option value="<?php echo $obj->cuenta_id; ?>"><?php echo $obj->cuenta_id; ?></option>
+        <?php
+          }
+        ?>
+    </select>
 
         <label for="lang">Platos:</label>
         <select name="tipo_plato" id="tipo_plato">
