@@ -10,16 +10,15 @@ $tipo_bbeida = $_REQUEST['tipo_bbeida'];
 $num_bebida = $_REQUEST['num_bebida'];
 
 // Usamos la conexión de la base de datos que se creó en conexion.php
-$query_mesas = "INSERT INTO mesas (cuenta_id, item_id, cantidad, fecha_hora, cocinado) VALUES ($1, $2, $3, NOW(), false)";
-$resultado1 = pg_query_params($conn, $query_mesas, array($tipo_cuenta, $tipo_plato, $num_platos));
+$query_platos = "INSERT INTO mesas (cuenta_id, item_id, cantidad, fecha_hora, cocinado) VALUES ($1, $2, $3, NOW(), false)";
+$resultado1 = pg_query_params($conn, $query_platos, array($tipo_cuenta, $tipo_plato, $num_platos));
 
 // Usamos la conexión de la base de datos que se creó en conexion.php
-$query_mesas = "INSERT INTO mesas (cuenta_id, item_id, cantidad, fecha_hora, cocinado) VALUES ($1, $2, $3, NOW(), false)";
-$resultado1 = pg_query_params($conn, $query_mesas, array($tipo_cuenta, $tipo_bbeida, $num_bebida));
+$query_bebidas = "INSERT INTO mesas (cuenta_id, item_id, cantidad, fecha_hora, cocinado) VALUES ($1, $2, $3, NOW(), false)";
+$resultado2 = pg_query_params($conn, $query_bebidas, array($tipo_cuenta, $tipo_bbeida, $num_bebida));
 
 if ($resultado1) {
-    $query_cuentas = "INSERT INTO cuentas (mesa_id, fecha_apertura, fecha_cierre, total) VALUES ($1, NOW(), null, 0)";
-    $resultado2 = pg_query_params($conn, $query_cuentas, array($numero_mesa));
+    $resultado1 = pg_query_params($conn, $query_mesas, array($tipo_cuenta, $tipo_plato, $num_platos));
 
 } else {
     $_SESSION['user_alert'] = "Error resultado 1: " . pg_last_error($conn);
