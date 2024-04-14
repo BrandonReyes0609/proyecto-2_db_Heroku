@@ -26,7 +26,7 @@ try {
 
     // Establecer mensaje de éxito
     $_SESSION['user_alert'] = "Ítems agregados correctamente a la cuenta.";
-    header("Location: Agregar_Items_Cuenta.php");
+    header("Location: ../../Agregar_Items_Cuenta.php");
 } catch (PDOException $e) {
     // Manejar error
     $_SESSION['error'] = "Error al agregar ítems: " . $e->getMessage();
