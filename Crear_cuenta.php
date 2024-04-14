@@ -71,9 +71,9 @@ echo($_POST['num_personas']);
         <option value="zona1">zona 1</option>
         <option value="zona2">zona 2</option>
         <option value="zona3">zona 3</option>
+        <option value="zona3">zona 4 Fumadores</option>
+
       </select>
-
-
 
       <label for="lang">Ingrese la cantidad de personas:</label>
       <input type="number" id="num_personas" name="num_personas" value="" min="1" max="14">
@@ -108,6 +108,32 @@ echo($_POST['num_personas']);
 
 
     </form>
+    <h2>Asignar mesero</h2>
+    <?php 
+    // Assuming you have already established a PDO connection to your PostgreSQL database with $pdo
+
+    // Fetching the POST variable and filtering it for security
+    $tipo_area = filter_input(INPUT_POST, 'tipo_zona', FILTER_SANITIZE_NUMBER_INT);
+
+    // Prepare the SQL statement with a placeholder for the variable
+    $query = $pdo->prepare("SELECT DISTINCT * FROM meseros WHERE area_id = :tipo_area");
+
+    // Execute the query with the bound parameter
+    $query->execute([':tipo_area' => $tipo_area]);
+
+    // Fetch the results
+    while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+        $mesero_id = $row['mesero_id'];
+        $nombre_mesero = $row['nombre_mesero'];
+        ?> 
+        <option value="<?php echo htmlspecialchars($mesero_id); ?>">
+            <?php echo htmlspecialchars($nombre_mesero); ?>
+        </option>
+        <?php
+    }
+    ?>
+
+
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
