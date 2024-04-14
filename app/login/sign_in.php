@@ -1,5 +1,5 @@
 <?php
-include 'includes/conexion.php';
+include '../../includes/conexion.php';
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nombre_usuario']) && isset($_POST['password']) && isset($_POST['rol'])) {
@@ -20,12 +20,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nombre_usuario']) && i
         exit;
     } catch (PDOException $e) {
         $_SESSION['error'] = $e->getCode() == 23505 ? "El nombre de usuario ya existe." : "Error al registrar el usuario: " . $e->getMessage();
-        header("Location: index.php");
+        header("Location: ../../index.php");
         exit;
     }
 } else {
     $_SESSION['error'] = "Por favor complete todos los campos.";
-    header("Location: index.php");
+    header("Location: ../../index.php");
     exit;
 }
 ?>

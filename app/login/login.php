@@ -1,5 +1,5 @@
 <?php
-include 'includes/conexion.php';
+include '../../includes/conexion.php';
 
 session_start(); // Iniciar la sesión
 
@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nombre_usuario']) && i
     }
 } else {
     $_SESSION['error'] = "Por favor complete todos los campos.";
-    header("Location: index.php");
+    header("Location: ../../index.php");
     exit;
 }
 ?>
