@@ -15,41 +15,7 @@ if (isset($_SESSION['user_alert'])) {
     $userAlert = $_SESSION['user_alert'];
     unset($_SESSION['user_alert']); // Limpiar esa variable de sesión después de usarla
 }
-
-// Verificación de que los datos POST existen
-if (isset($_POST['tipo_cuenta'], $_POST['tipo_plato'], $_POST['tipo_bebida'], $_POST['num_platos'], $_POST['num_bebida'])) {
-    $cuentaId = $_POST['tipo_cuenta'];
-    $platoId = $_POST['tipo_plato'];
-    $bebidaId = $_POST['tipo_bebida'];
-    $cantidadPlatos = $_POST['num_platos'];
-    $cantidadBebidas = $_POST['num_bebida'];
-
-    try {
-        // Insertar ítem de plato a la cuenta
-        $stmt = $conn->prepare("INSERT INTO items_cuenta (cuenta_id, item_id, cantidad) VALUES (?, ?, ?)");
-        $stmt->execute([$cuentaId, $platoId, $cantidadPlatos]);
-
-        // Insertar ítem de bebida a la cuenta
-        $stmt = $conn->prepare("INSERT INTO items_cuenta (cuenta_id, item_id, cantidad) VALUES (?, ?, ?)");
-        $stmt->execute([$cuentaId, $bebidaId, $cantidadBebidas]);
-
-        // Establecer mensaje de éxito
-        $_SESSION['user_alert'] = "Ítems agregados correctamente a la cuenta.";
-    } catch (PDOException $e) {
-        // Manejar error
-        $_SESSION['error'] = "Error al agregar ítems: " . $e->getMessage();
-        header("Location: error.php"); // Redireccionar a una página de error
-        exit;
-    }
-} else {
-    $_SESSION['error'] = "Todos los campos son necesarios.";
-    header("Location: Agregar_Items_Cuenta.php"); // Redireccionar de nuevo al formulario
-    exit;
-}
-
-header("Location: Agregar_Items_Cuenta.php"); // Redireccionar si todo fue exitoso
 ?>
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -94,15 +60,15 @@ header("Location: Agregar_Items_Cuenta.php"); // Redireccionar si todo fue exito
     <p>Estás autenticado como <?php echo htmlspecialchars($_SESSION['nombre_usuario']); ?></p>
     <p><a href="logout.php">Cerrar Sesión</a></p>
 
-    <form action="#.php">
-    <label for="lang">Selecciones la cuenta:</label>
+    <form action="app/mesero/procesar_items.php" method="post">
+        <label for="tipo_cuenta">Selecciones la cuenta:</label>
         <select name="tipo_cuenta" id="tipo_cuenta">
             <option value="cuenta1">Cuenta 1</option>
             <option value="cuenta2">Cuenta 2</option>
             <option value="cuenta3">Cuenta 3</option>
         </select>
 
-        <label for="lang">Platos:</label>
+        <label for="tipo_plato">Platos:</label>
         <select name="tipo_plato" id="tipo_plato">
             <option value="plato1">Plato 1</option>
             <option value="plato2">Plato 2</option>
@@ -110,27 +76,23 @@ header("Location: Agregar_Items_Cuenta.php"); // Redireccionar si todo fue exito
         </select>
         <input type="number" id="num_platos" name="num_platos" min="1" max="100" />
 
-        <label for="lang">Bebidas:</label>
+        <label for="tipo_bebida">Bebidas:</label>
         <select name="tipo_bebida" id="tipo_bebida">
             <option value="bebida1">Bebida 1</option>
             <option value="bebida2">Bebida 2</option>
-            <option value="bebida3">bebida 3</option>
+            <option value="bebida3">Bebida 3</option>
         </select>
         <input type="number" id="num_bebida" name="num_bebida" min="1" max="100" />
 
-
         <br>
         <input type="submit" value="Confirma Comida">
-
-      <br>
+        <br>
     </form>
-
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="js/scripts.js"></script>
 <script>
 // JavaScript para mostrar la alerta
 window.onload = function() {
