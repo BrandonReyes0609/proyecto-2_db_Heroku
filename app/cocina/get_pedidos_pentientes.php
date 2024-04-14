@@ -1,6 +1,8 @@
 <?php
 header('Content-Type: application/json');
 
+include '../../includes/conexion.php'; // Asume que este archivo contiene los datos de conexión
+
 $conexion = new mysqli("localhost", "usuario", "contraseña", "basededatos");
 if ($conexion->connect_error) {
     echo json_encode(['error' => 'Error de conexión: ' . $conexion->connect_error]);
