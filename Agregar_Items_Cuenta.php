@@ -72,12 +72,19 @@
         </select>
 
           <label for="tipo_plato">Platos:</label>
-
+          <select name="tipo_plato" id="tipo_plato">
+              <option value="plato1">Plato 1</option>
+              <option value="plato2">Plato 2</option>
+              <option value="plato3">Plato 3</option>
+          </select>
           <input type="number" id="num_platos" name="num_platos" min="1" max="100" />
 
           <label for="tipo_bebida">Bebidas:</label>
-          <!---<select name="tipo_bebida" id="tipo_bebida">
-          </select>-->
+          <select name="tipo_bebida" id="tipo_bebida">
+              <option value="bebida1">Bebida 1</option>
+              <option value="bebida2">Bebida 2</option>
+              <option value="bebida3">Bebida 3</option>
+          </select>
           <input type="number" id="num_bebida" name="num_bebida" min="1" max="100" />
 
           <br>
