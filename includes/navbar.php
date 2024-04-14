@@ -23,6 +23,9 @@
         <li class="nav-item">
           <a class="nav-link" href="Pantalla_cocina.php">Pantalla Cocina</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="administrador.php"> Reportes Administrador</a>
+        </li>
         <!-- Agregar otros elementos que solo el administrador puede ver -->
       <?php elseif ($_SESSION['rol'] == 'mesero'): ?>
         <!-- Mostrar para mesero -->

@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="assets/css/estilos.css">
 </head>
 <body>
+    
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+  <?php include 'includes/navbar.php'; ?>
+</nav>
     <div id="pedidos-pendientes">
         <!-- Aquí se mostrarán los pedidos pendientes -->
     </div>

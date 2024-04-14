@@ -1,5 +1,6 @@
 <?php
 session_start(); // Iniciar o continuar la sesión
+echo 'Rol actual en la sesión: ' . (isset($_SESSION['rol']) ? $_SESSION['rol'] : 'No definido');
 
 require 'includes/conexion.php'; // Incluir el script de conexión desde la carpeta includes
 
