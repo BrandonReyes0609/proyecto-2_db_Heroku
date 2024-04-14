@@ -95,10 +95,9 @@
                 <td><?php echo($obj->tipo);?></td>
                 <td><?php echo($obj->total_item);?></td>
               </tr>
-
-            }
             </tbody>
-
+          <?php
+            }
           ?>
 
       </table>
