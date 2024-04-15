@@ -16,10 +16,10 @@
     // Verificar si 'tipo_cuenta' está presente en la solicitud y es numérico
     if (isset($_REQUEST['tipo_cuenta']) && is_numeric($_REQUEST['tipo_cuenta'])) {
         $tipo_cuenta = $_REQUEST['tipo_cuenta'];
-
+        echo("exito");
         // Saneamiento para evitar XSS al mostrar datos en HTML
         //echo htmlspecialchars($tipo_cuenta);
-        
+
         // Prepara las consultas SQL para platos y bebidas
         $query_cuentas = "SELECT * FROM items_cuenta WHERE cuenta_id = 8";
         //$query_platos = "SELECT cuentas.cuenta_id,cuentas.mesa_id,cuentas.fecha_apertura,cuentas.fecha_cierre,cuentas.total,items_cuenta.item_id,items_cuenta.cantidad,items_cuenta.fecha_hora,items_cuenta.cocinado,platos.plato_id,platos.nombre,platos.descripcion,platos.precio,platos.tipo,(items_cuenta.cantidad * platos.precio) AS total_item FROM cuentas INNER JOIN items_cuenta ON cuentas.cuenta_id = items_cuenta.cuenta_id INNER JOIN platos ON items_cuenta.item_id = platos.plato_id WHERE cuentas.cuenta_id = $1";
