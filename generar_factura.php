@@ -76,12 +76,11 @@
       <span>Seleccione la cuenta:</span>
       <select name="cuenta_id" id="cuenta_id"> <!-- Asegúrate de que este nombre coincida con lo que esperas en factura.php -->
         <?php
-          // Cambia 'consulta_cunetas.php' por la consulta SQL apropiada si es necesario.
-          include 'consulta_cunetas.php'; // Asumiendo que esto se conecta y realiza la consulta de cuentas cerradas.
-          while($obj = pg_fetch_object($consulta)){
-            echo '<option value="' . htmlspecialchars($obj->cuenta_id) . '">' . htmlspecialchars($obj->cuenta_id) . '</option>';
-          }
-        ?>
+            while($obj = pg_fetch_object($cnosulta)){?>
+              <option value="<?php echo ($obj->cuenta_id) ?>"><?php echo($obj->cuenta_id);?></option>
+        <?php
+            
+            }?>
       </select>
 
       <!-- Campos para ingresar datos del cliente -->
