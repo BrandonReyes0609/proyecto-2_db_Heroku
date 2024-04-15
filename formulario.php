@@ -19,11 +19,15 @@
         echo("exito");
 
         $query_comida = "SELECT items_cuenta.item_id,items_cuenta.cantidad,items_cuenta.fecha_hora,items_cuenta.cocinado,platos.plato_id,platos.nombre,platos.descripcion,platos.precio,platos.tipo,(items_cuenta.cantidad * platos.precio) AS total_item FROM cuentas INNER JOIN items_cuenta ON cuentas.cuenta_id = items_cuenta.cuenta_id INNER JOIN platos ON items_cuenta.item_id = platos.plato_id WHERE cuentas.cuenta_id = $tipo_cuenta";
+        
         $query_cuentas = "SELECT meseros.mesero_id, meseros.nombre_mesero FROM meseros JOIN mesas ON meseros.area_id = mesas.area_id JOIN cuentas ON mesas.mesa_id = cuentas.mesa_id WHERE cuentas.cuenta_id = $tipo_cuenta";
+        $query_comidas_nombre = "SELECT platos.plato_id, platos.nombre FROM platos JOIN items_cuenta ON platos.plato_id = items_cuenta.item_id WHERE items_cuenta.cuenta_id = $tipo_cuenta":
         //$resultado1 = pg_query_params($conn, $consulta_comida, array($tipo_cuenta));
 
         $consulta_meseros_zona = pg_query($conn,$query_cuentas);
         $consulta_comida = pg_query($conn,$query_comida);
+        $consulta_comida_nombre = pg_query($conn,$query_comidas_nombre);
+
 
 
     } else {
@@ -173,8 +177,8 @@
         <span>Seleccione el plato:</span>
         <select name="mesero" id="mesero">
           <?php
-            while($obj = pg_fetch_object($consulta_comida)){?>
-              <option value="<?php echo ($obj->item_id) ?>"><?php echo($obj->nombre);?></option>
+            while($obj = pg_fetch_object($consulta_comida_nombre)){?>
+              <option value="<?php echo ($obj->plato_id) ?>"><?php echo($obj->nombre);?></option>
             <?php
             
             }
