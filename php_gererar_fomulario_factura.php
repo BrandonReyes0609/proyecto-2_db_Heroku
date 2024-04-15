@@ -1,30 +1,45 @@
-
 <?php
 require('fpdf.php');
 
-// Crear instancia de la clase FPDF
+// Crear una nueva instancia de PDF
 $pdf = new FPDF();
 $pdf->AddPage();
+$pdf->SetFont('Arial', 'B', 12);
 
-// Configurar la fuente
-$pdf->SetFont('Arial', 'B', 16);
+// Agregar cabeceras para la tabla de pedidos
+$header = array('Cuenta ID', 'Mesa ID', 'Fecha Apertura', 'Fecha Cierre', 'Total', 'Item ID', 'Cantidad', 'Fecha Hora', 'Cocinado', 'Plato ID', 'Nombre', 'Descripción', 'Precio', 'Tipo', 'Total Item');
+foreach($header as $col) {
+    $pdf->Cell(24, 7, $col, 1);
+}
+$pdf->Ln();
 
-// Recibir los datos del formulario
-$cuenta_id = $_POST['tipo_cuenta'];
-$tipo_cuenta = $_POST['tipo_cuenta'];
-$nombre_cliente = $_POST['nombre_cliente'];
-$nit_cliente = $_POST['nit_cliente'];
-$direccion_cliente = $_POST['direccion_cliente'];
-$metodo_pago = $_POST['metodo_pago'];
+// Cargar los datos de la base de datos
+while ($row = pg_fetch_assoc($consulta_pedidos1)) {
+    $pdf->Cell(24, 6, $row['cuenta_id'], 1);
+    $pdf->Cell(24, 6, $row['mesa_id'], 1);
+    $pdf->Cell(24, 6, $row['fecha_apertura'], 1);
+    $pdf->Cell(24, 6, $row['fecha_cierre'], 1);
+    $pdf->Cell(24, 6, $row['total'], 1);
+    $pdf->Cell(24, 6, $row['item_id'], 1);
+    $pdf->Cell(24, 6, $row['cantidad'], 1);
+    $pdf->Cell(24, 6, $row['fecha_hora'], 1);
+    $pdf->Cell(24, 6, $row['cocinado'], 1);
+    $pdf->Cell(24, 6, $row['plato_id'], 1);
+    $pdf->Cell(24, 6, $row['nombre'], 1);
+    $pdf->Cell(24, 6, $row['descripcion'], 1);
+    $pdf->Cell(24, 6, $row['precio'], 1);
+    $pdf->Cell(24, 6, $row['tipo'], 1);
+    $pdf->Cell(24, 6, $row['total_item'], 1);
+    $pdf->Ln();
+}
 
-// Agregar los datos al PDF
-$pdf->Cell(0, 10, "Cuenta ID: $cuenta_id", 0, 1);
-$pdf->Cell(0, 10, "Tipo de Cuenta: $tipo_cuenta", 0, 1);
-$pdf->Cell(0, 10, "Nombre Cliente: $nombre_cliente", 0, 1);
-$pdf->Cell(0, 10, "NIT Cliente: $nit_cliente", 0, 1);
-$pdf->Cell(0, 10, "Direccion Cliente: $direccion_cliente", 0, 1);
-$pdf->Cell(0, 10, "Metodo de Pago: $metodo_pago", 0, 1);
+// Agregar cabecera para el total de la cuenta
+$pdf->SetFont('Arial', 'B', 14);
+$pdf->Cell(30, 10, 'Total General:', 0);
+while ($row = pg_fetch_assoc($consulta_pedidos2)) {
+    $pdf->Cell(50, 10, $row['sumatoria_total_items'], 0, 1, 'C');
+}
 
-// Guardar y enviar el PDF al navegador
-$pdf->Output('I', 'Factura.pdf');
+// Salida del PDF
+$pdf->Output('D', 'Pedidos.pdf');  // 'D' para forzar la descarga
 ?>
