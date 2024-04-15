@@ -1,5 +1,14 @@
 <?php
+    session_start(); // Iniciar o continuar la sesión
+
     require 'includes/conexion.php'; // Incluir el script de conexión desde la carpeta includes
+
+    // Verificar si el usuario está autenticado
+    if (!isset($_SESSION['nombre_usuario'])) {
+        header("Location: index.php");
+        exit;
+    }
+
     $host = "cb4l59cdg4fg1k.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com";
     $database = "dceql5bo9j3plb";
     $user = "u1e25j4kkmlge1";
