@@ -65,12 +65,12 @@ if (!isset($_SESSION['nombre_usuario'])) {
                 case "platos_mas_pedidos":
                     platosMasPedidos($fecha_inicio, $fecha_fin, $conn);
             $sql = "SELECT item_id as id, nombre, count(*) as pedidos_totales
-                    FROM cuentas c
-                    JOIN items_cuenta ic ON ic.cuenta_id = c.cuenta_id
-                    JOIN platos ON platos.plato_id = ic.item_id
-                    WHERE c.fecha_cierre BETWEEN ? AND ?
-                    GROUP BY id, nombre
-                    ORDER BY pedidos_totales DESC";
+                    from cuentas c
+                    join items_cuenta ic on ic.cuenta_id = c.cuenta_id
+                    join platos on platos.plato_id = ic.cuenta_id
+                    where c.fecha_cierre between ? and ?
+                    group by id, nombre
+                    order by pedidos_totales desc;";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("ss", $fecha_inicio, $fecha_fin);
             $stmt->execute();
