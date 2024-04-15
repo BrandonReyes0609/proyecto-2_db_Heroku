@@ -23,7 +23,7 @@
   
     
   $cuenta_id = $_POST['cuenta_id'];
-
+  echo($cuenta_id);
   $nombre_cliente = $_POST['nombre_cliente'];
   $nit_cliente = $_POST['nit_cliente'];
   $direccion_cliente = $_POST['direccion_cliente'];
