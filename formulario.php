@@ -18,7 +18,7 @@
         $tipo_cuenta = $_REQUEST['tipo_cuenta'];
         echo("exito");
 
-        $query_comida = "SELECT cuentas.cuenta_id,cuentas.mesa_id,cuentas.fecha_apertura,cuentas.fecha_cierre,cuentas.total,items_cuenta.item_id,items_cuenta.cantidad,items_cuenta.fecha_hora,items_cuenta.cocinado,platos.plato_id,platos.nombre,platos.descripcion,platos.precio,platos.tipo,(items_cuenta.cantidad * platos.precio) AS total_item FROM cuentas INNER JOIN items_cuenta ON cuentas.cuenta_id = items_cuenta.cuenta_id INNER JOIN platos ON items_cuenta.item_id = platos.plato_id WHERE cuentas.cuenta_id = $tipo_cuenta";
+        $query_comida = "SELECT cuentas.total,items_cuenta.item_id,items_cuenta.cantidad,items_cuenta.fecha_hora,items_cuenta.cocinado,platos.plato_id,platos.nombre,platos.descripcion,platos.precio,platos.tipo,(items_cuenta.cantidad * platos.precio) AS total_item FROM cuentas INNER JOIN items_cuenta ON cuentas.cuenta_id = items_cuenta.cuenta_id INNER JOIN platos ON items_cuenta.item_id = platos.plato_id WHERE cuentas.cuenta_id = $tipo_cuenta";
         $query_cuentas = "SELECT meseros.mesero_id FROM meseros JOIN mesas ON meseros.area_id = mesas.area_id JOIN cuentas ON mesas.mesa_id = cuentas.mesa_id WHERE cuentas.cuenta_id = $tipo_cuenta;";
         //$resultado1 = pg_query_params($conn, $consulta_comida, array($tipo_cuenta));
         $consulta_meseros_zona = pg_query($conn,$query_cuentas);
@@ -32,7 +32,7 @@
         $tipo_cuenta = null; // Asegurarse de que no se proceda con un valor inválido
     }
 
-    
+    //cuentas.cuenta_id,cuentas.mesa_id,cuentas.fecha_apertura,cuentas.fecha_cierre,,
     
     
     // Cierra la conexión
@@ -48,7 +48,7 @@
   <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Impresion Pedidos</title>
+      <title>Fomrulario Resenia</title>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
       <link rel="stylesheet" href="assets/css/estilos.css">
   </head>
@@ -59,14 +59,12 @@
   </nav>
 
   <div class="home-container">
-      <h1>Impresion Pedidos</h1>
+      <h1>Fomrulario Resenia</h1>
 
-      <table>
+      <table border="1">
         <thead>
           <tr>
-          <th>cuenta_idmesa_id</th>
-            <th>fecha_apertura</th>
-            <th>fecha_cierre</th>
+ 
             <th>total</th>
             <th>item_id</th>
             <th>cantidad</th>
@@ -85,9 +83,6 @@
         <?php
             while($obj = pg_fetch_object($consulta_comida)){ ?>
               <tr>
-                <td><?php echo($obj->cuenta_idmesa_id);?></td>
-                <td><?php echo($obj->fecha_apertura);?></td>
-                <td><?php echo($obj->fecha_cierre);?></td>
                 <td><?php echo($obj->total);?></td>
                 <td><?php echo($obj->item_id);?></td>
                 <td><?php echo($obj->cantidad);?></td>
