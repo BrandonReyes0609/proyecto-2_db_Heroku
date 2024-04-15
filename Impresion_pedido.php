@@ -41,7 +41,7 @@
       <h1>Impresion Pedidos</h1>
 
       <form action="Consulta_items_cuenta.php">
-      <label for="tipo_cuenta">Seleccione la cuenta:</label>
+      <span>Seleccione la cuenta:</span>
         <select name="tipo_cuenta" id="tipo_cuenta">
           <?php
             while($obj = pg_fetch_object($consulta)){?>

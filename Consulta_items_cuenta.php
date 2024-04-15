@@ -27,4 +27,4 @@
     // Redirecciona si todo fue exitoso
     //header('Location: Impresion_pedido.php');
     //exit();
-    ?>
+?>
