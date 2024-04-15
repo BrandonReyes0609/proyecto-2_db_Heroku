@@ -10,6 +10,8 @@
 
     // Crear la cadena de conexión
     $dsn = "host=$host port=$port dbname=$database user=$user password=$password";
+    $conn = pg_connect($dsn);
+
     $tipo_area1 = $_REQUEST['tipo_zona'];
     $num_personas = $_REQUEST['num_personas'];
     $numero_mesa = $_REQUEST['numero_mesa'];
