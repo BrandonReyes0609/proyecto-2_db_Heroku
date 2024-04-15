@@ -26,7 +26,7 @@ $queja_comida = $_REQUEST['queja_comida'];
 $nombre_encuestado = $_REQUEST['nombre_encuestado'];
 
 
-/*
+
 echo($mesero);
 echo($amabilidad_mesero);
 echo($calificacion_pedido);
@@ -35,7 +35,7 @@ echo($calificacion_queja);
 echo($direccion_queja);
 echo($queja_comida);
 echo($nombre_encuestado);
-*/
+/*
 $insert_encuesta_queja = "INSERT INTO quejas (cliente_nombre, fecha, motivo, puntuacion, plato_nombre, mesero_id) VALUES ('$_REQUEST['nombre_encuestado']', NOW(),'$_REQUEST['comentario']', '$_REQUEST['calificacion_queja']', '$_REQUEST['queja_comida']', '$_REQUEST['amabilidad_mesero']')";
 $resultado2 = pg_query($conn,$insert_encuesta_queja); 
 /*
@@ -46,6 +46,7 @@ if ($resultado2) {
     
 }
 */
+pg_close();
 echo("se enviaron los datos");
 /*
 
@@ -73,4 +74,5 @@ pg_close($conn);
 //header('Location: Agregar_Items_Cuenta.php');
 //exit();
 */
+echo("Fin");
 ?>
