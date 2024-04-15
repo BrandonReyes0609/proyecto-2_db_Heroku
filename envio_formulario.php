@@ -35,6 +35,15 @@ echo($direccion_queja);
 echo($queja_comida);
 echo($nombre_encuestado);
 */
+$insert_encuesta_queja = "INSERT INTO quejas (cliente_nombre, fecha, motivo, puntuacion, plato_nombre, mesero_id)VALUES ($1, $2, $3, $4, $5, $6)";
+$resultado2 = pg_query_params($conn, $insert_encuesta_queja, array($nombre_encuestado, NOW(), $comentario, $calificacion_queja, $queja_comida,$mesero ));
+
+if ($resultado2) {
+    $_SESSION['user_alert'] = "Se enviaron los datos correctamente";
+} else {
+    $_SESSION['user_alert'] = "Error resultado 2: " . pg_last_error($conn);
+}
+/*
 
 $insert_encuesta_meseros = "INSERT INTO encuesta_mesero (mesero_id, puntuacion_amabilidad, puntuacion_exactitud, fecha_encuesta)VALUES ($1, $2, $3, $4)";
 
@@ -58,5 +67,5 @@ pg_close($conn);
 // Redirecciona si todo fue exitoso
 //header('Location: Agregar_Items_Cuenta.php');
 //exit();
-
+*/
 ?>
