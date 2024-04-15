@@ -44,7 +44,7 @@
       <label for="tipo_cuenta">Seleccione la cuenta:</label>
         <select name="tipo_cuenta" id="tipo_cuenta">
           <?php
-            while($obj = pg_fetch_object($resultado1)){?>
+            while($obj = pg_fetch_object($consulta)){?>
               <option value="<?php echo ($obj->cuenta_id) ?>"><?php echo($obj->cuenta_id);?></option>
             <?php
             }
@@ -69,7 +69,7 @@
         </thead>
         <tbody>
         <?php
-            while($obj = pg_fetch_object($consulta_pedidos1)){ ?>
+            while($obj = pg_fetch_object($resultado1)){ ?>
               <tr>
                 <td><?php echo $obj->cuenta_id;?></td>
                 <td><?php echo $obj->item_id;?></td>
