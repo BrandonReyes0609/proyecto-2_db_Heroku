@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 require 'includes/conexion.php';  // Incluir el script de conexión
 require('fpdf.php');  // Incluir la librería FPDF para la creación del PDF
 
