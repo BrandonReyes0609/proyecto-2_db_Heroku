@@ -35,6 +35,14 @@ echo($calificacion_queja);
 echo($direccion_queja);
 echo($queja_comida);
 echo($nombre_encuestado);
+var_dump($mesero);
+var_dump($amabilidad_mesero);
+var_dump($calificacion_pedido);
+var_dump($comentario);
+var_dump($calificacion_queja);
+var_dump($direccion_queja);
+var_dump($queja_comida);
+var_dump($nombre_encuestado);
 /*
 $insert_encuesta_queja = "INSERT INTO quejas (cliente_nombre, fecha, motivo, puntuacion, plato_nombre, mesero_id) VALUES ('$_REQUEST['nombre_encuestado']', NOW(),'$_REQUEST['comentario']', '$_REQUEST['calificacion_queja']', '$_REQUEST['queja_comida']', '$_REQUEST['amabilidad_mesero']')";
 $resultado2 = pg_query($conn,$insert_encuesta_queja); 
