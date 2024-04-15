@@ -52,7 +52,6 @@
           }
         ?>
         </select>
-      </div>
       
       <div class="form-group">
         <label for="nombre_cliente">Nombre del Cliente:</label>
