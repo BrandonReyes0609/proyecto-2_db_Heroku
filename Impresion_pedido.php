@@ -69,7 +69,7 @@
         </thead>
         <tbody>
         <?php
-            while($obj = pg_fetch_object($resultado1)){ ?>
+            while($obj = pg_fetch_object($consulta_pedidos1)){ ?>
               <tr>
                 <td><?php echo $obj->cuenta_id;?></td>
                 <td><?php echo $obj->item_id;?></td>
