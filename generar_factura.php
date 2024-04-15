@@ -5,8 +5,6 @@
   require 'consulta_cunetas.php';
   //require 'Consulta_items_cuenta.php';
 
-
-
   // Verificar si el usuario está autenticado
   if (!isset($_SESSION['nombre_usuario'])) {
       header("Location: index.php");
@@ -20,9 +18,25 @@
       unset($_SESSION['user_alert']); // Limpiar esa variable de sesión después de usarla
   }
 
-  ?>
-  
-  
+  // Si se envió el formulario, insertar los datos del cliente en la tabla cliente
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nombre_cliente = $_POST['nombre_cliente'];
+    $nit_cliente = $_POST['nit_cliente'];
+    $direccion_cliente = $_POST['direccion_cliente'];
+    $metodo_pago = $_POST['metodo_pago'];
+
+    // Preparar la consulta SQL para insertar los datos del cliente en la tabla cliente
+    $sql_insert_cliente = "INSERT INTO cliente (nombre, nit, direccion, metodo_pago) VALUES ('$nombre_cliente', '$nit_cliente', '$direccion_cliente', '$metodo_pago')";
+
+    // Ejecutar la consulta
+    if (pg_query($conexion, $sql_insert_cliente)) {
+        echo "Datos del cliente insertados correctamente.";
+    } else {
+        echo "Error al insertar los datos del cliente: " . pg_last_error($conexion);
+    }
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -41,7 +55,8 @@
 <div class="home-container">
     <h1>Impresión de Facturas</h1>
 
-    <form action="factura.php" method="get">
+    <!-- Formulario para ingresar datos del cliente -->
+    <form action="factura.php" method="post">
       <span>Seleccione la cuenta:</span>
       <select name="cuenta_id" id="cuenta_id"> <!-- Asegúrate de que este nombre coincida con lo que esperas en factura.php -->
         <?php
@@ -51,8 +66,9 @@
             echo '<option value="' . htmlspecialchars($obj->cuenta_id) . '">' . htmlspecialchars($obj->cuenta_id) . '</option>';
           }
         ?>
-        </select>
-      
+      </select>
+
+      <!-- Campos para ingresar datos del cliente -->
       <div class="form-group">
         <label for="nombre_cliente">Nombre del Cliente:</label>
         <input type="text" name="nombre_cliente" id="nombre_cliente" class="form-control" required>
@@ -78,9 +94,9 @@
         </select>
       </div>
 
+      <!-- Botón para enviar el formulario -->
       <button type="submit" class="btn btn-primary">Generar Factura</button>
     </form>
-
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
