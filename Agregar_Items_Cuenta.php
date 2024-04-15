@@ -63,7 +63,7 @@
           <input type="number" id="num_platos" name="num_platos" min="1" max="100" />
           
           <label for="tipo_bebida">Bebidas:</label>
-          <select name="tipo_bbeida" id="tipo_bebida">
+          <select name="tipo_bebida" id="tipo_bebida">
           <?php
               while($obj = pg_fetch_object($consulta_bebidas)){?>
                 <option value="<?php echo ($obj->plato_id) ?>"><?php echo($obj->nombre);?></option>
