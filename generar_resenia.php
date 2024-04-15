@@ -2,7 +2,7 @@
   session_start(); // Iniciar o continuar la sesión
 
   require 'includes/conexion.php'; // Incluir el script de conexión desde la carpeta includes
-  require 'consulta_cunetas.php';
+  require 'Consulta_cuenta_cerrada.php';
   //require 'Consulta_items_cuenta.php';
 
 
