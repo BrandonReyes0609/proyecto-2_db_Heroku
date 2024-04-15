@@ -38,7 +38,7 @@ if (!$resultado1) {
 }
 else
 {
-    $consulta_pedidos1 = pg_query($conn,$resultado1);
+    //$consulta_pedidos1 = pg_query($conn,$resultado1);
 }
 
 // Procesar el resultado
