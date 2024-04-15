@@ -64,7 +64,7 @@
       <table>
         <thead>
           <tr>
-            <th>cuenta_idmesa_id</th>
+          <th>cuenta_idmesa_id</th>
             <th>fecha_apertura</th>
             <th>fecha_cierre</th>
             <th>total</th>
@@ -78,6 +78,7 @@
             <th>precio</th>
             <th>tipo</th>
             <th>total_item</th>
+            
           </tr>
         </thead>
         <tbody>
@@ -105,7 +106,6 @@
           ?>
 
       </table>
-
 <!--
   cuenta_id
   item_id
