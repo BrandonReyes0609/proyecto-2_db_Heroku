@@ -40,7 +40,7 @@
   <div class="home-container">
       <h1>Impresion Pedidos</h1>
 
-      <form action="consultas/Envio_item_cuenta.php">
+      <form action="Consulta_items_cuenta.php">
       <label for="tipo_cuenta">Seleccione la cuenta:</label>
         <select name="tipo_cuenta" id="tipo_cuenta">
           <?php
