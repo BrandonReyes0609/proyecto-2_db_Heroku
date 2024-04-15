@@ -27,7 +27,7 @@
   <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Impresion Pedidos</title>
+      <title>Cerrar Cuenta</title>
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
       <link rel="stylesheet" href="assets/css/estilos.css">
   </head>
@@ -38,21 +38,22 @@
   </nav>
 
   <div class="home-container">
-      <h1>Impresion Pedidos</h1>
+      <h1>Cerrar Cuenta</h1>
 
-      <form action="Consulta_items_cuenta.php">
+      <form action="Cerrar_cuenta_2.php">
         <span>Seleccione la cuenta:</span>
         <select name="tipo_cuenta" id="tipo_cuenta">
           <?php
             while($obj = pg_fetch_object($consulta)){?>
               <option value="<?php echo ($obj->cuenta_id) ?>"><?php echo($obj->cuenta_id);?></option>
             <?php
+            
             }
           ?>
         </select>
         
           <br>
-          <input type="submit" value="Consultar">
+          <input type="submit" value="Cerrar_Cuenta">
           <br>
       </form>
 

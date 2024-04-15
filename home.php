@@ -38,7 +38,7 @@ if (!isset($_SESSION['nombre_usuario'])) {
             <form action="Impresion_pedido.php">
                 <button type="submit" name="reporte" value="ImpresionPedido" class="btn btn-info wide-btn">Impresión Pedido</button>
             </form>
-            <form action="#">
+            <form action="Cerrar_cuenta.php">
                 <button type="submit" name="reporte" value="CerrarCuenta" class="btn btn-success wide-btn">Cerrar una cuenta</button>
             </form>
             <form action="#">
