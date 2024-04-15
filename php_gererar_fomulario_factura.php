@@ -78,7 +78,7 @@
     $pdf->AddPage();
 
     //if (isset($_GET['cuenta_id'])) {
-    if (isset($_POST['cuenta_id'])) {
+    if (isset($_POST['cuenta_id']) == false) {
         $cuenta_id = $_POST['cuenta_id'];
 
         // Usamos una declaración preparada para la seguridad
