@@ -13,14 +13,6 @@ $pdf->SetFont('Arial', 'B', 16);
 // Título del Documento
 $pdf->Cell(190, 10, 'Factura de Pedido', 0, 1, 'C');  // Título centrado
 
-// Datos adicionales del cliente
-$pdf->Ln(10);  // Espacio adicional antes de los datos del cliente
-$pdf->SetFont('Arial', 'I', 12);  // Fuente cursiva para los datos del cliente
-$pdf->Cell(95, 10, "Nombre Cliente: " . $_POST['nombre_cliente'], 0, 0);
-$pdf->Cell(95, 10, "NIT Cliente: " . $_POST['nit_cliente'], 0, 1);
-$pdf->Cell(95, 10, "Direccion Cliente: " . $_POST['direccion_cliente'], 0, 0);
-$pdf->Cell(95, 10, "Metodo de Pago: " . $_POST['metodo_pago'], 0, 1);
-
 // Espacio adicional
 $pdf->Ln(10);
 
@@ -69,6 +61,14 @@ if (isset($_POST['tipo_cuenta']) && is_numeric($_POST['tipo_cuenta'])) {
 } else {
     $pdf->Cell(190, 10, 'Tipo de cuenta no especificado o inválido.', 1, 1, 'C');
 }
+
+// Datos adicionales del cliente
+$pdf->Ln(10);  // Espacio adicional antes de los datos del cliente
+$pdf->SetFont('Arial', 'I', 12);  // Fuente cursiva para los datos del cliente
+$pdf->Cell(95, 10, "Nombre Cliente: " . $_POST['nombre_cliente'], 0, 0);
+$pdf->Cell(95, 10, "NIT Cliente: " . $_POST['nit_cliente'], 0, 1);
+$pdf->Cell(95, 10, "Direccion Cliente: " . $_POST['direccion_cliente'], 0, 0);
+$pdf->Cell(95, 10, "Metodo de Pago: " . $_POST['metodo_pago'], 0, 1);
 
 // Guardar y enviar el PDF al navegador
 $pdf->Output('I', 'Factura.pdf');
