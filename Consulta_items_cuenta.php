@@ -22,7 +22,6 @@
     
     
     // Cierra la conexión
-    pg_close($conn);
     
     // Redirecciona si todo fue exitoso
     //header('Location: Impresion_pedido.php');

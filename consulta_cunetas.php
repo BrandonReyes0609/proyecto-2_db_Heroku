@@ -10,7 +10,7 @@
     
     // Establecer conexión
     $conn = pg_connect($dsn);
-    $query="SELECT  * FROM cuentas";
+    $query="SELECT * FROM cuentas";
     $consulta = pg_query($conn,$query);
     
 ?>
