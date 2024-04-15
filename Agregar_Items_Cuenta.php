@@ -2,9 +2,9 @@
   session_start(); // Iniciar o continuar la sesión
 
   require 'includes/conexion.php'; // Incluir el script de conexión desde la carpeta includes
-  require 'includes/consulta_cunetas.php';  // Asumiendo que este archivo tiene la conexión y la consulta
-  require 'includes/consulta_platos.php';  
-  require 'includes/consulta_bebidas.php';  
+  require 'consulta_cunetas.php';  // Asumiendo que este archivo tiene la conexión y la consulta
+  require 'consulta_platos.php';  
+  require 'consulta_bebidas.php';  
 
 
   // Verificar si el usuario está autenticado
