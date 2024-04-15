@@ -182,7 +182,7 @@
         <select name="queja_comida" id="mesero">
           <?php
             while($obj = pg_fetch_object($consulta_comida_nombre)){?>
-              <option value="<?php echo ($obj->plato_id) ?>"><?php echo($obj->nombre);?></option>
+              <option value="<?php echo ($obj->nombre) ?>"><?php echo($obj->nombre);?></option>
             <?php
             
             }
