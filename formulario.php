@@ -18,9 +18,10 @@
         $tipo_cuenta = $_REQUEST['tipo_cuenta'];
         echo("exito");
 
-        $query_comida = "SELECT cuentas.total,items_cuenta.item_id,items_cuenta.cantidad,items_cuenta.fecha_hora,items_cuenta.cocinado,platos.plato_id,platos.nombre,platos.descripcion,platos.precio,platos.tipo,(items_cuenta.cantidad * platos.precio) AS total_item FROM cuentas INNER JOIN items_cuenta ON cuentas.cuenta_id = items_cuenta.cuenta_id INNER JOIN platos ON items_cuenta.item_id = platos.plato_id WHERE cuentas.cuenta_id = $tipo_cuenta";
-        $query_cuentas = "SELECT meseros.mesero_id FROM meseros JOIN mesas ON meseros.area_id = mesas.area_id JOIN cuentas ON mesas.mesa_id = cuentas.mesa_id WHERE cuentas.cuenta_id = $tipo_cuenta;";
+        $query_comida = "SELECT items_cuenta.item_id,items_cuenta.cantidad,items_cuenta.fecha_hora,items_cuenta.cocinado,platos.plato_id,platos.nombre,platos.descripcion,platos.precio,platos.tipo,(items_cuenta.cantidad * platos.precio) AS total_item FROM cuentas INNER JOIN items_cuenta ON cuentas.cuenta_id = items_cuenta.cuenta_id INNER JOIN platos ON items_cuenta.item_id = platos.plato_id WHERE cuentas.cuenta_id = $tipo_cuenta";
+        $query_cuentas = "SELECT meseros.mesero_id, meseros.nombre_mesero FROM meseros JOIN mesas ON meseros.area_id = mesas.area_id JOIN cuentas ON mesas.mesa_id = cuentas.mesa_id WHERE cuentas.cuenta_id = $tipo_cuenta";
         //$resultado1 = pg_query_params($conn, $consulta_comida, array($tipo_cuenta));
+
         $consulta_meseros_zona = pg_query($conn,$query_cuentas);
         $consulta_comida = pg_query($conn,$query_comida);
 
@@ -64,9 +65,7 @@
       <table border="1">
         <thead>
           <tr>
- 
-            <th>total</th>
-            <th>item_id</th>
+             <th>item_id</th>
             <th>cantidad</th>
             <th>fecha_hora</th>
             <th>cocinado</th>
@@ -83,7 +82,6 @@
         <?php
             while($obj = pg_fetch_object($consulta_comida)){ ?>
               <tr>
-                <td><?php echo($obj->total);?></td>
                 <td><?php echo($obj->item_id);?></td>
                 <td><?php echo($obj->cantidad);?></td>
                 <td><?php echo($obj->fecha_hora);?></td>
@@ -102,6 +100,23 @@
 
       </table>
 
+
+      <form action="#">
+        <span>Seleccione la cuenta:</span>
+        <select name="mesero" id="mesero">
+          <?php
+            while($obj = pg_fetch_object($consulta_meseros_zona)){?>
+              <option value="<?php echo ($obj->mesero_id) ?>"><?php echo($obj->nombre_mesero);?></option>
+            <?php
+            
+            }
+          ?>
+        </select>
+        
+          <br>
+          <input type="submit" value="Generar reseña">
+          <br>
+      </form>
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
