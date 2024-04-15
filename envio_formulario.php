@@ -25,7 +25,7 @@ $queja_comida = $_REQUEST['queja_comida'];
 $nombre_encuestado = $_REQUEST['nombre_encuestado'];
 
 
-
+/*
 echo($mesero);
 echo($amabilidad_mesero);
 echo($calificacion_pedido);
@@ -34,7 +34,7 @@ echo($calificacion_queja);
 echo($direccion_queja);
 echo($queja_comida);
 echo($nombre_encuestado);
-
+*/
 
 // Prepara las consultas SQL para platos y bebidas
 //$insert_encuesta_meseros = "INSERT INTO items_cuenta (cuenta_id, item_id, cantidad, fecha_hora, cocinado) VALUES ($1, $2, $3, NOW(), false)";
