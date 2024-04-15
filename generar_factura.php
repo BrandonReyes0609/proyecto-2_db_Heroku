@@ -20,40 +20,7 @@
 
   // Si se envió el formulario, insertar los datos del cliente en la tabla cliente
 
-  echo($_POST['tipo_cuenta']);
-  echo($_POST['tipo_cuenta']);
-  echo($_POST['tipo_cuenta']);
-  echo($_POST['tipo_cuenta']);
-  echo($_POST['tipo_cuenta']);
-  $cuenta_id = $_POST['tipo_cuenta'];
-  echo($cuenta_id);
-  $nombre_cliente = $_POST['nombre_cliente'];
-  $nit_cliente = $_POST['nit_cliente'];
-  $direccion_cliente = $_POST['direccion_cliente'];
-  $metodo_pago = $_POST['metodo_pago'];
-  // Preparar la consulta SQL para insertar los datos del cliente en la tabla cliente
-  $sql_insert_cliente = "INSERT INTO cliente (cuenta_id,nombre, nit, direccion) VALUES ($1, $2, $3, $4)";
-  //$insert_encuesta_meseros = "INSERT INTO encuesta_mesero (mesero_id, puntuacion_amabilidad, puntuacion_exactitud, fecha_encuesta)VALUES ($1, $2, $3, NOW())";
-  $params1 = array($cuenta_id,$nombre_cliente, $nit_cliente, $direccion_cliente);
-  $resultado1 = pg_query_params($conn, $sql_insert_cliente, $params1);
 
-  // Ejecutar la consulta
-  if ($resultado1 === false) {
-    echo "Error en la consulta 1: " . pg_last_error($conn);
-} else {
-    echo "Registro insertado correctamente 1.";
-
-    $sql_insert_cliente = "INSERT INTO cliente (cuenta_id,metodo, null) VALUES ($1, $2, $3)";
-    $params2 = array($cuenta_id, $metodo);
-    $resultado1 = pg_query_params($conn, $sql_insert_cliente, $params2);
-
-    if ($resultado1 === false) {
-      echo "Error en la consulta 1: " . pg_last_error($conn);
-  } else {
-      echo "Registro insertado correctamente 1.";
-  }
-}
-  
 ?>
 
 <!DOCTYPE html>
@@ -75,7 +42,7 @@
     <h1>Impresión de Facturas</h1>
 
     <!-- Formulario para ingresar datos del cliente -->
-    <form action="generar_factura.php" method="get">
+    <form action="php_gererar_fomulario_factura.php" method="get">
       <span>Seleccione la cuenta:</span>
       <select name="tipo_cuenta" id="tipo_cuenta">
           <?php
