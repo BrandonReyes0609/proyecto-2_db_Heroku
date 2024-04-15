@@ -116,15 +116,15 @@
         <span>Califique la amabilidad del mesero</span><br>
         <span>1 bajo y 5 muy alto</span><br>
           <input type="radio" id="1" name="fav_language" value="1">
-          <label for="1">1</label><br>
+          <span for="1">1</span><br>
           <input type="radio" id="2" name="fav_language" value="2">
-          <label for="css">2</label><br>
+          <span for="css">2</span><br>
           <input type="radio" id="3" name="fav_language" value="3">
-          <label for="3">3</label>
+          <span for="3">3</span>
           <input type="radio" id="4" name="fav_language" value="4">
-          <label for="css">4</label><br>
+          <span for="css">4</span><br>
           <input type="radio" id="5" name="fav_language" value="5">
-          <label for="5">5</label>
+          <span for="5">5</span>
 
   <br>  
           <br>
