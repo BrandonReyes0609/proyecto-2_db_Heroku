@@ -13,13 +13,6 @@ if (!isset($_SESSION['nombre_usuario'])) {
     exit;
 }
 
-$cuenta_id = '';
-if (isset($_GET['cuenta_id'])) {
-    $cuenta_id = $_GET['cuenta_id'];
-} else {
-    // Manejar el caso de cuenta_id no definido antes de generar el PDF
-    die('El ID de la cuenta no está definido.');
-}
 
 $pdf = new TCPDF();
 
