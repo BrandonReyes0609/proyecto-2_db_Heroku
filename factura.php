@@ -51,7 +51,7 @@ if (isset($_GET['cuenta_id'])) {
     // Usamos una declaración preparada para la seguridad
     $stmt = $conn->prepare("SELECT c.*, cl.nombre AS cliente_nombre, cl.nit, cl.direccion FROM cuentas c
                              JOIN cliente cl ON c.cuenta_id = cl.cuenta_id
-                             WHERE c.cuenta_id = :cuenta_id AND c.estado = 'cerrada'");
+                             WHERE c.cuenta_id = :cuenta_id");
     $stmt->execute([':cuenta_id' => $cuenta_id]);
     
     if ($stmt->rowCount() > 0) {
