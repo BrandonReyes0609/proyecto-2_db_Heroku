@@ -56,7 +56,7 @@
     <h1>Impresión de Facturas</h1>
 
     <!-- Formulario para ingresar datos del cliente -->
-    <form action="factura.php" method="post">
+    <form action="factura.php" method="get">
       <span>Seleccione la cuenta:</span>
       <select name="cuenta_id" id="cuenta_id"> <!-- Asegúrate de que este nombre coincida con lo que esperas en factura.php -->
         <?php
