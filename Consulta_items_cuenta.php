@@ -4,13 +4,13 @@
     $user = "u1e25j4kkmlge1";
     $port = "5432";
     $password = "p4ac621d657dad701bc6ed9505ad96894fe1a390fd1e05ef41b37334c60753c5b";
-    
+
     // Crear la cadena de conexión
     $dsn = "host=$host port=$port dbname=$database user=$user password=$password";
-    
+
     // Establecer conexión
     $conn = pg_connect($dsn);
-
+    echo($_REQUEST['tipo_cuenta']);
     $tipo_cuenta = $_REQUEST['tipo_cuenta'];
 
     // Prepara las consultas SQL para platos y bebidas
