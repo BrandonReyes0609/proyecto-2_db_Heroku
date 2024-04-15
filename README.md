@@ -30,6 +30,7 @@ El proyecto es completamente derecho de autor de los estudiantes del grupo 12 in
     $user = "u1e25j4kkmlge1";
     $port = "5432";
     $password = "p4ac621d657dad701bc6ed9505ad96894fe1a390fd1e05ef41b37334c60753c5b";
+![image](https://github.com/BrandonReyes0609/proyecto-2_db_Heroku/assets/101024720/628efde6-39ba-4cd5-8b08-992afb297b89)
 
     
 ## 📃Librerías📃
