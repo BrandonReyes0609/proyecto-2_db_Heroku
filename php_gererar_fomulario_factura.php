@@ -76,8 +76,9 @@
 
     $pdf->AddPage();
 
-    if (isset($_GET['cuenta_id'])) {
-        $cuenta_id = $_GET['cuenta_id'];
+    //if (isset($_GET['cuenta_id'])) {
+    if (isset($_POST['cuenta_id'])) {
+        $cuenta_id = $_POST['cuenta_id'];
 
         // Usamos una declaración preparada para la seguridad
         $stmt = $conn->prepare("SELECT c.*, cl.nombre AS cliente_nombre, cl.nit, cl.direccion FROM cuentas c
