@@ -40,7 +40,7 @@
   <div class="home-container">
       <h1>Cerrar Cuenta</h1>
 
-      <form action="#p">
+      <form action="formulario.php">
         <span>Seleccione la cuenta:</span>
         <select name="tipo_cuenta" id="tipo_cuenta">
           <?php

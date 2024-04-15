@@ -1,139 +1,121 @@
 <?php
-session_start(); // Iniciar o continuar la sesión
+    require 'includes/conexion.php'; // Incluir el script de conexión desde la carpeta includes
+    $host = "cb4l59cdg4fg1k.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com";
+    $database = "dceql5bo9j3plb";
+    $user = "u1e25j4kkmlge1";
+    $port = "5432";
+    $password = "p4ac621d657dad701bc6ed9505ad96894fe1a390fd1e05ef41b37334c60753c5b";
 
-require 'includes/conexion.php'; // Incluir el script de conexión desde la carpeta includes
+    // Crear la cadena de conexión
+    $dsn = "host=$host port=$port dbname=$database user=$user password=$password";
 
-// Verificar si el usuario está autenticado
-if (!isset($_SESSION['nombre_usuario'])) {
-    header("Location: index.php");
-    exit;
-}
+    // Establecer conexión
+    $conn = pg_connect($dsn);
+    /*echo($_REQUEST['tipo_cuenta']);
+    $tipo_cuenta = $_REQUEST['tipo_cuenta'];*/
+    // Verificar si 'tipo_cuenta' está presente en la solicitud y es numérico
+    if (isset($_REQUEST['tipo_cuenta']) && is_numeric($_REQUEST['tipo_cuenta'])) {
+        $tipo_cuenta = $_REQUEST['tipo_cuenta'];
+        echo("exito");
 
-// Almacenar mensaje de alerta en una variable y limpiar la sesión
-if (isset($_SESSION['user_alert'])) {
-    $userAlert = $_SESSION['user_alert'];
-    unset($_SESSION['user_alert']); // Limpiar esa variable de sesión después de usarla
-} else {
-    $userAlert = '';
-}
-
-if (isset($_POST['Abrir_Cuenta'])) {
-    $tipo_area1 = $_POST['tipo_zona']; //tipo de área a asignar
-    $num_personas = $_POST['num_personas']; // número de personas
-    $unir_mesas = isset($_POST['unir_mesas']) ? 'true' : 'false'; // check de unir mesas
-    $numero_mesa = $_POST['numero_mesa']; // número de mesa
-
-    try {
-        // Preparar la consulta para insertar la mesa
-        $query_mesas = "INSERT INTO mesas (mesa_id, area_id, capacidad, movilidad) VALUES (:numero_mesa, :tipo_area1, :num_personas, :movilidad)";
-        $stmt1 = $conn->prepare($query_mesas);
-        $stmt1->bindParam(':numero_mesa', $numero_mesa);
-        $stmt1->bindParam(':tipo_area1', $tipo_area1);
-        $stmt1->bindParam(':num_personas', $num_personas);
-        $stmt1->bindParam(':movilidad', $unir_mesas);
-
-        // Ejecutar la consulta para las mesas
-        $stmt1->execute();
-
-        // Preparar la consulta para insertar la cuenta
-        $query_cuentas = "INSERT INTO cuentas (mesa_id, fecha_apertura) VALUES (:numero_mesa, CURRENT_TIMESTAMP)";
-        $stmt2 = $conn->prepare($query_cuentas);
-        $stmt2->bindParam(':numero_mesa', $numero_mesa);
-
-        // Ejecutar la consulta para las cuentas
-        $stmt2->execute();
-
-        if ($stmt1->rowCount() > 0 && $stmt2->rowCount() > 0) {
-            $_SESSION['user_alert'] = "Se enviaron los datos correctamente";
-        } else {
-            $_SESSION['user_alert'] = "Error al guardar los datos";
-        }
-    } catch (PDOException $e) {
-        $_SESSION['user_alert'] = "Error en la conexión o en las consultas: " . $e->getMessage();
+        $query_cuentas = "SELECT cuentas.cuenta_id,cuentas.mesa_id,cuentas.fecha_apertura,cuentas.fecha_cierre,cuentas.total,items_cuenta.item_id,items_cuenta.cantidad,items_cuenta.fecha_hora,items_cuenta.cocinado,platos.plato_id,platos.nombre,platos.descripcion,platos.precio,platos.tipo,(items_cuenta.cantidad * platos.precio) AS total_item FROM cuentas INNER JOIN items_cuenta ON cuentas.cuenta_id = items_cuenta.cuenta_id INNER JOIN platos ON items_cuenta.item_id = platos.plato_id WHERE cuentas.cuenta_id = $tipo_cuenta";
+        //$resultado1 = pg_query_params($conn, $query_cuentas, array($tipo_cuenta));
+        $consulta_pedidos1 = pg_query($conn,$query_cuentas);
+    
+    } else {
+        // Manejo de error si 'tipo_cuenta' no está presente o no es válido
+        echo "Tipo de cuenta no especificado o inválido.";
+        $tipo_cuenta = null; // Asegurarse de que no se proceda con un valor inválido
     }
-    header("Location: Crear_cuenta.php");
-    exit;
-}
+
+    
+    
+    
+    // Cierra la conexión
+    
+    // Redirecciona si todo fue exitoso
+    //header('Location: Impresion_pedido.php');
+    //exit();
 ?>
 
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenido al Sistema</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/estilos.css">
-</head>
-<body>
+  <!DOCTYPE html>
+  <html lang="es">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Impresion Pedidos</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+      <link rel="stylesheet" href="assets/css/estilos.css">
+  </head>
+  <body>
 
+  <nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <?php include 'includes/navbar.php'; ?>
+  </nav>
 
-<nav class="navbar navbar-expand-sm navbar-light bg-light">
-  <?php include 'includes/navbar.php'; ?>
-</nav>
+  <div class="home-container">
+      <h1>Impresion Pedidos</h1>
 
-<div class="home-container">
-    <h1>Crear Cuenta</h1>
-    <p><?php echo $_POST['tipo_zona']; ?></p>
-    <p><?php echo $_POST['unir_mesa']; ?></p>
-    <p><?php echo $_POST['num_personas']; ?></p>
-
-    <form action="alta_cuenta.php" method="post">
-      <label for="tipo_zona">Ingrese la zona:</label>
-      <select name="tipo_zona" id="tipo_zona">
-        <!-- Opciones de zona añadidas aquí -->
+      <table>
+        <thead>
+          <tr>
+          <th>cuenta_idmesa_id</th>
+            <th>fecha_apertura</th>
+            <th>fecha_cierre</th>
+            <th>total</th>
+            <th>item_id</th>
+            <th>cantidad</th>
+            <th>fecha_hora</th>
+            <th>cocinado</th>
+            <th>plato_id</th>
+            <th>nombre</th>
+            <th>descripcion</th>
+            <th>precio</th>
+            <th>tipo</th>
+            <th>total_item</th>
+            
+          </tr>
+        </thead>
+        <tbody>
         <?php
-        // Recibir el tipo de área desde un formulario
-        $tipo_area = $_POST['tipo_zona'] ?? 1; // Default a 1 si no está definido
+            while($obj = pg_fetch_object($consulta_pedidos1)){ ?>
+              <tr>
+                <td><?php echo($obj->cuenta_idmesa_id);?></td>
+                <td><?php echo($obj->fecha_apertura);?></td>
+                <td><?php echo($obj->fecha_cierre);?></td>
+                <td><?php echo($obj->total);?></td>
+                <td><?php echo($obj->item_id);?></td>
+                <td><?php echo($obj->cantidad);?></td>
+                <td><?php echo($obj->fecha_hora);?></td>
+                <td><?php echo($obj->cocinado);?></td>
+                <td><?php echo($obj->plato_id);?></td>
+                <td><?php echo($obj->nombre);?></td>
+                <td><?php echo($obj->descripcion);?></td>
+                <td><?php echo($obj->precio);?></td>
+                <td><?php echo($obj->tipo);?></td>
+                <td><?php echo($obj->total_item);?></td>
+              </tr>
+            </tbody>
+          <?php
+            }
+          ?>
 
-        // Preparar la consulta SQL
-        $getQueryMeseros = "SELECT DISTINCT * FROM meseros WHERE area_id = :tipo_area";
-        $stmt = $conn->prepare($getQueryMeseros);
-        $stmt->bindParam(':tipo_area', $tipo_area, PDO::PARAM_INT);
+      </table>
 
-        // Ejecutar la consulta
+  </div>
 
-
-        // Ejecutar la consulta
-        $stmt->execute();
-
-        // Iterar sobre los resultados y generar el HTML para las opciones del dropdown
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $nombre_mesero = $row['mesero_id'];
-            echo "<option value='$nombre_mesero'>$nombre_mesero</option>";
-        }
-        ?>
-      </select>
-
-    <h2>Seleccionar mesero mesero</h2>
-    <select>
-      <?php
-        // Reutilizamos el código de consulta anterior para generar otra lista de opciones de meseros
-        $stmt->execute(); // Re-ejecutar la misma consulta
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $nombre_mesero = $row['mesero_id'];
-            echo "<option value='$nombre_mesero'>$nombre_mesero</option>";
-        }
-      ?>
-    </select>
-
-    
-    <p><?php echo $userAlert; ?></p>
-</div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="js/scripts.js"></script>
-<script>
-    // JavaScript para mostrar la alerta
-    window.onload = function() {
-        var alertMessage = "<?php echo $userAlert; ?>";
-        if (alertMessage) {
-            alert(alertMessage);
-        }
-    };
-</script>
-</body>
-</html>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+  // JavaScript para mostrar la alerta
+  window.onload = function() {
+      var alertMessage = "<?php echo $userAlert; ?>";
+      if (alertMessage) {
+          alert(alertMessage);
+      }
+  };
+  </script>
+  </body>
+  </html>
