@@ -47,7 +47,7 @@
             while($obj = pg_fetch_object($consulta)){?>
               <option value="<?php echo ($obj->cuenta_id) ?>"><?php echo($obj->cuenta_id);?></option>
             <?php
-            
+
             }
           ?>
         </select>

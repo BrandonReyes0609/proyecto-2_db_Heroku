@@ -49,9 +49,18 @@ $params = array($nombre_encuestado, $comentario, $calificacion_queja, $queja_com
 $resultado2 = pg_query_params($conn, $insert_encuesta_queja, $params);
 
 if ($resultado2 === false) {
-    echo "Error en la consulta: " . pg_last_error($conn);
+    echo "Error en la consulta 2: " . pg_last_error($conn);
 } else {
-    echo "Registro insertado correctamente.";
+    echo "Registro insertado correctamente 2.";
+    $insert_encuesta_meseros = "INSERT INTO encuesta_mesero (mesero_id, puntuacion_amabilidad, puntuacion_exactitud, fecha_encuesta)VALUES ($1, $2, $3, NOW())";
+    $params2 = array($mesero, $amabilidad_mesero, $calificacion_pedido);
+    $resultado1 = pg_query_params($conn, $insert_encuesta_meseros, $params2);
+    if ($resultado1 === false) {
+        echo "Error en la consulta 1: " . pg_last_error($conn);
+    } else {
+        echo "Registro insertado correctamente 1.";
+    }
+
 }
 
 
