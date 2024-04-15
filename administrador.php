@@ -190,11 +190,11 @@ if (!isset($_SESSION['nombre_usuario'])) {
         
         function quejasPorPlato($fecha_inicio, $fecha_fin, $pdo) {
             $sql = "SELECT pl.nombre AS nombre_plato, COUNT(*) AS total_quejas
-                    FROM quejas q
-                    JOIN platos pl ON q.plato_id = pl.plato_id
-                    WHERE q.fecha BETWEEN :fecha_inicio AND :fecha_fin
+                    FROM quejas qm
+                    JOIN platos pl ON qm.plato_nombre = pl.nombre 
+                    WHERE qm.fecha BETWEEN :fecha_inicio AND :fecha_fin
                     GROUP BY pl.nombre
-                    ORDER BY total_quejas DESC";
+                    ORDER BY total_quejas DESC;";
             $stmt = $pdo->prepare($sql);
             $stmt->bindParam(':fecha_inicio', $fecha_inicio);
             $stmt->bindParam(':fecha_fin', $fecha_fin);
