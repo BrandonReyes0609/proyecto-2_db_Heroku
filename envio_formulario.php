@@ -40,9 +40,8 @@ $insert_encuesta_meseros = "INSERT INTO encuesta_mesero (mesero_id, puntuacion_a
 
 $resultado1 = pg_query_params($conn, $insert_encuesta_meseros, array($mesero, $amabilidad_mesero, $calificacion_pedido, Now()));
 
-
 if ($resultado1) {
-    $insert_encuesta_queja = "INSERT INTO quejas (cliente_nombre, fecha, motivo, puntuacion, plato_nombre, mesero_id)VALUES ($1, $2, $3, $4, $5, $6);";
+    $insert_encuesta_queja = "INSERT INTO quejas (cliente_nombre, fecha, motivo, puntuacion, plato_nombre, mesero_id)VALUES ($1, $2, $3, $4, $5, $6)";
     $resultado2 = pg_query_params($conn, $insert_encuesta_queja, array($nombre_encuestado, NOW(), $comentario, $calificacion_queja, $queja_comida,$mesero ));
 
     if ($resultado2) {
