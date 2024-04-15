@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 
 session_start();
 require 'includes/conexion.php'; // Este archivo debería manejar la creación de la conexión
-require 'consulta_cuentas.php';
+require 'consulta_cuenetas.php';
 
 if (!isset($_SESSION['nombre_usuario'])) {
     header("Location: index.php");
