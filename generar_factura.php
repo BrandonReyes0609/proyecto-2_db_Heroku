@@ -16,7 +16,7 @@ require_once 'includes/conexion.php';
         <select name="cuenta_id" id="cuenta_id">
             <?php
             // Consulta para obtener solo cuentas cerradas
-            $stmt = $conn->query("SELECT cuenta_id FROM cuentas WHERE fecha_cierre = NULL");
+            $stmt = $conn->query("SELECT cuenta_id FROM cuentas WHERE fecha_cierre = 'NULL'");
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 echo '<option value="' . htmlspecialchars($row['cuenta_id']) . '">' . htmlspecialchars($row['cuenta_id']) . '</option>';
             }
