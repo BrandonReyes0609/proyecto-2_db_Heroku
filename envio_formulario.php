@@ -15,11 +15,11 @@ $dsn = "host=$host port=$port dbname=$database user=$user password=$password";
 // Establecer conexión
 $conn = pg_connect($dsn);
 
-$mesero = $_REQUEST['mesero'];
+$mesero = (int) ($_REQUEST['mesero']);
 $amabilidad_mesero = $_REQUEST['amabilidad_mesero'];
-$calificacion_pedido = $_REQUEST['calificacion_pedido'];
+$calificacion_pedido = (int) ($_REQUEST['calificacion_pedido']);
 $comentario = $_REQUEST['comentario'];
-$calificacion_queja = $_REQUEST['calificacion_queja'];
+$calificacion_queja = (int) ($_REQUEST['calificacion_queja']);
 $direccion_queja = $_REQUEST['direccion_queja'];
 $queja_comida = $_REQUEST['queja_comida'];
 
