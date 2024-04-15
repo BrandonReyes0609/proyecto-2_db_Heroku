@@ -25,7 +25,7 @@ $query_platos = "SELECT * FROM items_cuenta WHERE cuenta_id = $1";
 
 
 
-/ Preparar y ejecutar consulta SQL
+// Preparar y ejecutar consulta SQL
 $query_platos = "SELECT * FROM items_cuenta WHERE cuenta_id = $1";
 $resultado1 = pg_query_params($conn, $query_platos, array($tipo_cuenta));
 if (!$resultado1) {
