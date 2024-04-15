@@ -25,8 +25,7 @@
         $consulta_meseros_zona = pg_query($conn,$query_cuentas);
         $consulta_comida = pg_query($conn,$query_comida);
 
-        
-    
+
     } else {
         // Manejo de error si 'tipo_cuenta' no está presente o no es válido
         echo "Tipo de cuenta no especificado o inválido.";
@@ -159,9 +158,11 @@
           <span for="5">5</span> 
         <br>
 
+
         <br>
         <span>Seleccione al destinatario: </span>
         <select name="direccion_queja" id="mesero">
+            <option value=""></option>
             <option value="Chef">Chef</option>
             <option value="Host">Host</option>
             <option value="Plato">Plato</option>
@@ -169,7 +170,20 @@
         </select>
         <input type="submit" value="Generar reseña">
 
+        <span>Seleccione el plato:</span>
+        <select name="mesero" id="mesero">
+          <?php
+            while($obj = pg_fetch_object($consulta_comida)){?>
+              <option value="<?php echo ($obj->item_id) ?>"><?php echo($obj->nombre);?></option>
+            <?php
+            
+            }
+          ?>
+        </select>
+
       </form>
+
+
 
   </div>
   
