@@ -1,4 +1,9 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+
 // Archivo: consulta_cuentas.php
 
 $host = "cb4l59cdg4fg1k.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com";
