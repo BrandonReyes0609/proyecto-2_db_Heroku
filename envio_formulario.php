@@ -36,9 +36,7 @@ echo($queja_comida);
 echo($nombre_encuestado);
 */
 
-// Prepara las consultas SQL para platos y bebidas
-//$insert_encuesta_meseros = "INSERT INTO items_cuenta (cuenta_id, item_id, cantidad, fecha_hora, cocinado) VALUES ($1, $2, $3, NOW(), false)";
-$insert_encuesta_meseros = "INSERT INTO encuesta_mesero (mesero_id, puntuacion_amabilidad, puntuacion_exactitud, fecha_encuesta)VALUES ($1, $2, $3, $4))";
+$insert_encuesta_meseros = "INSERT INTO encuesta_mesero (mesero_id, puntuacion_amabilidad, puntuacion_exactitud, fecha_encuesta)VALUES ($1, $2, $3, $4)";
 
 $resultado1 = pg_query_params($conn, $insert_encuesta_meseros, array($mesero, $amabilidad_mesero, $calificacion_pedido, Now()));
 
