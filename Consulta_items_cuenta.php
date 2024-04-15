@@ -49,6 +49,6 @@ if (pg_num_rows($resultado1) > 0) {
 pg_close($conn);
 
 // Redireccionar si todo fue exitoso
-//header('Location: Impresion_pedido.php');
-//exit();
+header('Location: Impresion_pedido.php');
+exit();
 ?>
