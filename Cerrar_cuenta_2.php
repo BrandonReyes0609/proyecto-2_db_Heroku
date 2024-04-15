@@ -1,4 +1,14 @@
 <?php
+    session_start(); // Iniciar o continuar la sesión
+
+    require 'includes/conexion.php'; // Incluir el script de conexión desde la carpeta includes
+
+    // Verificar si el usuario está autenticado
+    if (!isset($_SESSION['nombre_usuario'])) {
+        header("Location: index.php");
+        exit;
+    }
+
     //Se cierra la cuenta y se consulta las comidas y bebidas, muestra el total
     require 'includes/conexion.php'; // Incluir el script de conexión desde la carpeta includes
     $host = "cb4l59cdg4fg1k.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com";
@@ -6,6 +16,7 @@
     $user = "u1e25j4kkmlge1";
     $port = "5432";
     $password = "p4ac621d657dad701bc6ed9505ad96894fe1a390fd1e05ef41b37334c60753c5b";
+
 
     // Crear la cadena de conexión
     $dsn = "host=$host port=$port dbname=$database user=$user password=$password";
