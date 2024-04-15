@@ -20,9 +20,12 @@
 
   // Si se envió el formulario, insertar los datos del cliente en la tabla cliente
 
-  
-    
-  $cuenta_id = $_POST['cuenta_id'];
+  echo($_POST['tipo_cuenta']);
+  echo($_POST['tipo_cuenta']);
+  echo($_POST['tipo_cuenta']);
+  echo($_POST['tipo_cuenta']);
+  echo($_POST['tipo_cuenta']);
+  $cuenta_id = $_POST['tipo_cuenta'];
   echo($cuenta_id);
   $nombre_cliente = $_POST['nombre_cliente'];
   $nit_cliente = $_POST['nit_cliente'];
@@ -74,15 +77,18 @@
     <!-- Formulario para ingresar datos del cliente -->
     <form action="generar_factura.php" method="get">
       <span>Seleccione la cuenta:</span>
-      <select name="cuenta_id" id="cuenta_id"> <!-- Asegúrate de que este nombre coincida con lo que esperas en factura.php -->
-        <?php
+      <select name="tipo_cuenta" id="tipo_cuenta">
+          <?php
             require 'Consulta_cuenta_cerrada.php';
-            while($obj = pg_fetch_object($cnosulta)){?>
+
+            while($obj = pg_fetch_object($consulta)){?>
               <option value="<?php echo ($obj->cuenta_id) ?>"><?php echo($obj->cuenta_id);?></option>
-        <?php
-            
-            }?>
-      </select>
+            <?php
+
+            }
+          ?>
+        </select>
+        
 
       <!-- Campos para ingresar datos del cliente -->
       <div class="form-group">
