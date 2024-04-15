@@ -3,7 +3,7 @@
 
   require 'includes/conexion.php'; // Incluir el script de conexión desde la carpeta includes
   require 'consulta_cunetas.php';
-  require 'Consulta_items_cuenta.php';
+  //&require 'Consulta_items_cuenta.php';
 
 
 
@@ -62,33 +62,6 @@
   fecha_hora
   cocinado
 -->
-      <table>
-        <thead>
-          <tr>
-            <th>cuenta_id</th>
-            <th>item_id</th>
-            <th>cantidad</th>
-            <th>fecha_hora</th>
-            <th>cocinado</th>
-            
-          </tr>
-        </thead>
-        <tbody>
-        <?php
-            while($obj = pg_fetch_object($consulta_pedidos1)){ ?>
-              <tr>
-                <td><?php echo($obj->cuenta_id);?></td>
-                <td><?php echo($obj->item_id);?></td>
-                <td><?php echo($obj->cantidad);?></td>
-                <td><?php echo($obj->fecha_hora);?></td>
-                <td><?php echo($obj->cocinado);?></td>
-              </tr>
-            </tbody>
-          <?php
-            }
-          ?>
-
-      </table>
 
 
   </div>
