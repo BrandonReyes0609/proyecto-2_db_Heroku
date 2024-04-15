@@ -42,7 +42,7 @@
     <h1>Impresión de Facturas</h1>
 
     <!-- Formulario para ingresar datos del cliente -->
-    <form method="post" action="php_gererar_fomulario_factura.php">
+    <form method="post" action="php_generar_formulario_factura.php">
       <span>Seleccione la cuenta:</span>
       <select name="tipo_cuenta" id="tipo_cuenta">
           <?php
