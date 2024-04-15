@@ -102,7 +102,7 @@
 
 
       <form action="#">
-        <span>Seleccione la cuenta:</span>
+        <span>Seleccione el mesero:</span>
         <select name="mesero" id="mesero">
           <?php
             while($obj = pg_fetch_object($consulta_meseros_zona)){?>
@@ -112,7 +112,21 @@
             }
           ?>
         </select>
-        
+        <br>
+        <span>Califique la amabilidad del mesero</span><br>
+        <span>1 bajo y 5 muy alto</span><br>
+          <input type="radio" id="1" name="fav_language" value="1">
+          <label for="1">1</label><br>
+          <input type="radio" id="2" name="fav_language" value="2">
+          <label for="css">2</label><br>
+          <input type="radio" id="3" name="fav_language" value="3">
+          <label for="3">3</label>
+          <input type="radio" id="4" name="fav_language" value="4">
+          <label for="css">4</label><br>
+          <input type="radio" id="5" name="fav_language" value="5">
+          <label for="5">5</label>
+
+  <br>  
           <br>
           <input type="submit" value="Generar reseña">
           <br>
