@@ -1,150 +1,133 @@
 <?php
-    //Se cierra la cuenta y se consulta las comidas y bebidas, muestra el total
-    require 'includes/conexion.php'; // Incluir el script de conexión desde la carpeta includes
-    $host = "cb4l59cdg4fg1k.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com";
-    $database = "dceql5bo9j3plb";
-    $user = "u1e25j4kkmlge1";
-    $port = "5432";
-    $password = "p4ac621d657dad701bc6ed9505ad96894fe1a390fd1e05ef41b37334c60753c5b";
+session_start();
+require 'includes/conexion.php'; // Este archivo debe contener la creación de la conexión con la base de datos
 
-    // Crear la cadena de conexión
-    $dsn = "host=$host port=$port dbname=$database user=$user password=$password";
+if (!isset($_REQUEST['tipo_cuenta']) || !is_numeric($_REQUEST['tipo_cuenta'])) {
+    $_SESSION['user_alert'] = "Tipo de cuenta no especificado o inválido.";
+    header('Location: cerrar_cuenta.php');
+    exit;
+}
 
-    // Establecer conexión
-    $conn = pg_connect($dsn);
+$tipo_cuenta = $_REQUEST['tipo_cuenta'];
 
-    if (isset($_REQUEST['tipo_cuenta']) && is_numeric($_REQUEST['tipo_cuenta'])) {
-        $tipo_cuenta = $_REQUEST['tipo_cuenta'];
-        echo("exito");
+// Inicia una transacción para asegurar la integridad de la data
+pg_query($conn, "BEGIN");
 
-        $query_cuentas = "SELECT cuentas.cuenta_id,cuentas.mesa_id,cuentas.fecha_apertura,cuentas.fecha_cierre,cuentas.total,items_cuenta.item_id,items_cuenta.cantidad,items_cuenta.fecha_hora,items_cuenta.cocinado,platos.plato_id,platos.nombre,platos.descripcion,platos.precio,platos.tipo,(items_cuenta.cantidad * platos.precio) AS total_item FROM cuentas INNER JOIN items_cuenta ON cuentas.cuenta_id = items_cuenta.cuenta_id INNER JOIN platos ON items_cuenta.item_id = platos.plato_id WHERE cuentas.cuenta_id = $tipo_cuenta";
-        $query_total_cuenta = "SELECT cuentas.cuenta_id, SUM(items_cuenta.cantidad * platos.precio) AS sumatoria_total_items FROM cuentas INNER JOIN items_cuenta ON cuentas.cuenta_id = items_cuenta.cuenta_id INNER JOIN platos ON items_cuenta.item_id = platos.plato_id WHERE cuentas.cuenta_id = $tipo_cuenta GROUP BY cuentas.cuenta_id";
-        $query_cerrar_cuenta = "UPDATE cuentas SET fecha_cierre = NOW() WHERE cuenta_id = $1";
-        //$resultado1 = pg_query_params($conn, $query_cuentas, array($tipo_cuenta));
-        $consulta_pedidos1 = pg_query($conn,$query_cuentas);
-        $consulta_pedidos2 = pg_query($conn,$query_total_cuenta);
+// Consulta para obtener detalles de la cuenta y los pedidos
+$query_cuentas = "SELECT cuentas.cuenta_id, cuentas.mesa_id, cuentas.fecha_apertura, cuentas.fecha_cierre, cuentas.total, items_cuenta.item_id, items_cuenta.cantidad, items_cuenta.fecha_hora, items_cuenta.cocinado, platos.plato_id, platos.nombre, platos.descripcion, platos.precio, platos.tipo, (items_cuenta.cantidad * platos.precio) AS total_item FROM cuentas INNER JOIN items_cuenta ON cuentas.cuenta_id = items_cuenta.cuenta_id INNER JOIN platos ON items_cuenta.item_id = platos.plato_id WHERE cuentas.cuenta_id = $1";
 
-        $resultado_query_cerrar_cuenta  = pg_query_params($conn, $query_cerrar_cuenta, array($tipo_cuenta));
-        if ($resultado_query_cerrar_cuenta) {
-            $_SESSION['user_alert'] = "Se enviaron los datos correctamente";
-        } else {
-            $_SESSION['user_alert'] = "Error resultado 2: " . pg_last_error($conn);
-        }
-        
-    } else {
-        // Manejo de error si 'tipo_cuenta' no está presente o no es válido
-        echo "Tipo de cuenta no especificado o inválido.";
-        $tipo_cuenta = null; // Asegurarse de que no se proceda con un valor inválido
-    }
+// Consulta para obtener el total acumulado de la cuenta
+$query_total_cuenta = "SELECT SUM(items_cuenta.cantidad * platos.precio) AS sumatoria_total_items FROM cuentas INNER JOIN items_cuenta ON cuentas.cuenta_id = items_cuenta.cuenta_id INNER JOIN platos ON items_cuenta.item_id = platos.plato_id WHERE cuentas.cuenta_id = $1 GROUP BY cuentas.cuenta_id";
 
-    
-    
-    
-    // Cierra la conexión
-    
-    // Redirecciona si todo fue exitoso
-    //header('Location: Impresion_pedido.php');
-    //exit();
+// Preparar y ejecutar las consultas
+$consulta_pedidos1 = pg_prepare($conn, "detalles_cuenta", $query_cuentas);
+$consulta_pedidos2 = pg_prepare($conn, "total_cuenta", $query_total_cuenta);
+
+$resultados_detalles = pg_execute($conn, "detalles_cuenta", array($tipo_cuenta));
+$resultados_total = pg_execute($conn, "total_cuenta", array($tipo_cuenta));
+
+// Consulta para cerrar la cuenta actualizando la fecha de cierre
+$query_cerrar_cuenta = "UPDATE cuentas SET fecha_cierre = NOW() WHERE cuenta_id = $1";
+$resultado_cerrar_cuenta = pg_prepare($conn, "cerrar_cuenta", $query_cerrar_cuenta);
+$cierre_exitoso = pg_execute($conn, "cerrar_cuenta", array($tipo_cuenta));
+
+if ($cierre_exitoso) {
+    pg_query($conn, "COMMIT"); // Completa la transacción si todo es correcto
+    $_SESSION['user_alert'] = "Cuenta cerrada y datos enviados correctamente.";
+} else {
+    pg_query($conn, "ROLLBACK"); // Revierte la transacción en caso de error
+    $_SESSION['user_alert'] = "Error al cerrar la cuenta: " . pg_last_error($conn);
+    header('Location: cerrar_cuenta.php');
+    exit;
+}
 ?>
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de la Cuenta Cerrada</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/estilos.css">
+</head>
+<body>
 
-  <!DOCTYPE html>
-  <html lang="es">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Impresion Pedidos</title>
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-      <link rel="stylesheet" href="assets/css/estilos.css">
-  </head>
-  <body>
-
-  <nav class="navbar navbar-expand-sm navbar-light bg-light">
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
     <?php include 'includes/navbar.php'; ?>
-  </nav>
+</nav>
 
-  <div class="home-container">
-      <h1>Impresion Pedidos</h1>
-
-      <table>
+<div class="container">
+    <h1>Detalle de la Cuenta Cerrada</h1>
+    <table class="table">
         <thead>
-          <tr>
-          <th>cuenta_idmesa_id</th>
-            <th>fecha_apertura</th>
-            <th>fecha_cierre</th>
-            <th>total</th>
-            <th>item_id</th>
-            <th>cantidad</th>
-            <th>fecha_hora</th>
-            <th>cocinado</th>
-            <th>plato_id</th>
-            <th>nombre</th>
-            <th>descripcion</th>
-            <th>precio</th>
-            <th>tipo</th>
-            <th>total_item</th>
-            
-          </tr>
+            <tr>
+                <th>Cuenta ID</th>
+                <th>Mesa ID</th>
+                <th>Fecha Apertura</th>
+                <th>Fecha Cierre</th>
+                <th>Total</th>
+                <th>Item ID</th>
+                <th>Cantidad</th>
+                <th>Fecha Hora</th>
+                <th>Cocinado</th>
+                <th>Plato ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Precio</th>
+                <th>Tipo</th>
+                <th>Total Item</th>
+            </tr>
         </thead>
         <tbody>
-        <?php
-            while($obj = pg_fetch_object($consulta_pedidos1)){ ?>
-              <tr>
-                <td><?php echo($obj->cuenta_idmesa_id);?></td>
-                <td><?php echo($obj->fecha_apertura);?></td>
-                <td><?php echo($obj->fecha_cierre);?></td>
-                <td><?php echo($obj->total);?></td>
-                <td><?php echo($obj->item_id);?></td>
-                <td><?php echo($obj->cantidad);?></td>
-                <td><?php echo($obj->fecha_hora);?></td>
-                <td><?php echo($obj->cocinado);?></td>
-                <td><?php echo($obj->plato_id);?></td>
-                <td><?php echo($obj->nombre);?></td>
-                <td><?php echo($obj->descripcion);?></td>
-                <td><?php echo($obj->precio);?></td>
-                <td><?php echo($obj->tipo);?></td>
-                <td><?php echo($obj->total_item);?></td>
-              </tr>
-            </tbody>
-          <?php
-            }
-          ?>
+            <?php while($obj = pg_fetch_object($resultados_detalles)){ ?>
+            <tr>
+                <td><?php echo htmlspecialchars($obj->cuenta_id); ?></td>
+                <td><?php echo htmlspecialchars($obj->mesa_id); ?></td>
+                <td><?php echo htmlspecialchars($obj->fecha_apertura); ?></td>
+                <td><?php echo htmlspecialchars($obj->fecha_cierre); ?></td>
+                <td><?php echo htmlspecialchars($obj->total); ?></td>
+                <td><?php echo htmlspecialchars($obj->item_id); ?></td>
+                <td><?php echo htmlspecialchars($obj->cantidad); ?></td>
+                <td><?php echo htmlspecialchars($obj->fecha_hora); ?></td>
+                <td><?php echo htmlspecialchars($obj->cocinado ? 'Sí' : 'No'); ?></td>
+                <td><?php echo htmlspecialchars($obj->plato_id); ?></td>
+                <td><?php echo htmlspecialchars($obj->nombre); ?></td>
+                <td><?php echo htmlspecialchars($obj->descripcion); ?></td>
+                <td><?php echo htmlspecialchars($obj->precio); ?></td>
+                <td><?php echo htmlspecialchars($obj->tipo); ?></td>
+                <td><?php echo htmlspecialchars($obj->total_item); ?></td>
+            </tr>
+            <?php } ?>
+        </tbody>
+    </table>
 
-      </table>
-  
-      <table>
+    <table class="table">
         <thead>
-          <tr>
-          <th>Total:</th>    
-          </tr>
+            <tr>
+                <th>Total Acumulado:</th>
+            </tr>
         </thead>
         <tbody>
-        <?php
-            while($obj = pg_fetch_object($consulta_pedidos2)){ ?>
-              <tr>
-                <td><?php echo($obj->sumatoria_total_items);?></td>
-              </tr>
-            </tbody>
-          <?php
-            }
-          ?>
+            <?php while($total = pg_fetch_object($resultados_total)){ ?>
+            <tr>
+                <td><?php echo htmlspecialchars($total->sumatoria_total_items); ?></td>
+            </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+</div>
 
-      </table>
-  
-
-  </div>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script>
-  // JavaScript para mostrar la alerta
-  window.onload = function() {
-      var alertMessage = "<?php echo $userAlert; ?>";
-      if (alertMessage) {
-          alert(alertMessage);
-      }
-  };
-  </script>
-  </body>
-  </html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+window.onload = function() {
+    var alertMessage = "<?php echo $_SESSION['user_alert']; ?>";
+    if (alertMessage) {
+        alert(alertMessage);
+    }
+};
+</script>
+</body>
+</html>
