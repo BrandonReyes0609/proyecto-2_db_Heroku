@@ -77,7 +77,7 @@
       <select name="cuenta_id" id="cuenta_id"> <!-- Asegúrate de que este nombre coincida con lo que esperas en factura.php -->
         <?php
             while($obj = pg_fetch_object($cnosulta)){?>
-              <option value="<?php echo ($obj->mesero_id) ?>"><?php echo($obj->nombre_mesero);?></option>
+              <option value="<?php echo ($obj->cuenta_id) ?>"><?php echo($obj->cuenta_id);?></option>
         <?php
             
             }?>
