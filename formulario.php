@@ -101,7 +101,7 @@
         </table>
 
 
-        <form action="#">
+        <form action="envio_formulario.php">
         <span>Seleccione el mesero:</span>
         <select name="mesero" id="mesero">
           <?php
@@ -126,8 +126,8 @@
           <input type="radio" id="5" name="amabilidad_mesero" value="5">
           <span for="5">5</span>
 
-        <br> 
-        <label>Califique la exactitud de lo recibido respecto a lo solicitado al mesero </label><br>
+        <br><br>
+        <label>Califique la exactitud de lo recibido respecto a lo solicitado al mesero </label>
         <span>1 bajo y 5 muy alto</span><br>
           <input type="radio" id="1" name="calificacion_pedido" value="1">
           <span for="1">1</span><br>
@@ -142,12 +142,37 @@
         <br>
 
         <ingrewse for="fname">Ingrese comentario:</label>
-        <input type="text" id="fname" name="fname" size="100"><br><br>
+        <input type="text" id="comentario" name="comentario" size="100"><br><br>
 
-        <input type="submit" value="Generar reseña">
+        <br><br>
+        <label>Califique el nivel de la queja </label>
+        <span>1 bajo y 5 muy alto</span><br>
+          <input type="radio" id="1" name="calificacion_queja" value="1">
+          <span for="1">1</span><br>
+          <input type="radio" id="2" name="calificacion_queja" value="2">
+          <span for="css">2</span><br>
+          <input type="radio" id="3" name="calificacion_queja" value="3">
+          <span for="3">3</span><br>
+          <input type="radio" id="4" name="calificacion_queja" value="4">
+          <span for="css">4</span><br>
+          <input type="radio" id="5" name="calificacion_queja" value="5">
+          <span for="5">5</span> 
         <br>
+
+        <br>
+        <span>Seleccione al destinatario: </span>
+        <select name="direccion_queja" id="mesero">
+            <option value="Chef">Chef</option>
+            <option value="Host">Host</option>
+            <option value="Plato">Plato</option>
+            <option value="Bebida">Bebida</option>
+        </select>
+        <input type="submit" value="Generar reseña">
+
       </form>
+
   </div>
+  
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
