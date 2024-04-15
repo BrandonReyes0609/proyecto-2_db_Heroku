@@ -20,6 +20,11 @@ $calificacion_pedido = $_REQUEST['calificacion_pedido'];
 $comentario = $_REQUEST['comentario'];
 $calificacion_queja = $_REQUEST['calificacion_queja'];
 $direccion_queja = $_REQUEST['direccion_queja'];
+$queja_comida = $_REQUEST['queja_comida'];
+
+$nombre_encuestado = $_REQUEST['nombre_encuestado'];
+
+
 
 echo($mesero);
 echo($amabilidad_mesero);
@@ -27,16 +32,20 @@ echo($calificacion_pedido);
 echo($comentario);
 echo($calificacion_queja);
 echo($direccion_queja);
+echo($queja_comida);
+echo($nombre_encuestado);
 
-/*
+
 // Prepara las consultas SQL para platos y bebidas
-$query_platos = "INSERT INTO items_cuenta (cuenta_id, item_id, cantidad, fecha_hora, cocinado) VALUES ($1, $2, $3, NOW(), false)";
-$resultado1 = pg_query_params($conn, $query_platos, array($tipo_cuenta, $tipo_plato, $num_platos));
+//$insert_encuesta_meseros = "INSERT INTO items_cuenta (cuenta_id, item_id, cantidad, fecha_hora, cocinado) VALUES ($1, $2, $3, NOW(), false)";
+$insert_encuesta_meseros = "INSERT INTO encuesta_mesero (mesero_id, puntuacion_amabilidad, puntuacion_exactitud, fecha_encuesta)VALUES ($1, $2, $3, $4))";
+
+$resultado1 = pg_query_params($conn, $insert_encuesta_meseros, array($mesero, $amabilidad_mesero, $calificacion_pedido, Now()));
 
 
 if ($resultado1) {
-    $query_bebidas = "INSERT INTO items_cuenta (cuenta_id, item_id, cantidad, fecha_hora, cocinado) VALUES ($1, $2, $3, NOW(), true)";
-    $resultado2 = pg_query_params($conn, $query_bebidas, array($tipo_cuenta, $tipo_bbeida, $num_bebida));
+    $insert_encuesta_queja = "INSERT INTO quejas (cliente_nombre, fecha, motivo, puntuacion, plato_nombre, mesero_id)VALUES ($1, $2, $3, $4, $5, $6);";
+    $resultado2 = pg_query_params($conn, $insert_encuesta_queja, array($nombre_encuestado, NOW(), $comentario, $calificacion_queja, $queja_comida,$mesero ));
 
     if ($resultado2) {
         $_SESSION['user_alert'] = "Se enviaron los datos correctamente";
@@ -50,7 +59,7 @@ if ($resultado1) {
 pg_close($conn);
 
 // Redirecciona si todo fue exitoso
-header('Location: Agregar_Items_Cuenta.php');
-exit();
-*/
+//header('Location: Agregar_Items_Cuenta.php');
+//exit();
+
 ?>

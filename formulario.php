@@ -105,6 +105,11 @@
 
 
         <form action="envio_formulario.php">
+
+        <span>Ingrese su nombre:</span>
+        <input type="text" id="nombre_encuestado" name="nombre_encuestado" size="100"><br><br>
+
+
         <span>Seleccione el mesero:</span>
         <select name="mesero" id="mesero">
           <?php
@@ -172,10 +177,9 @@
             <option value="Plato">Plato</option>
             <option value="Bebida">Bebida</option>
         </select>
-        <input type="submit" value="Generar reseña">
 
         <span>Seleccione el plato:</span>
-        <select name="mesero" id="mesero">
+        <select name="queja_comida" id="mesero">
           <?php
             while($obj = pg_fetch_object($consulta_comida_nombre)){?>
               <option value="<?php echo ($obj->plato_id) ?>"><?php echo($obj->nombre);?></option>
@@ -184,6 +188,7 @@
             }
           ?>
         </select>
+        <input type="submit" value="Generar reseña">
 
       </form>
 
