@@ -1,5 +1,3 @@
-Algo así?
-
 <?php
 require 'includes/conexion.php';  // Incluir el script de conexión
 require('fpdf.php');  // Incluir la librería FPDF para la creación del PDF
