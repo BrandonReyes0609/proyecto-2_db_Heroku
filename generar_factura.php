@@ -20,8 +20,11 @@
 
   // Si se envió el formulario, insertar los datos del cliente en la tabla cliente
 
-  
-    
+  echo($_POST['tipo_cuenta'])
+  echo($_POST['tipo_cuenta'])
+  echo($_POST['tipo_cuenta'])
+  echo($_POST['tipo_cuenta'])
+  echo($_POST['tipo_cuenta'])
   $cuenta_id = $_POST['tipo_cuenta'];
   echo($cuenta_id);
   $nombre_cliente = $_POST['nombre_cliente'];
