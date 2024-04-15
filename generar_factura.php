@@ -76,6 +76,7 @@
       <span>Seleccione la cuenta:</span>
       <select name="cuenta_id" id="cuenta_id"> <!-- Asegúrate de que este nombre coincida con lo que esperas en factura.php -->
         <?php
+            require 'consulta_cunetas.php';
             while($obj = pg_fetch_object($cnosulta)){?>
               <option value="<?php echo ($obj->cuenta_id) ?>"><?php echo($obj->cuenta_id);?></option>
         <?php
