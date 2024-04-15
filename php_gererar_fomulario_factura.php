@@ -3,7 +3,7 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 require 'includes/conexion.php';  
-require('tfpdf/fpdf.php');  // Cambio a tFPDF para soporte de UTF-8
+require('assets/tfpdf/fpdf.php');  // Cambio a tFPDF para soporte de UTF-8
 
 // Crear instancia de la clase tFPDF
 $pdf = new tFPDF();
