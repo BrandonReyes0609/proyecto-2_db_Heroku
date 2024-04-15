@@ -55,45 +55,33 @@
           <input type="submit" value="Consultar">
           <br>
       </form>
-
-      <table border="1">
+<!--
+  cuenta_id
+  item_id
+  cantidad
+  fecha_hora
+  cocinado
+-->
+      <table>
         <thead>
           <tr>
-            <th>cuenta_idmesa_id</th>
-            <th>fecha_apertura</th>
-            <th>fecha_cierre</th>
-            <th>total</th>
+            <th>cuenta_id</th>
             <th>item_id</th>
             <th>cantidad</th>
             <th>fecha_hora</th>
             <th>cocinado</th>
-            <th>plato_id</th>
-            <th>nombre</th>
-            <th>descripcion</th>
-            <th>precio</th>
-            <th>tipo</th>
-            <th>total_item</th>
+            
           </tr>
         </thead>
-
         <tbody>
         <?php
             while($obj = pg_fetch_object($consulta_pedidos1)){ ?>
               <tr>
-                <td><?php echo($obj->cuenta_idmesa_id);?></td>
-                <td><?php echo($obj->fecha_apertura);?></td>
-                <td><?php echo($obj->fecha_cierre);?></td>
-                <td><?php echo($obj->total);?></td>
+                <td><?php echo($obj->cuenta_id);?></td>
                 <td><?php echo($obj->item_id);?></td>
                 <td><?php echo($obj->cantidad);?></td>
                 <td><?php echo($obj->fecha_hora);?></td>
                 <td><?php echo($obj->cocinado);?></td>
-                <td><?php echo($obj->plato_id);?></td>
-                <td><?php echo($obj->nombre);?></td>
-                <td><?php echo($obj->descripcion);?></td>
-                <td><?php echo($obj->precio);?></td>
-                <td><?php echo($obj->tipo);?></td>
-                <td><?php echo($obj->total_item);?></td>
               </tr>
             </tbody>
           <?php
