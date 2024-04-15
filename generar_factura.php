@@ -1,3 +1,28 @@
+<?php
+  session_start(); // Iniciar o continuar la sesión
+
+  require 'includes/conexion.php'; // Incluir el script de conexión desde la carpeta includes
+  require 'consulta_cunetas.php';
+  //require 'Consulta_items_cuenta.php';
+
+
+
+  // Verificar si el usuario está autenticado
+  if (!isset($_SESSION['nombre_usuario'])) {
+      header("Location: index.php");
+      exit;
+  }
+
+  // Almacenar mensaje de alerta en una variable y limpiar la sesión
+  $userAlert = "";
+  if (isset($_SESSION['user_alert'])) {
+      $userAlert = $_SESSION['user_alert'];
+      unset($_SESSION['user_alert']); // Limpiar esa variable de sesión después de usarla
+  }
+
+  ?>
+  
+  
 <!DOCTYPE html>
 <html lang="es">
 <head>
