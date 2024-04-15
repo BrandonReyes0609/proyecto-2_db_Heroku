@@ -37,8 +37,7 @@ echo($queja_comida);
 echo($nombre_encuestado);
 */
 $insert_encuesta_queja = "INSERT INTO quejas (cliente_nombre, fecha, motivo, puntuacion, plato_nombre, mesero_id) VALUES ($_REQUEST['nombre_encuestado'], NOW(),$_REQUEST['comentario'] , $_REQUEST['calificacion_queja'], $_REQUEST['queja_comida'], $_REQUEST['amabilidad_mesero'])";
-//$resultado2 = pg_query_params($conn, $insert_encuesta_queja, array($nombre_encuestado, NOW(), $comentario, $calificacion_queja));
-$resultado2 = pg_query($conn,$insert_encuesta_queja) 
+$resultado2 = pg_query($conn,$insert_encuesta_queja); 
 /*
 if ($resultado2) {
     $_SESSION['user_alert'] = "Se enviaron los datos correctamente";
