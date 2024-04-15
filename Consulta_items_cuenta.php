@@ -25,6 +25,6 @@
     pg_close($conn);
     
     // Redirecciona si todo fue exitoso
-    header('Location: Impresion_pedido.php');
-    exit();
+    //header('Location: Impresion_pedido.php');
+    //exit();
     ?>
