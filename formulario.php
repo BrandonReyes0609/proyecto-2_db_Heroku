@@ -62,10 +62,10 @@
   <div class="home-container">
       <h1>Fomrulario Resenia</h1>
 
-      <table border="1">
+        <table border="1">
         <thead>
-          <tr>
-             <th>item_id</th>
+            <tr>
+                <th>item_id</th>
             <th>cantidad</th>
             <th>fecha_hora</th>
             <th>cocinado</th>
@@ -76,12 +76,12 @@
             <th>tipo</th>
             <th>total_item</th>
             
-          </tr>
+            </tr>
         </thead>
         <tbody>
         <?php
             while($obj = pg_fetch_object($consulta_comida)){ ?>
-              <tr>
+                <tr>
                 <td><?php echo($obj->item_id);?></td>
                 <td><?php echo($obj->cantidad);?></td>
                 <td><?php echo($obj->fecha_hora);?></td>
@@ -92,16 +92,16 @@
                 <td><?php echo($obj->precio);?></td>
                 <td><?php echo($obj->tipo);?></td>
                 <td><?php echo($obj->total_item);?></td>
-              </tr>
+                </tr>
             </tbody>
-          <?php
+            <?php
             }
-          ?>
+            ?>
 
-      </table>
+        </table>
 
 
-      <form action="#">
+        <form action="#">
         <span>Seleccione el mesero:</span>
         <select name="mesero" id="mesero">
           <?php
@@ -113,23 +113,39 @@
           ?>
         </select>
         <br>
-        <span>Califique la amabilidad del mesero</span><br>
+        <h3>Califique la amabilidad del mesero</h3><br>
         <span>1 bajo y 5 muy alto</span><br>
-          <input type="radio" id="1" name="fav_language" value="1">
+          <input type="radio" id="1" name="amabilidad_mesero" value="1">
           <span for="1">1</span><br>
-          <input type="radio" id="2" name="fav_language" value="2">
+          <input type="radio" id="2" name="amabilidad_mesero" value="2">
           <span for="css">2</span><br>
-          <input type="radio" id="3" name="fav_language" value="3">
-          <span for="3">3</span>
-          <input type="radio" id="4" name="fav_language" value="4">
+          <input type="radio" id="3" name="amabilidad_mesero" value="3">
+          <span for="3">3</span><br>
+          <input type="radio" id="4" name="amabilidad_mesero" value="4">
           <span for="css">4</span><br>
-          <input type="radio" id="5" name="fav_language" value="5">
+          <input type="radio" id="5" name="amabilidad_mesero" value="5">
           <span for="5">5</span>
 
-  <br>  
-          <br>
-          <input type="submit" value="Generar reseña">
-          <br>
+        <br> 
+        <h3>Ccalifique la exactitud de lo recibido respecto a lo solicitado al mesero </h3><br>
+        <span>1 bajo y 5 muy alto</span><br>
+          <input type="radio" id="1" name="calificacion_pedido" value="1">
+          <span for="1">1</span><br>
+          <input type="radio" id="2" name="calificacion_pedido" value="2">
+          <span for="css">2</span><br>
+          <input type="radio" id="3" name="calificacion_pedido" value="3">
+          <span for="3">3</span><br>
+          <input type="radio" id="4" name="calificacion_pedido" value="4">
+          <span for="css">4</span><br>
+          <input type="radio" id="5" name="calificacion_pedido" value="5">
+          <span for="5">5</span> 
+        <br>
+
+        <ingrewse for="fname">Ingrese comentario:</label>
+        <input type="text" id="fname" name="fname" size="100"><br><br>
+        
+        <input type="submit" value="Generar reseña">
+        <br>
       </form>
   </div>
 
