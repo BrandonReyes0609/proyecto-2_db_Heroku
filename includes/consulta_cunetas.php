@@ -10,18 +10,7 @@
     
     // Establecer conexión
     $conn = pg_connect($dsn);
+    $query="SELECT * FROM cuentas";
+    $consulta = pg_query($conn,$query);
     
-    // Asegúrate de reemplazar 'nombre_de_tu_tabla' con el nombre real de tu tabla.
-    $query = "SELECT * FROM nombre_de_tu_tabla WHERE fecha_cierre IS NULL";
-    
-    // Realizar la consulta utilizando la variable de conexión correcta ($conn)
-    $resultado = pg_query($conn, $query);
-
-    // Comprobar si la consulta fue exitosa
-    if (!$resultado) {
-        echo "Ocurrió un error en la consulta.";
-        exit;
-    }
-    
-    // Continuar con el procesamiento del resultado si es necesario...
 ?>
