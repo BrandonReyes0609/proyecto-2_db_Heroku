@@ -113,7 +113,7 @@
           ?>
         </select>
         <br>
-        <h3>Califique la amabilidad del mesero</h3><br>
+        <label>Califique la amabilidad del mesero</label><br>
         <span>1 bajo y 5 muy alto</span><br>
           <input type="radio" id="1" name="amabilidad_mesero" value="1">
           <span for="1">1</span><br>
@@ -127,7 +127,7 @@
           <span for="5">5</span>
 
         <br> 
-        <h3>Ccalifique la exactitud de lo recibido respecto a lo solicitado al mesero </h3><br>
+        <label>Califique la exactitud de lo recibido respecto a lo solicitado al mesero </label><br>
         <span>1 bajo y 5 muy alto</span><br>
           <input type="radio" id="1" name="calificacion_pedido" value="1">
           <span for="1">1</span><br>
@@ -143,7 +143,7 @@
 
         <ingrewse for="fname">Ingrese comentario:</label>
         <input type="text" id="fname" name="fname" size="100"><br><br>
-        
+
         <input type="submit" value="Generar reseña">
         <br>
       </form>
