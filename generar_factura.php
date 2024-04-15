@@ -76,6 +76,8 @@
       <span>Seleccione la cuenta:</span>
       <select name="tipo_cuenta" id="tipo_cuenta">
           <?php
+            require 'Consulta_cuenta_cerrada.php';
+
             while($obj = pg_fetch_object($consulta)){?>
               <option value="<?php echo ($obj->cuenta_id) ?>"><?php echo($obj->cuenta_id);?></option>
             <?php
