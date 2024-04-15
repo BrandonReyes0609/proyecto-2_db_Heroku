@@ -2,7 +2,7 @@
   session_start(); // Iniciar o continuar la sesión
 
   require 'includes/conexion.php'; // Incluir el script de conexión desde la carpeta includes
-  require 'consulta_cunetas.php';
+  require 'Consulta_cuenta_cerrada.php';
   //require 'Consulta_items_cuenta.php';
 
   // Verificar si el usuario está autenticado
@@ -76,7 +76,7 @@
       <span>Seleccione la cuenta:</span>
       <select name="cuenta_id" id="cuenta_id"> <!-- Asegúrate de que este nombre coincida con lo que esperas en factura.php -->
         <?php
-            require 'consulta_cunetas.php';
+            require 'Consulta_cuenta_cerrada.php';
             while($obj = pg_fetch_object($cnosulta)){?>
               <option value="<?php echo ($obj->cuenta_id) ?>"><?php echo($obj->cuenta_id);?></option>
         <?php
