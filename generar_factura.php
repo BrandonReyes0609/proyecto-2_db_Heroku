@@ -39,19 +39,18 @@
 </nav>
 
 <div class="home-container">
-    <h1>Generación de Factura</h1>
+    <h1>Impresión de Facturas</h1>
 
     <form action="factura.php" method="get">
-      <div class="form-group">
-        <label for="cuenta_id">Seleccione la cuenta:</label>
-        <select name="cuenta_id" id="cuenta_id" class="form-control">
-          <?php
-            // Asegúrate de que esta consulta sea segura y solo incluya cuentas cerradas
-            $consulta = pg_query($conn, "SELECT cuenta_id FROM cuentas WHERE estado = 'cerrada'");
-            while($obj = pg_fetch_object($consulta)){
-                echo '<option value="'.htmlspecialchars($obj->cuenta_id).'">'.htmlspecialchars($obj->cuenta_id).'</option>';
-            }
-          ?>
+      <span>Seleccione la cuenta:</span>
+      <select name="cuenta_id" id="cuenta_id"> <!-- Asegúrate de que este nombre coincida con lo que esperas en factura.php -->
+        <?php
+          // Cambia 'consulta_cunetas.php' por la consulta SQL apropiada si es necesario.
+          include 'consulta_cunetas.php'; // Asumiendo que esto se conecta y realiza la consulta de cuentas cerradas.
+          while($obj = pg_fetch_object($consulta)){
+            echo '<option value="' . htmlspecialchars($obj->cuenta_id) . '">' . htmlspecialchars($obj->cuenta_id) . '</option>';
+          }
+        ?>
         </select>
       </div>
       
