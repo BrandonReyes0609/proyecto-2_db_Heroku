@@ -41,7 +41,7 @@
       <h1>Impresion Pedidos</h1>
 
       <form action="Consulta_items_cuenta.php">
-      <span>Seleccione la cuenta:</span>
+        <span>Seleccione la cuenta:</span>
         <select name="tipo_cuenta" id="tipo_cuenta">
           <?php
             while($obj = pg_fetch_object($consulta)){?>
@@ -57,33 +57,6 @@
           <br>
       </form>
 
-      <table>
-        <thead>
-          <tr>
-            <th>cuenta_id</th>
-            <th>item_id</th>
-            <th>cantidad</th>
-            <th>fecha_hora</th>
-            <th>cocinado</th>
-            
-          </tr>
-        </thead>
-        <tbody>
-        <?php
-            while($obj = pg_fetch_object($consulta_pedidos1)){ ?>
-              <tr>
-                <td><?php echo $obj->cuenta_id;?></td>
-                <td><?php echo $obj->item_id;?></td>
-                <td><?php echo $obj->cantidad;?></td>
-                <td><?php echo $obj->fecha_hora;?></td>
-                <td><?php echo $obj->cocinado ;?></td>
-              </tr>
-            </tbody>
-          <?php
-            }
-          ?>
-
-      </table>
 
 <!--
   cuenta_id
