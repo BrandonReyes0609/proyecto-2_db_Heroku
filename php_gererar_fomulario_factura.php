@@ -1,72 +1,45 @@
+Algo así?
+
 <?php
-require('fpdf.php');
-session_start();
+require 'includes/conexion.php';  // Incluir el script de conexión
+require('fpdf.php');  // Incluir la librería FPDF para la creación del PDF
 
-// Configuración de la conexión desde un archivo centralizado
-require 'includes/conexion.php'; 
+// Crear instancia de la clase FPDF
+$pdf = new FPDF();
+$pdf->AddPage();
+$pdf->SetFont('Arial', 'B', 12);
 
-if (isset($_REQUEST['tipo_cuenta']) && is_numeric($_REQUEST['tipo_cuenta'])) {
-    $tipo_cuenta = $_REQUEST['tipo_cuenta'];
+if (isset($_POST['tipo_cuenta']) && is_numeric($_POST['tipo_cuenta'])) {
+    $tipo_cuenta = $_POST['tipo_cuenta'];
 
-    // Consultas para obtener los datos necesarios para el reporte
+    // Consultas para obtener los datos de la cuenta y los ítems
     $query_cuentas = "SELECT cuentas.cuenta_id, cuentas.mesa_id, cuentas.fecha_apertura, cuentas.fecha_cierre, cuentas.total, items_cuenta.item_id, items_cuenta.cantidad, items_cuenta.fecha_hora, items_cuenta.cocinado, platos.plato_id, platos.nombre, platos.descripcion, platos.precio, platos.tipo, (items_cuenta.cantidad * platos.precio) AS total_item FROM cuentas INNER JOIN items_cuenta ON cuentas.cuenta_id = items_cuenta.cuenta_id INNER JOIN platos ON items_cuenta.item_id = platos.plato_id WHERE cuentas.cuenta_id = $tipo_cuenta";
-    $query_total_cuenta = "SELECT SUM(items_cuenta.cantidad * platos.precio) AS sumatoria_total_items FROM cuentas INNER JOIN items_cuenta ON cuentas.cuenta_id = items_cuenta.cuenta_id INNER JOIN platos ON items_cuenta.item_id = platos.plato_id WHERE cuentas.cuenta_id = $tipo_cuenta";
 
-    // Ejecutar las consultas
-    $consulta_pedidos1 = pg_query($conn, $query_cuentas);
-    $consulta_pedidos2 = pg_query($conn, $query_total_cuenta);
+    $consulta_pedidos = pg_query($conn, $query_cuentas);
 
-    // Verificar éxito de la consulta antes de cerrar la cuenta
-    if (pg_num_rows($consulta_pedidos1) > 0 && pg_num_rows($consulta_pedidos2) > 0) {
-        // Cierra la cuenta actualizando el campo 'fecha_cierre'
-        $query_cerrar_cuenta = "UPDATE cuentas SET fecha_cierre = NOW() WHERE cuenta_id = $1";
-        $resultado_query_cerrar_cuenta = pg_query_params($conn, $query_cerrar_cuenta, array($tipo_cuenta));
-
-        if ($resultado_query_cerrar_cuenta) {
-            $_SESSION['user_alert'] = "Se enviaron los datos correctamente";
-        } else {
-            $_SESSION['user_alert'] = "Error resultado 2: " . pg_last_error($conn);
-        }
-
-        // Generar PDF si todas las consultas son exitosas
-        $pdf = new FPDF();
-        $pdf->AddPage();
-        $pdf->SetFont('Arial', 'B', 12);
-
-        // Agregar cabeceras para la tabla de pedidos
-        $header = array('Cuenta ID', 'Mesa ID', 'Fecha Apertura', 'Fecha Cierre', 'Total', 'Item ID', 'Cantidad', 'Fecha Hora', 'Cocinado', 'Plato ID', 'Nombre', 'Descripción', 'Precio', 'Tipo', 'Total Item');
-        foreach($header as $col) {
-            $pdf->Cell(24, 7, $col, 1);
-        }
-        $pdf->Ln();
-
-        // Cargar los datos de la base de datos
-        while ($row = pg_fetch_assoc($consulta_pedidos1)) {
-            foreach ($header as $col) {
-                $pdf->Cell(24, 6, $row[strtolower(str_replace(' ', '_', $col))], 1);
-            }
-            $pdf->Ln();
-        }
-
-        // Agregar cabecera para el total de la cuenta
-        $pdf->SetFont('Arial', 'B', 14);
-        $pdf->Cell(30, 10, 'Total General:', 0);
-        while ($row = pg_fetch_assoc($consulta_pedidos2)) {
-            $pdf->Cell(50, 10, $row['sumatoria_total_items'], 0, 1, 'C');
-        }
-
-        // Salida del PDF
-        $pdf->Output('D', 'Pedidos.pdf');  // 'D' para forzar la descarga
-    } else {
-        echo "No se encontraron datos para la cuenta especificada.";
+    // Agregar datos al PDF
+    $pdf->Cell(0, 10, 'Detalle de Pedidos:', 0, 1);
+    while ($row = pg_fetch_assoc($consulta_pedidos)) {
+        $pdf->Cell(0, 10, "Plato: " . $row['nombre'] . " - Cantidad: " . $row['cantidad'] . " - Precio Unitario: $" . $row['precio'] . " - Subtotal: $" . $row['total_item'], 0, 1);
     }
+
+    // Consulta para obtener el total de la cuenta
+    $query_total_cuenta = "SELECT SUM(items_cuenta.cantidad * platos.precio) AS sumatoria_total_items FROM cuentas INNER JOIN items_cuenta ON cuentas.cuenta_id = items_cuenta.cuenta_id INNER JOIN platos ON items_cuenta.item_id = platos.plato_id WHERE cuentas.cuenta_id = $tipo_cuenta GROUP BY cuentas.cuenta_id";
+    $total_result = pg_query($conn, $query_total_cuenta);
+    $total = pg_fetch_result($total_result, 0, 'sumatoria_total_items');
+
+    // Agregar total al PDF
+    $pdf->Cell(0, 10, "Total: $" . $total, 0, 1);
 } else {
-    // Manejo de error si 'tipo_cuenta' no está presente o no es válido
-    echo "Tipo de cuenta no especificado o inválido.";
-    $tipo_cuenta = null; // Asegurarse de que no se proceda con un valor inválido
+    $pdf->Cell(0, 10, 'Tipo de cuenta no especificado o inválido.', 0, 1);
 }
 
-// Cierra la conexión a la base de datos
-pg_close($conn);
+// Datos adicionales del cliente (podrían venir de un formulario HTML)
+$pdf->Cell(0, 10, "Nombre Cliente: " . $_POST['nombre_cliente'], 0, 1);
+$pdf->Cell(0, 10, "NIT Cliente: " . $_POST['nit_cliente'], 0, 1);
+$pdf->Cell(0, 10, "Direccion Cliente: " . $_POST['direccion_cliente'], 0, 1);
+$pdf->Cell(0, 10, "Metodo de Pago: " . $_POST['metodo_pago'], 0, 1);
 
+// Guardar y enviar el PDF al navegador
+$pdf->Output('I', 'Factura.pdf');
 ?>
