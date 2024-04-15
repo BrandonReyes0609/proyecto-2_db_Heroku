@@ -10,7 +10,7 @@ $pdf->AddPage();
 $pdf->SetFont('Arial', 'B', 16);
 
 // Recibir los datos del formulario
-$cuenta_id = $_POST['cuenta_id'];
+$cuenta_id = $_POST['tipo_cuenta'];
 $tipo_cuenta = $_POST['tipo_cuenta'];
 $nombre_cliente = $_POST['nombre_cliente'];
 $nit_cliente = $_POST['nit_cliente'];
