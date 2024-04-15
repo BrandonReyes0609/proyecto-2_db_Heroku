@@ -44,10 +44,8 @@ var_dump($direccion_queja);
 var_dump($queja_comida);
 var_dump($nombre_encuestado);
 
-$insert_encuesta_queja = "INSERT INTO quejas (cliente_nombre, fecha, motivo, puntuacion, plato_nombre, mesero_id)VALUES ($1, $2, $3, $4, $5, $6)";
-echo("A");
-///$resultado1 = pg_query_params($conn, $query_platos, array($tipo_cuenta, $tipo_plato, $num_platos));
-$resultado2 = pg_query_params($conn, $insert_encuesta_queja, array($nombre_encuestado,NOW(),$comentario, $calificacion_queja,$queja_comida,$mesero));
+$insert_encuesta_queja = "INSERT INTO quejas (cliente_nombre, fecha, motivo, puntuacion, plato_nombre, mesero_id)VALUES ($1, $2, NOW(), $3, $4, $5)";
+$resultado2 = pg_query_params($conn, $insert_encuesta_queja, array($nombre_encuestado,$comentario, $calificacion_queja,$queja_comida,$mesero));
 echo("B");
 
 if ($resultado2) {
