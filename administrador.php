@@ -65,12 +65,12 @@ if (!isset($_SESSION['nombre_usuario'])) {
                 case "platos_mas_pedidos":
                     platosMasPedidos($fecha_inicio, $fecha_fin, $conn);
             $sql = "SELECT item_id as id, nombre, count(*) as pedidos_totales
-                    from cuentas c
-                    join items_cuenta ic on ic.cuenta_id = c.cuenta_id
-                    join platos on platos.plato_id = ic.cuenta_id
-                    where c.fecha_cierre between ? and ?
-                    group by id, nombre
-                    order by pedidos_totales desc;";
+                    FROM cuentas c
+                    JOIN items_cuenta ic ON ic.cuenta_id = c.cuenta_id
+                    JOIN platos ON platos.plato_id = ic.item_id
+                    WHERE c.fecha_cierre BETWEEN :fecha_inicio AND :fecha_fin
+                    GROUP BY id, nombre
+                    ORDER BY pedidos_totales DESC";
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("ss", $fecha_inicio, $fecha_fin);
             $stmt->execute();
@@ -103,28 +103,39 @@ if (!isset($_SESSION['nombre_usuario'])) {
             }
         }
 
-        function platosMasPedidos($fecha_inicio, $fecha_fin, $conn) {
+        function platosMasPedidos($fecha_inicio, $fecha_fin, $pdo) {
             $sql = "SELECT item_id as id, nombre, count(*) as pedidos_totales
-                    from cuentas c
-                    join items_cuenta ic on ic.cuenta_id = c.cuenta_id
-                    join platos on platos.plato_id = ic.cuenta_id
-                    where c.fecha_cierre between ? and ?
-                    group by id, nombre
-                    order by pedidos_totales desc;";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("ss", $fecha_inicio, $fecha_fin);
+                    FROM cuentas c
+                    JOIN items_cuenta ic ON ic.cuenta_id = c.cuenta_id
+                    JOIN platos ON platos.plato_id = ic.item_id
+                    WHERE c.fecha_cierre BETWEEN :fecha_inicio AND :fecha_fin
+                    GROUP BY id, nombre
+                    ORDER BY pedidos_totales DESC";
+            
+            // Preparamos la sentencia con PDO
+            $stmt = $pdo->prepare($sql);
+            
+            // Vinculamos los parámetros
+            $stmt->bindParam(':fecha_inicio', $fecha_inicio);
+            $stmt->bindParam(':fecha_fin', $fecha_fin);
+            
+            // Ejecutamos la consulta
             $stmt->execute();
-            $result = $stmt->get_result();
-
+            
+            // Comenzamos a construir la tabla HTML para mostrar los resultados
             echo "<h2 class='mt-5'>Platos Más Pedidos</h2>";
             echo "<table class='table table-striped'>";
             echo "<thead class='header'><tr><th>ID</th><th>Nombre</th><th>Pedidos Totales</th></tr></thead>";
             echo "<tbody>";
-            while ($row = $result->fetch_assoc()) {
+            
+            // Recorremos los resultados y los imprimimos
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 echo "<tr><td>{$row['id']}</td><td>{$row['nombre']}</td><td>{$row['pedidos_totales']}</td></tr>";
             }
+            
             echo "</tbody></table>";
         }
+        
 
         function horarioMasPedidos($fecha_inicio, $fecha_fin, $conn) {
             $sql = "SELECT EXTRACT(HOUR FROM fecha_hora) AS hora, COUNT(*) AS total_pedidos
