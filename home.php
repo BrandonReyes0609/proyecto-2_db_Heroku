@@ -41,7 +41,7 @@ if (!isset($_SESSION['nombre_usuario'])) {
             <form action="Cerrar_cuenta.php">
                 <button type="submit" name="reporte" value="CerrarCuenta" class="btn btn-success wide-btn">Cerrar una cuenta</button>
             </form>
-            <form action="factura.php">
+            <form action="generar_factura.php">
                 <button type="submit" name="reporte" value="ImpresionFactura" class="btn btn-warning wide-btn">Impresión de factura</button>
             </form>
     </div>
