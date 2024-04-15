@@ -45,7 +45,7 @@ if (!isset($_SESSION['nombre_usuario'])) {
                 <button type="submit" name="reporte" value="ImpresionFactura" class="btn btn-warning wide-btn">Impresión de factura</button>
             </form>
             <form action="generar_resenia.php">
-                <button type="submit" name="reporte" value="ImpresionFactura" class="btn btn-warning wide-btn">Generar </button>
+                <button type="submit" name="reporte" value="ImpresionFactura" class="btn btn-warning wide-btn">Generar Resnia</button>
             </form>
     </div>
 
