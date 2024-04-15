@@ -3,7 +3,7 @@
 
   require 'includes/conexion.php'; // Incluir el script de conexión desde la carpeta includes
   require 'consulta_cunetas.php';
-  //&require 'Consulta_items_cuenta.php';
+  require 'Consulta_items_cuenta.php';
 
 
 
@@ -75,7 +75,7 @@
                 <td><?php echo $obj->item_id;?></td>
                 <td><?php echo $obj->cantidad;?></td>
                 <td><?php echo $obj->fecha_hora;?></td>
-                <td><?php echo $obj->cocinado;?></td>
+                <td><?php echo $obj->cocinado ;?></td>
               </tr>
             </tbody>
           <?php
