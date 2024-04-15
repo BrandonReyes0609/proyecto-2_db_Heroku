@@ -43,17 +43,26 @@ var_dump($calificacion_queja);
 var_dump($direccion_queja);
 var_dump($queja_comida);
 var_dump($nombre_encuestado);
+$insert_encuesta_queja = "INSERT INTO quejas (cliente_nombre, fecha, motivo, puntuacion, plato_nombre, mesero_id) VALUES ($1, NOW(), $2, $3, $4, $5)";
+$params = array($nombre_encuestado, $comentario, $calificacion_queja, $queja_comida, $mesero);
 
-$insert_encuesta_queja = "INSERT INTO quejas (cliente_nombre, fecha, motivo, puntuacion, plato_nombre, mesero_id)VALUES ($1, $2, NOW(), $3, $4, $5)";
-$resultado2 = pg_query_params($conn, $insert_encuesta_queja, array($nombre_encuestado,$comentario, $calificacion_queja,$queja_comida,$mesero));
-echo("B");
+$resultado2 = pg_query_params($conn, $insert_encuesta_queja, $params);
 
-if ($resultado2) {
-    $_SESSION['user_alert'] = "Se enviaron los datos correctamente";
+if ($resultado2 === false) {
+    echo "Error en la consulta 2: " . pg_last_error($conn);
 } else {
-    $_SESSION['user_alert'] = "Error resultado 2: " . pg_last_error($conn);
-    
+    echo "Registro insertado correctamente 2.";
+    $insert_encuesta_meseros = "INSERT INTO encuesta_mesero (mesero_id, puntuacion_amabilidad, puntuacion_exactitud, fecha_encuesta)VALUES ($1, $2, $3, NOW())";
+    $params2 = array($mesero, $amabilidad_mesero, $calificacion_pedido);
+    $resultado1 = pg_query_params($conn, $insert_encuesta_meseros, $params2);
+    if ($resultado1 === false) {
+        echo "Error en la consulta 1: " . pg_last_error($conn);
+    } else {
+        echo "Registro insertado correctamente 1.";
+    }
+
 }
+
 
 pg_close();
 echo("se enviaron los datos");
